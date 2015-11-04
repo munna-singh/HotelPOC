@@ -1,6 +1,0 @@
-C:\Official\Project\Hotel-POC\HotelBooking\Common\bin\Debug\Common.dll.config
-C:\Official\Project\Hotel-POC\HotelBooking\Common\bin\Debug\Common.dll
-C:\Official\Project\Hotel-POC\HotelBooking\Common\bin\Debug\Common.pdb
-C:\Official\Project\Hotel-POC\HotelBooking\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
-C:\Official\Project\Hotel-POC\HotelBooking\Common\obj\Debug\Common.dll
-C:\Official\Project\Hotel-POC\HotelBooking\Common\obj\Debug\Common.pdb

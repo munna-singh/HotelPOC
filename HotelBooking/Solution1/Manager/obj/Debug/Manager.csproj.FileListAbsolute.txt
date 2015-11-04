@@ -1,4 +1,0 @@
-C:\Official\Project\Hotel-POC\HotelBooking\Manager\bin\Debug\Manager.dll
-C:\Official\Project\Hotel-POC\HotelBooking\Manager\bin\Debug\Manager.pdb
-C:\Official\Project\Hotel-POC\HotelBooking\Manager\obj\Debug\Manager.dll
-C:\Official\Project\Hotel-POC\HotelBooking\Manager\obj\Debug\Manager.pdb
