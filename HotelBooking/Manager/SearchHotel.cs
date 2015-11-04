@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.Sabre.Hotels.Search;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Manager
 {
     public class SearchHotel
     {
-        public OTA_HotelAvailRS Search()
+        public OTA_HotelAvailRS Search(HotelSearchDto searchCriteria)
         {
             var session = SabreSessionManager.Create();
             OTA_HotelAvailRQ availability = new OTA_HotelAvailRQ();
@@ -30,19 +31,19 @@ namespace Manager
             OTA_HotelAvailRQAvailRequestSegmentPOS pos = new OTA_HotelAvailRQAvailRequestSegmentPOS();
             OTA_HotelAvailRQAvailRequestSegmentPOSSource source = new OTA_HotelAvailRQAvailRequestSegmentPOSSource();
 
-            ref1.HotelCityCode = "DFW";
+            ref1.HotelCityCode = searchCriteria.Address;
             refrs[0] = ref1;
-
             cirterian.HotelRef = refrs;
             crt.Criterion = cirterian;
             req.HotelSearchCriteria = crt;
-            guest.Count = "2";
+            guest.Count = searchCriteria.TotalGuest;
             req.GuestCounts = guest;
 
             //req.po
-
-            journeyDate.Start = "12-22";
-            journeyDate.End = "12-24";
+            var startDate = Convert.ToDateTime(searchCriteria.StartDate);
+            var endDate = Convert.ToDateTime(searchCriteria.EndDate);
+            journeyDate.Start = startDate.Month.ToString() + "-" + startDate.Day.ToString();
+            journeyDate.End = endDate.Month.ToString() + "-" + endDate.Day.ToString(); ;
             req.TimeSpan = journeyDate;
 
             availability.AvailRequestSegment = req;

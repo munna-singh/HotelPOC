@@ -1,0 +1,122 @@
+﻿@model Common.Sabre.Hotels.Search.OTA_HotelAvailRS
+
+@{
+    ViewBag.Title = "Hotel Search Result";
+    var counter = 1;
+}
+
+<h1>Hotel Search Result</h1>
+
+@if (Model.AvailabilityOptions != null) { 
+<div style="font-size:12px;">
+
+    @foreach (var details in Model.AvailabilityOptions)
+    {
+       using (Html.BeginForm("Index", "Booking"))
+        {
+            <table width="100%" style="border-color:blue; border-width:1px; padding-bottom:5px; border-style:solid; margin-left:5px; margin-right:5px;">
+                <tr>
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td style="width:25%">
+                        @{ var imageName = counter + ".jpg";
+                           counter++;
+                           if (counter > 4) { counter = 1; }
+                           }
+                        <img src="~/Images/@imageName" style="width:250px; height:250px;" />
+                    </td>
+                    <td style="width:55%">
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <h3>
+                                        @details.BasicPropertyInfo.HotelName
+                                    </h3>
+                                    Code: @details.BasicPropertyInfo.HotelCode
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @{var hotelAddress = string.Empty;}
+                                    @foreach (var address in details.BasicPropertyInfo.Address)
+                                {
+                                    hotelAddress += address + " ";
+                                }
+
+                                    <p>@hotelAddress </p>
+                                    <p>@details.BasicPropertyInfo.LocationDescription.Text</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @{
+                                    if (@details.BasicPropertyInfo.RateRange != null)
+                                    {
+                                <h3>$@details.BasicPropertyInfo.RateRange.Min - $@details.BasicPropertyInfo.RateRange.Max</h3>
+                                    }
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @{var specialOffers = string.Empty;}
+                                    @{if (details.BasicPropertyInfo.SpecialOffers.Text != null)
+                                {
+                                    specialOffers = details.BasicPropertyInfo.SpecialOffers.Text;
+                                }
+                                else
+                                {
+                                    specialOffers = "Not available";
+                                }
+                                    }
+                                    <p> <b>Special Offers:</b> @specialOffers</p>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><b>Latitude:</b> @details.BasicPropertyInfo.Latitude</p>
+                                    <p><b>Longitude:</b> @details.BasicPropertyInfo.Longitude</p>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+
+                    <td style="width:20%">
+                        <p> <b>AdultsOnly: </b> @details.BasicPropertyInfo.PropertyOptionInfo.AdultsOnly.Ind </p>
+                        <p> <b>BeachFront: </b> @details.BasicPropertyInfo.PropertyOptionInfo.BeachFront.Ind </p>
+                        <p> <b>Breakfast: </b> @details.BasicPropertyInfo.PropertyOptionInfo.Breakfast.Ind </p>
+                        <p> <b>Dining: </b> @details.BasicPropertyInfo.PropertyOptionInfo.Dining.Ind </p>
+                        <p> <b>DryClean: </b> @details.BasicPropertyInfo.PropertyOptionInfo.DryClean.Ind </p>
+                        <p> <b>FitnessCenter: </b> @details.BasicPropertyInfo.PropertyOptionInfo.FitnessCenter.Ind </p>
+                        <p> <b>FreeLocalCalls: </b> @details.BasicPropertyInfo.PropertyOptionInfo.FreeLocalCalls.Ind </p>
+                        <p> <b>FreeParking: </b> @details.BasicPropertyInfo.PropertyOptionInfo.FreeParking.Ind </p>
+                        <p>.....</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1">
+                        <p><b>Phone: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Phone  <b>Fax: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Fax</p>
+                    </td>
+                    <td>
+                        <b>Start Date:</b> @ViewBag.StartDate  <b>End Date:</b> @ViewBag.EndDate
+                        <input type="hidden" name="startDate" value="@ViewBag.StartDate" />
+                        <input type="hidden" name="endDate" value="@ViewBag.EndDate" />
+                        <input type="hidden" name="totalTravellers" value="@ViewBag.TotalTravellers" />
+                        <input type="hidden" name="hotelCode" value="@details.BasicPropertyInfo.HotelCode" />
+                    </td>
+                    <td>
+                        <input type="submit" value="Select" style="width:120px; height:50px;" />
+                    </td>
+                </tr>
+            </table>
+        }
+    }
+</div>
+}
+else
+{
+    <p>No record found  </p>
+}
