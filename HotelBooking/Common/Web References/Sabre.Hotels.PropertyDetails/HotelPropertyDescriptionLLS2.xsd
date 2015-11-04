@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://webservices.sabre.com/sabreXML/2011/10" xmlns="http://www.w3.org/2001/XMLSchema">
+  <include schemaLocation="HotelPropertyDescriptionLLS2.2.0RQ.xsd" />
+  <include schemaLocation="HotelPropertyDescriptionLLS2.2.0RS.xsd" />
+</schema>

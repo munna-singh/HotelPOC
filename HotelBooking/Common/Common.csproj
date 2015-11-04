@@ -32,6 +32,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,7 +44,432 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SessionManagement.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SabreSessionManager.cs" />
+    <Compile Include="Web References\Sabre.Hotels.CloseSession\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Sabre.Hotels.CreateSession\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Sabre.Hotels.ModifyReservation\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Sabre.Hotels.PropertyDetails\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Sabre.Hotels.RateDetails\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Sabre.Hotels.Reservation\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Sabre.Hotels.Search\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dlls\TE.ThirdPartyProviders.Sabre.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CloseSession\envelope.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CloseSession\msg-header-2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CloseSession\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CloseSession\SessionCloseRQ.wsdl" />
+    <None Include="Web References\Sabre.Hotels.CloseSession\SessionCloseRQ.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CloseSession\SessionCloseRQRS.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CloseSession\SessionCloseRS.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CloseSession\SessionCloseRS.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CloseSession\wsse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CloseSession\xlink.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CloseSession\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CloseSession\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CreateSession\envelope.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CreateSession\msg-header-2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CreateSession\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CreateSession\SessionCreateRQ.wsdl" />
+    <None Include="Web References\Sabre.Hotels.CreateSession\SessionCreateRQ.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CreateSession\SessionCreateRQRS.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CreateSession\SessionCreateRS.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CreateSession\SessionCreateRS.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CreateSession\wsse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CreateSession\xlink.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CreateSession\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.CreateSession\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\envelope.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\HotelResModifyLLS2.wsdl" />
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\HotelResModifyLLS2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\HotelResModifyLLS20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\HotelResModifyLLS21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\HotelResModifyRS.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\msg-header-2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\STL_For_SabreProtocol_v.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\STL_Header_v.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\sws_common.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\wsse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\xlink.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.ModifyReservation\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\envelope.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\HotelPropertyDescriptionLLS2.wsdl" />
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\HotelPropertyDescriptionLLS2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\HotelPropertyDescriptionLLS20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\HotelPropertyDescriptionLLS21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\HotelPropertyDescriptionRS.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\msg-header-2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\STL_For_SabreProtocol_v.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\STL_Header_v.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\sws_common.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\wsse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\xlink.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.PropertyDetails\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\envelope.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\HotelRateDescriptionLLS2.wsdl" />
+    <None Include="Web References\Sabre.Hotels.RateDetails\HotelRateDescriptionLLS2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\HotelRateDescriptionLLS20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\HotelRateDescriptionLLS21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\HotelRateDescriptionRS.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\msg-header-2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\STL_For_SabreProtocol_v.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\STL_Header_v.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\sws_common.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\wsse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\xlink.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.RateDetails\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\envelope.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\msg-header-2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\OTA_HotelResLLS2.wsdl" />
+    <None Include="Web References\Sabre.Hotels.Reservation\OTA_HotelResLLS2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\OTA_HotelResLLS20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\OTA_HotelResLLS21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\OTA_HotelResRS.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\STL_For_SabreProtocol_v.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\STL_Header_v.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\sws_common.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\wsse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\xlink.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Reservation\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\envelope.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\msg-header-2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\OTA_HotelAvailLLS2.wsdl" />
+    <None Include="Web References\Sabre.Hotels.Search\OTA_HotelAvailLLS2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\OTA_HotelAvailLLS20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\OTA_HotelAvailLLS21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\OTA_HotelAvailRS.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\STL_For_SabreProtocol_v.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\STL_Header_v.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\sws_common.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\wsse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\xlink.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Sabre.Hotels.Search\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://webservices.sabre.com/wsdl/sabreXML1.0.00/usg/SessionCloseRQ.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Sabre.Hotels.CloseSession\</RelPath>
+      <UpdateFromURL>http://webservices.sabre.com/wsdl/sabreXML1.0.00/usg/SessionCloseRQ.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Common_Sabre_Hotels_CloseSession_SessionCloseRQService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://webservices.sabre.com/wsdl/sabreXML1.0.00/usg/SessionCreateRQ.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Sabre.Hotels.CreateSession\</RelPath>
+      <UpdateFromURL>http://webservices.sabre.com/wsdl/sabreXML1.0.00/usg/SessionCreateRQ.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Common_Sabre_Hotels_CreateSession_SessionCreateRQService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://webservices.sabre.com/wsdl/tpfc/HotelRateDescriptionLLS2.3.0RQ.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Sabre.Hotels.RateDetails\</RelPath>
+      <UpdateFromURL>http://webservices.sabre.com/wsdl/tpfc/HotelRateDescriptionLLS2.3.0RQ.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Common_Sabre_Hotels_RateDetails_HotelRateDescriptionService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://webservices.sabre.com/wsdl/tpfc/OTA_HotelAvailLLS2.2.1RQ.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Sabre.Hotels.Search\</RelPath>
+      <UpdateFromURL>http://webservices.sabre.com/wsdl/tpfc/OTA_HotelAvailLLS2.2.1RQ.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Common_Sabre_Hotels_Search_OTA_HotelAvailService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://wsdl-crt.cert.sabre.com/wsdl/tpfc/HotelPropertyDescriptionLLS2.2.0RQ.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Sabre.Hotels.PropertyDetails\</RelPath>
+      <UpdateFromURL>http://wsdl-crt.cert.sabre.com/wsdl/tpfc/HotelPropertyDescriptionLLS2.2.0RQ.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Common_Sabre_Hotels_PropertyDetails_HotelPropertyDescriptionService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://wsdl-crt.cert.sabre.com/wsdl/tpfc/HotelResModifyLLS2.1.0RQ.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Sabre.Hotels.ModifyReservation\</RelPath>
+      <UpdateFromURL>http://wsdl-crt.cert.sabre.com/wsdl/tpfc/HotelResModifyLLS2.1.0RQ.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Common_Sabre_Hotels_ModifyReservation_HotelResModifyService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://wsdl-crt.cert.sabre.com/wsdl/tpfc/OTA_HotelResLLS2.2.0RQ.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Sabre.Hotels.Reservation\</RelPath>
+      <UpdateFromURL>http://wsdl-crt.cert.sabre.com/wsdl/tpfc/OTA_HotelResLLS2.2.0RQ.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Common_Sabre_Hotels_Reservation_OTA_HotelResService</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

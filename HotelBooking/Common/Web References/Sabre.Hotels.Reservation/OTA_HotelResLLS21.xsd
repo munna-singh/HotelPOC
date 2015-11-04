@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:stl="http://services.sabre.com/STL/v01" xmlns:sws="http://webservices.sabre.com/sabreXML/2011/10" elementFormDefault="qualified" targetNamespace="http://webservices.sabre.com/sabreXML/2011/10" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="STL_For_SabreProtocol_v.1.2.0.xsd" namespace="http://services.sabre.com/STL/v01" />
+  <xs:include schemaLocation="sws_common.xsd" />
+  <xs:element name="OTA_HotelResRS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="stl:ApplicationResults" />
+        <xs:element minOccurs="0" name="Hotel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" name="BasicPropertyInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="ConfirmationNumber" type="xs:string" />
+                  </xs:sequence>
+                  <xs:attribute name="ChainCode" type="xs:string" use="optional" />
+                  <xs:attribute name="HotelCityCode" type="xs:string" use="optional" />
+                  <xs:attribute name="HotelCode" type="xs:string" use="optional" />
+                  <xs:attribute name="HotelName" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Customer">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="Client">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="ID" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Corporate">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="ID" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="CustLoyalty">
+                      <xs:complexType>
+                        <xs:attribute name="MembershipID" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="ReserveUnderName" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Guarantee" type="xs:string" />
+              <xs:element minOccurs="0" name="POS">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="Source">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="RequestorID" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="RoomRates">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="RoomRate">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="AdditionalInfo">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="CancelPolicy">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" name="Text" type="xs:string" />
+                                    </xs:sequence>
+                                    <xs:attribute name="Option" type="xs:string" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="DCA_Advance">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" maxOccurs="unbounded" name="Text" type="xs:string" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="DCA_Cancellation">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" maxOccurs="unbounded" name="Text" type="xs:string" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="DCA_Deposit">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" maxOccurs="unbounded" name="Text" type="xs:string" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="DCA_Guarantee">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" maxOccurs="unbounded" name="Text" type="xs:string" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="DCA_Other">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" maxOccurs="unbounded" name="Text" type="xs:string" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="HotelRateCode" type="xs:string" />
+                          <xs:element minOccurs="0" name="Rates">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="Rate">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" name="AdditionalGuestAmounts">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element minOccurs="0" name="AdditionalGuestAmount">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element minOccurs="0" name="Charges">
+                                                    <xs:complexType>
+                                                      <xs:attribute name="AdultRollAway" type="xs:string" use="optional" />
+                                                      <xs:attribute name="Crib" type="xs:string" use="optional" />
+                                                      <xs:attribute name="ExtraPerson" type="xs:string" use="optional" />
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                                <xs:attribute name="NumExtraPersons" type="xs:string" use="optional" />
+                                                <xs:attribute name="NumRollaways" type="xs:string" use="optional" />
+                                                <xs:attribute name="NumCribs" type="xs:string" use="optional" />
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element minOccurs="0" name="HotelTotalPricing">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element minOccurs="0" maxOccurs="unbounded" name="Disclaimer" type="xs:string" />
+                                            <xs:element minOccurs="0" maxOccurs="8" name="RateRange">
+                                              <xs:complexType>
+                                                <xs:attribute name="Amount" type="xs:string" use="optional" />
+                                                <xs:attribute name="EffectiveDate" type="sws:date" use="optional" />
+                                                <xs:attribute name="ExpireDate" type="sws:date" use="optional" />
+                                                <xs:attribute name="Surcharges" type="xs:string" use="optional" />
+                                                <xs:attribute name="Taxes" type="xs:string" use="optional" />
+                                              </xs:complexType>
+                                            </xs:element>
+                                            <xs:element minOccurs="0" name="TotalSurcharges">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element minOccurs="0" name="SurchargeFour">
+                                                    <xs:complexType>
+                                                      <xs:attribute name="Amount" type="xs:string" use="optional" />
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element minOccurs="0" name="SurchargeOne">
+                                                    <xs:complexType>
+                                                      <xs:attribute name="Amount" type="xs:string" use="optional" />
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element minOccurs="0" name="SurchargeThree">
+                                                    <xs:complexType>
+                                                      <xs:attribute name="Amount" type="xs:string" use="optional" />
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element minOccurs="0" name="SurchargeTwo">
+                                                    <xs:complexType>
+                                                      <xs:attribute name="Amount" type="xs:string" use="optional" />
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element minOccurs="0" maxOccurs="4" name="Text" type="xs:string" />
+                                                </xs:sequence>
+                                                <xs:attribute name="Amount" type="xs:string" use="optional" />
+                                              </xs:complexType>
+                                            </xs:element>
+                                            <xs:element minOccurs="0" name="TotalTaxes">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element minOccurs="0" name="Tax">
+                                                    <xs:complexType>
+                                                      <xs:attribute name="Amount" type="xs:string" use="optional" />
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element minOccurs="0" name="TaxFieldOne" type="xs:string" />
+                                                  <xs:element minOccurs="0" name="TaxFieldThree" type="xs:string" />
+                                                  <xs:element minOccurs="0" name="TaxFieldTwo" type="xs:string" />
+                                                  <xs:element minOccurs="0" maxOccurs="4" name="Text" type="xs:string" />
+                                                </xs:sequence>
+                                                <xs:attribute name="Amount" type="xs:string" use="optional" />
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                          <xs:attribute name="Amount" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element minOccurs="0" maxOccurs="30" name="Text" type="xs:string" />
+                                    </xs:sequence>
+                                    <xs:attribute name="Amount" type="xs:string" use="optional" />
+                                    <xs:attribute name="CancelPolicy" type="xs:string" use="optional" />
+                                    <xs:attribute name="ClientID" type="xs:string" use="optional" />
+                                    <xs:attribute name="CurrencyCode" type="xs:string" use="optional" />
+                                    <xs:attribute name="DCS_AuxRateCode" type="xs:string" use="optional" />
+                                    <xs:attribute name="DepositRequired" type="xs:string" use="optional" />
+                                    <xs:attribute name="GuaranteeRequired" type="xs:string" use="optional" />
+                                    <xs:attribute name="LAP" type="xs:string" use="optional" />
+                                    <xs:attribute name="RateAccessCode" type="xs:string" use="optional" />
+                                    <xs:attribute name="RateCategory" type="xs:string" use="optional" />
+                                    <xs:attribute name="RoomTypeCode" type="xs:string" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="SpecialPrefs">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="Text" type="xs:string" />
+                    <xs:element minOccurs="0" name="WrittenConfirmation">
+                      <xs:complexType>
+                        <xs:attribute name="Ind" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Text" type="xs:string" />
+              <xs:element minOccurs="0" name="TimeSpan">
+                <xs:complexType>
+                  <xs:attribute name="Duration" type="xs:string" use="optional" />
+                  <xs:attribute name="End" type="sws:dateOrTime" use="optional" />
+                  <xs:attribute name="Start" type="sws:dateOrTime" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="NumberInParty" type="xs:string" use="optional" />
+            <xs:attribute name="NumberOfUnits" type="xs:string" use="optional" />
+            <xs:attribute name="SegmentNumber" type="xs:string" use="optional" />
+            <xs:attribute name="Status" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Version" type="xs:string" use="optional" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

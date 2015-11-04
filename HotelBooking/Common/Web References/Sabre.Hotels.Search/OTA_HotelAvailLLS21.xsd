@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:stl="http://services.sabre.com/STL/v01" xmlns:sws="http://webservices.sabre.com/sabreXML/2011/10" elementFormDefault="qualified" targetNamespace="http://webservices.sabre.com/sabreXML/2011/10" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="STL_For_SabreProtocol_v.1.2.0.xsd" namespace="http://services.sabre.com/STL/v01" />
+  <xs:include schemaLocation="sws_common.xsd" />
+  <xs:element name="OTA_HotelAvailRS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="stl:ApplicationResults" />
+        <xs:element minOccurs="0" name="AdditionalAvail">
+          <xs:complexType>
+            <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="AvailabilityOptions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="AvailabilityOption">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="BasicPropertyInfo">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="Address">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" maxOccurs="4" name="AddressLine" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="ContactNumbers">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="ContactNumber">
+                                  <xs:complexType>
+                                    <xs:attribute name="Fax" type="xs:string" use="optional" />
+                                    <xs:attribute name="Phone" type="xs:string" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="ContractualRateCodeMatch" type="xs:string" />
+                          <xs:element minOccurs="0" name="DirectConnect">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="Alt_Avail">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="DC_AvailParticipant">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="DC_SellParticipant">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="RatesExceedMax">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="UnAvail">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="LocationDescription">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="Text" type="xs:string" />
+                              </xs:sequence>
+                              <xs:attribute name="Code" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="NegotiatedRateCodeMatch" type="xs:string" />
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="Property">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="Text" type="xs:string" />
+                              </xs:sequence>
+                              <xs:attribute name="Rating" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="PropertyOptionInfo">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="ADA_Accessible">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="AdultsOnly">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="BeachFront">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Breakfast">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="BusinessCenter">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="BusinessReady">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Conventions">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Dataport">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Dining">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="DryClean">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="EcoCertified">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="ExecutiveFloors">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="FitnessCenter">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="FreeLocalCalls">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="FreeParking">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="FreeShuttle">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="FreeWifiInMeetingRooms">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="FreeWifiInPublicSpaces">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="FreeWifiInRooms">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="FullServiceSpa">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="GameFacilities">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Golf">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="HighSpeedInternet">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="HypoallergenicRooms">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="IndoorPool">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="InRoomCoffeeTea">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="InRoomMiniBar">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="InRoomRefrigerator">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="InRoomSafe">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="InteriorDoorways">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Jacuzzi">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="KidsFacilities">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="KitchenFacilities">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="MealService">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="MeetingFacilities">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="NoAdultTV">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="NonSmoking">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="OutdoorPool">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Pets">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Pool">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="PublicTransportationAdjacent">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="RateAssured">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Recreation">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="RestrictedRoomAccess">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="RoomService">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="RoomService24Hours">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="RoomsWithBalcony">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="SkiInOutProperty">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="SmokeFree">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="SmokingRoomsAvail">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Tennis">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="WaterPurificationSystem">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="Wheelchair">
+                                  <xs:complexType>
+                                    <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="RateRange">
+                            <xs:complexType>
+                              <xs:attribute name="CurrencyCode" type="xs:string" use="optional" />
+                              <xs:attribute name="Max" type="xs:string" use="optional" />
+                              <xs:attribute name="Min" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="RoomRate">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="AdditionalInfo">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" name="CancelPolicy">
+                                        <xs:complexType>
+                                          <xs:attribute name="Option" type="xs:string" use="optional" />
+                                          <xs:attribute name="Numeric" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" maxOccurs="unbounded" name="HotelRateCode" type="xs:string" />
+                                <xs:element minOccurs="0" maxOccurs="unbounded" name="RateTypeCode" type="xs:string" />
+                              </xs:sequence>
+                              <xs:attribute name="GuaranteeSurchargeRequired" type="xs:string" use="optional" />
+                              <xs:attribute name="RateLevelCode" type="xs:string" use="optional" />
+                              <xs:attribute name="XPM_GuaranteeRequired" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="SpecialOffers">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="Text" type="xs:string" />
+                              </xs:sequence>
+                              <xs:attribute name="Ind" type="xs:boolean" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="AreaID" type="xs:string" use="optional" />
+                        <xs:attribute name="ChainCode" type="xs:string" use="optional" />
+                        <xs:attribute name="Distance" type="xs:string" use="optional" />
+                        <xs:attribute name="GEO_ConfidenceLevel" type="xs:string" use="optional" />
+                        <xs:attribute name="HotelCode" type="xs:string" use="optional" />
+                        <xs:attribute name="HotelCityCode" type="xs:string" use="optional" />
+                        <xs:attribute name="HotelName" type="xs:string" use="optional" />
+                        <xs:attribute name="Latitude" type="xs:string" use="optional" />
+                        <xs:attribute name="Longitude" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="RPH" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="CityList">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Line">
+                <xs:complexType>
+                  <xs:attribute name="CountryStateCode" type="xs:string" use="optional" />
+                  <xs:attribute name="Latitude" type="xs:string" use="optional" />
+                  <xs:attribute name="LocationName" type="xs:string" use="optional" />
+                  <xs:attribute name="Longitude" type="xs:string" use="optional" />
+                  <xs:attribute name="RPH" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Version" type="xs:string" use="optional" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

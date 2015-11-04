@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Common;
+using Common.Sabre.Hotels.Search;
+using Manager;
 
 namespace UI.Controllers
 {
@@ -27,6 +30,16 @@ namespace UI.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult CreateSession()
+        {
+
+            SearchHotel mgr = new SearchHotel();
+            var result = mgr.Search();
+            ViewBag.Options = result;
+            return Content("Session created");
+
         }
     }
 }

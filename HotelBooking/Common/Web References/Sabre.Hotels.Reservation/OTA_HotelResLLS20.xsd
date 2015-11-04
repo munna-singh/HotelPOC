@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:sws="http://webservices.sabre.com/sabreXML/2011/10" elementFormDefault="qualified" targetNamespace="http://webservices.sabre.com/sabreXML/2011/10" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="sws_common.xsd" />
+  <xs:element name="OTA_HotelResRQ">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Hotel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BasicPropertyInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="ConfirmationNumber" type="xs:string" />
+                  </xs:sequence>
+                  <xs:attribute name="ChainCode" type="xs:string" use="optional" />
+                  <xs:attribute name="HotelCode" type="xs:string" use="optional" />
+                  <xs:attribute name="InsertAfter" type="xs:integer" use="optional" />
+                  <xs:attribute name="RPH" type="xs:integer" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Customer">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="Corporate">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ID" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="CustLoyalty">
+                      <xs:complexType>
+                        <xs:attribute name="ProgramID" type="xs:string" use="required" />
+                        <xs:attribute name="MembershipID" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="ID">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Number" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="NameNumber" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="DCA_LongSell">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="BookedRate">
+                      <xs:complexType>
+                        <xs:attribute name="Amount" type="xs:string" use="required" />
+                        <xs:attribute name="CurrencyCode" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="CancelPenalty">
+                      <xs:complexType>
+                        <xs:attribute name="PolicyCode" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="DCA_Product">
+                      <xs:complexType>
+                        <xs:attribute name="Code" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="LongSellTimeIdentifier" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Guarantee">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="CC_Info">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="PaymentCard">
+                            <xs:complexType>
+                              <xs:attribute name="Code" type="xs:string" use="required" />
+                              <xs:attribute name="ExpireDate" type="xs:string" use="required" />
+                              <xs:attribute name="Number" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="PersonName">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Surname" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Text" type="xs:string" />
+                  </xs:sequence>
+                  <xs:attribute name="Type" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="GuestCounts">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="Crib" type="xs:string" />
+                    <xs:element minOccurs="0" name="ExtraGuest" type="xs:string" />
+                    <xs:element minOccurs="0" name="RollAway" type="xs:string" />
+                  </xs:sequence>
+                  <xs:attribute name="Count" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="POS">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Source">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="CompanyName">
+                            <xs:complexType>
+                              <xs:attribute name="Division" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="RequestorID" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="RatePlanCandidates">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ContractNegotiatedRateCode" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="RoomType">
+                <xs:complexType>
+                  <xs:attribute name="NumberOfUnits" type="xs:integer" use="required" />
+                  <xs:attribute name="RoomTypeCode" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="SpecialPrefs">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="Text" type="xs:string" />
+                    <xs:element minOccurs="0" name="WrittenConfirmation">
+                      <xs:complexType>
+                        <xs:attribute name="Ind" type="xs:boolean" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="TimeSpan">
+                <xs:complexType>
+                  <xs:attribute name="End" type="sws:dateTime" use="required" />
+                  <xs:attribute name="Start" type="sws:dateTime" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="ReturnHostCommand" type="xs:boolean" use="optional" />
+      <xs:attribute name="TimeStamp" type="xs:dateTime" use="optional" />
+      <xs:attribute fixed="2.2.0" name="Version" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

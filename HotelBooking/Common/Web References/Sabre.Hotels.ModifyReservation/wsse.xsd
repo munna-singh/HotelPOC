@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:app2="http://schemas.xmlsoap.org/ws/2002/12/secext" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsse="http://schemas.xmlsoap.org/ws/2002/12/secext" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.xmlsoap.org/ws/2002/12/secext" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element msdata:Prefix="wsse" name="Security">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element msdata:Prefix="wsse" minOccurs="0" name="UsernameToken">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element msdata:Prefix="wsse" minOccurs="0" name="Username" type="xs:string" />
+              <xs:element msdata:Prefix="wsse" minOccurs="0" name="Password" type="xs:string" />
+              <xs:element msdata:Prefix="wsse" minOccurs="0" maxOccurs="2" name="NewPassword" type="xs:string" />
+              <xs:element minOccurs="0" form="unqualified" name="Organization" type="xs:string" />
+              <xs:element minOccurs="0" form="unqualified" name="Domain" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element msdata:Prefix="wsse" minOccurs="0" name="SabreAth" type="xs:string" />
+        <xs:element msdata:Prefix="wsse" minOccurs="0" name="BinarySecurityToken" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

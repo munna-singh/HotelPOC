@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservices.sabre.com/wsdl/tpfc/xml.xsd" filename="xml.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservices.sabre.com/wsdl/tpfc/xlink.xsd" filename="xlink.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://webservices.sabre.com/wsdl/tpfc/HotelRateDescriptionLLS2.3.0RQ.wsdl" filename="HotelRateDescriptionLLS2.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservices.sabre.com/wsdl/tpfc/STL_For_SabreProtocol_v.1.2.0.xsd" filename="STL_For_SabreProtocol_v.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservices.sabre.com/wsdl/tpfc/wsse.xsd" filename="wsse.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservices.sabre.com/wsdl/tpfc/HotelRateDescriptionLLS2.3.0RQRS.xsd" filename="HotelRateDescriptionLLS2.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservices.sabre.com/wsdl/tpfc/envelope.xsd" filename="envelope.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservices.sabre.com/wsdl/tpfc/STL_Header_v.1.2.0.xsd" filename="STL_Header_v.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservices.sabre.com/wsdl/tpfc/xmldsig-core-schema.xsd" filename="xmldsig-core-schema.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservices.sabre.com/wsdl/tpfc/msg-header-2_0.xsd" filename="msg-header-2_0.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservices.sabre.com/wsdl/tpfc/sws_common.xsd" filename="sws_common.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservices.sabre.com/wsdl/tpfc/HotelRateDescriptionLLS2.3.0RS.xsd" filename="HotelRateDescriptionLLS20.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservices.sabre.com/wsdl/tpfc/HotelRateDescriptionLLS2.3.0RQ.xsd" filename="HotelRateDescriptionLLS21.xsd" />
+  </Results>
+</DiscoveryClientResultsFile>
