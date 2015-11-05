@@ -42,14 +42,26 @@ namespace Manager
             
             tirq.CustomerInfo.CustomerIdentifier = "1234567890";
 
+            List<TravelItineraryAddInfoRQCustomerInfoContactNumber> contacts 
+                = new List<TravelItineraryAddInfoRQCustomerInfoContactNumber>();
+            contacts.Add(new TravelItineraryAddInfoRQCustomerInfoContactNumber {
+                Phone = "8175551212",
+                NameNumber = "1.1",
+                LocationCode = "YYZ",
+                 PhoneUseType = "H"
+            });
+            tirq.CustomerInfo.ContactNumbers = contacts.ToArray();
+
             tirq.AgencyInfo = new TravelItineraryAddInfoRQAgencyInfo();
             tirq.AgencyInfo.Address = new TravelItineraryAddInfoRQAgencyInfoAddress();
+            tirq.AgencyInfo.Address.AddressLine = "SABRE TRAVEL";
             tirq.AgencyInfo.Address.StreetNmbr = "3150 SABRE DRIVE";
             tirq.AgencyInfo.Address.CityName = "SOUTHLAKE";
             tirq.AgencyInfo.Address.PostalCode = "76092";
             tirq.AgencyInfo.Address.StateCountyProv = new TravelItineraryAddInfoRQAgencyInfoAddressStateCountyProv();
             tirq.AgencyInfo.Address.StateCountyProv.StateCode = "TX";
             tirq.AgencyInfo.Address.CountryCode = "US";
+            
             tirq.AgencyInfo.Ticketing = new TravelItineraryAddInfoRQAgencyInfoTicketing();
             tirq.AgencyInfo.Ticketing.TicketType = "7T-";
 
