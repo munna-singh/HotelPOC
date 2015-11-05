@@ -20,7 +20,7 @@ namespace UI.Controllers
             select.EndDate = collection["endDate"];
             select.TotalTravellers = collection["totalTravellers"];
             select.HotelCode = collection["hotelCode"];
-            select.propertyRphNumber = collection["propertyRphNumber"];  
+            select.propertyRphNumber = collection["propertyRphNumber"].TrimStart('0'); 
 
             var pnrDetails = new HotelBookingManager().Book(select);
 
