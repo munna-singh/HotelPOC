@@ -9,7 +9,7 @@ namespace Manager
 {
     public class EndTransaction
     {
-        public void End(string securityToken) 
+        public EndTransactionRS End(string securityToken) 
         {
             EndTransactionRQ etrq = new EndTransactionRQ();
             etrq.EndTransaction = new EndTransactionRQEndTransaction();
@@ -21,7 +21,7 @@ namespace Manager
             EndTransactionService ets = new EndTransactionService();
             ets.Security = this.CreateSecurityDto(securityToken);
             ets.MessageHeaderValue = this.CreateMessageHeader();
-            ets.EndTransactionRQ(etrq);
+            return ets.EndTransactionRQ(etrq);
         }
 
         private Security1 CreateSecurityDto(string securityToken)

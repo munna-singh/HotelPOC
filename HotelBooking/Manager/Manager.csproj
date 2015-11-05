@@ -43,6 +43,7 @@
     <Compile Include="AddTravelerInfo.cs" />
     <Compile Include="BookHotel.cs" />
     <Compile Include="EndTransaction.cs" />
+    <Compile Include="HotelBookingManager.cs" />
     <Compile Include="HotelPricing.cs" />
     <Compile Include="HotelPropertyDescription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

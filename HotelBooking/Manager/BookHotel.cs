@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Sabre.Hotels.Reservation;
+using Common;
 
 namespace Manager
 {
@@ -18,6 +19,7 @@ namespace Manager
             hrq.Hotel.Customer = new OTA_HotelResRQHotelCustomer();
             hrq.Hotel.Customer.NameNumber = "1.1";
             hrq.Hotel.Guarantee = new OTA_HotelResRQHotelGuarantee();
+            hrq.Hotel.Guarantee.Type = "GDPST";
             hrq.Hotel.Guarantee.CC_Info = new OTA_HotelResRQHotelGuaranteeCC_Info();
             hrq.Hotel.Guarantee.CC_Info.PaymentCard = new OTA_HotelResRQHotelGuaranteeCC_InfoPaymentCard();
             hrq.Hotel.Guarantee.CC_Info.PaymentCard.Code = "AX";
@@ -31,7 +33,7 @@ namespace Manager
             OTA_HotelResService hrs = new OTA_HotelResService();
             hrs.Security = this.CreateSecurityDto(securityToken);
             hrs.MessageHeaderValue = this.CreateMessageHeader();
-
+            var t = Utility.Serialize<OTA_HotelResRQ>(hrq);
             return hrs.OTA_HotelResRQ(hrq);
         }
 

@@ -13,5 +13,6 @@ namespace Repository
         public string TotalTravellers { get; set; }
         public string HotelCode { get; set; }
         public string SessionId { get;set; }
+        public string propertyRphNumber { get; set; }
     }
 }

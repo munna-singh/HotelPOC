@@ -9,17 +9,21 @@ namespace Manager
 {
     public class ReadTravelerInfo
     {
-        public void ReadInfo(string securityToken)
+        public TravelItineraryReadRS ReadInfo(string securityToken, string pnrIdentifier = null)
         {
             TravelItineraryReadRQ tirq = new TravelItineraryReadRQ();
             tirq.MessagingDetails = new TravelItineraryReadRQMessagingDetails();
             tirq.MessagingDetails.SubjectAreas = new string[] { "FULL" };
-
+            if (pnrIdentifier != null)
+            {
+                tirq.UniqueID = new TravelItineraryReadRQUniqueID();
+                tirq.UniqueID.ID = pnrIdentifier;
+            }
 
             TravelItineraryReadService trs = new TravelItineraryReadService();
             trs.Security = this.CreateSecurityDto(securityToken);
             trs.MessageHeaderValue = this.CreateMessageHeader();
-            trs.TravelItineraryReadRQ(tirq);
+            return trs.TravelItineraryReadRQ(tirq);
         }
         private Security1 CreateSecurityDto(string securityToken)
         {
