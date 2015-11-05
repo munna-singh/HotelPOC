@@ -10,7 +10,7 @@ namespace Manager
 {
     public class HotelPropertyDescription
     {
-        public void HotelDescription(string hotelCode, int noOfTravelers, string startDate, string endDate)
+        public HotelPropertyDescriptionRS HotelDescription(string hotelCode, int noOfTravelers, string startDate, string endDate)
         {
 
 
@@ -41,7 +41,7 @@ namespace Manager
             hpds.MessageHeaderValue = this.CreateMessageHeader();
             hpds.Security = this.CreateSecurityDto();
 
-            var t1 = hpds.HotelPropertyDescriptionRQ(hpdrq);
+            return hpds.HotelPropertyDescriptionRQ(hpdrq);
         }
 
         private Security1 CreateSecurityDto()

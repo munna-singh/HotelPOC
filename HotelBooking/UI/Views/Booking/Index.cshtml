@@ -1,5 +1,58 @@
-﻿@{
+﻿@model Common.Sabre.Hotels.PropertyDetails.HotelPropertyDescriptionRS
+@{
     ViewBag.Title = "Index";
 }
 
-<h2>Booking</h2>
+<h2>Hotel Property Details</h2>
+
+<table>
+    <tr>
+        <td>
+            <b>Address</b>
+        </td>
+        <td>
+            @for (var i = 0; i < Model.RoomStay.BasicPropertyInfo.Address.AddressLine.Length; i++)
+            {
+                <div>
+                    @Model.RoomStay.BasicPropertyInfo.Address.AddressLine[i]
+                </div>
+            }
+
+        </td>
+        <td>
+            <b>Awards</b>
+        </td>
+        <td>
+            @for (var i = 0; i < Model.RoomStay.BasicPropertyInfo.Awards.Length; i++)
+            {
+                <div>
+                    @Model.RoomStay.BasicPropertyInfo.Awards[i]
+                </div>
+            }
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Property Option Info</b>
+        </td>
+        <td>
+            @{
+                Common.Sabre.Hotels.PropertyDetails.HotelPropertyDescriptionRSRoomStayBasicPropertyInfoPropertyOptionInfoADA_Accessible r;
+            }
+            @foreach (var t in Model.RoomStay.BasicPropertyInfo.PropertyOptionInfo.GetType().GetProperties())
+            {
+                {
+                    //var r1 = ;
+                    //as Common.Sabre.Hotels.PropertyDetails.HotelPropertyDescriptionRSRoomStayBasicPropertyInfoPropertyOptionInfoADA_Accessible;
+
+                }
+                <div>
+                    @t.Name - @t.GetValue(Model.RoomStay.BasicPropertyInfo.PropertyOptionInfo, null)
+                </div>
+
+            }
+        </td>
+    </tr>
+</table>
+

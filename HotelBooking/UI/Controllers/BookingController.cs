@@ -1,4 +1,5 @@
-﻿using Repository;
+﻿using Manager;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,13 @@ namespace UI.Controllers
             select.EndDate = collection["endDate"];
             select.TotalTravellers = collection["totalTravellers"];
             select.HotelCode = collection["hotelCode"];
-            return View();
+
+            var t = new HotelPropertyDescription()
+                .HotelDescription(select.HotelCode, int.Parse(select.TotalTravellers), select.StartDate, select.EndDate);
+
+            ViewBag.HotelProperty = t;
+
+            return View(t);
         }
 
     }
