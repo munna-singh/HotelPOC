@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:sws="http://services.sabre.com/res/tir/v3_6" elementFormDefault="qualified" targetNamespace="http://services.sabre.com/res/tir/v3_6" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="TravelItineraryReadRQ">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="MessagingDetails">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" name="SubjectAreas">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="SubjectArea" type="xs:string" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="UniqueID">
+          <xs:complexType>
+            <xs:attribute name="ID" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="EchoToken" type="xs:string" />
+        <xs:element minOccurs="0" name="ReturnOptions">
+          <xs:complexType>
+            <xs:attribute default="false" name="UnmaskCreditCard" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="TimeStamp" type="xs:dateTime" use="optional" />
+      <xs:attribute name="Version" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

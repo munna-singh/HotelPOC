@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://webservices.sabre.com/sabreXML/2011/10" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="sws_common.xsd" />
+  <xs:element name="EndTransactionRQ">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EndTransaction">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Email">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="eTicket">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="PDF">
+                            <xs:complexType>
+                              <xs:attribute name="Ind" type="xs:boolean" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Ind" type="xs:boolean" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Invoice">
+                      <xs:complexType>
+                        <xs:attribute name="Ind" type="xs:boolean" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Itinerary">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="PDF">
+                            <xs:complexType>
+                              <xs:attribute name="Ind" type="xs:boolean" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="Segment">
+                            <xs:complexType>
+                              <xs:attribute name="EndNumber" type="xs:integer" use="optional" />
+                              <xs:attribute name="Number" type="xs:integer" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Ind" type="xs:boolean" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="PersonName">
+                      <xs:complexType>
+                        <xs:attribute name="NameNumber" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Ind" type="xs:boolean" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Ind" type="xs:boolean" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="Source">
+          <xs:complexType>
+            <xs:attribute name="ReceivedFrom" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="ReturnHostCommand" type="xs:boolean" use="optional" />
+      <xs:attribute name="TimeStamp" type="xs:dateTime" use="optional" />
+      <xs:attribute fixed="2.0.4" name="Version" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

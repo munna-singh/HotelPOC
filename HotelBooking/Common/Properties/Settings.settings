@@ -23,5 +23,14 @@
     <Setting Name="Common_Sabre_Hotels_CloseSession_SessionCloseRQService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">https://sws-crt.cert.sabre.com/</Value>
     </Setting>
+    <Setting Name="Common_Sabre_Hotels_TravelItineraryAddInfo_TravelItineraryAddInfoService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://sws-crt.cert.sabre.com/</Value>
+    </Setting>
+    <Setting Name="Common_Sabre_Hotels_TravelItineraryReadInfo_TravelItineraryReadService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://sws-crt.cert.sabre.com/</Value>
+    </Setting>
+    <Setting Name="Common_Sabre_Hotels_EndTransaction_EndTransactionService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://sws-crt.cert.sabre.com/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
