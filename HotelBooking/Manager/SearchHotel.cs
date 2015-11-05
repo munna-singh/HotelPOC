@@ -43,7 +43,7 @@ namespace Manager
             var startDate = Convert.ToDateTime(searchCriteria.StartDate);
             var endDate = Convert.ToDateTime(searchCriteria.EndDate);
             journeyDate.Start = startDate.Month.ToString() + "-" + startDate.Day.ToString();
-            journeyDate.End = endDate.Month.ToString() + "-" + endDate.Day.ToString(); ;
+            journeyDate.End = endDate.Month.ToString() + "-" + endDate.Day.ToString();
             req.TimeSpan = journeyDate;
 
             availability.AvailRequestSegment = req;

@@ -46,7 +46,7 @@ namespace Common.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://sws-crt.cert.sabre.com/websvc")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sws-crt.cert.sabre.com/")]
         public string Common_Sabre_Hotels_RateDetails_HotelRateDescriptionService {
             get {
                 return ((string)(this["Common_Sabre_Hotels_RateDetails_HotelRateDescriptionService"]));

@@ -29,11 +29,11 @@ namespace Common.Sabre.Hotels.RateDetails {
     [System.Web.Services.WebServiceBindingAttribute(Name="HotelRateDescriptionSoapBinding", Namespace="https://webservices.sabre.com/websvc")]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Fault))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Envelope))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProblemBase))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SabreHeader))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SignaturePropertiesType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ManifestType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(SignatureType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ProblemBase))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(SabreHeader))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Results))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(STL_Payload))]
     public partial class HotelRateDescriptionService : System.Web.Services.Protocols.SoapHttpClientProtocol {
@@ -616,867 +616,6 @@ namespace Common.Sabre.Hotels.RateDetails {
             }
             set {
                 this.anyAttrField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public partial class ProblemBase {
-        
-        private ErrorType typeField;
-        
-        private CompletionCodes statusField;
-        
-        private System.DateTime timeStampField;
-        
-        private bool timeStampFieldSpecified;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ErrorType type {
-            get {
-                return this.typeField;
-            }
-            set {
-                this.typeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public CompletionCodes status {
-            get {
-                return this.statusField;
-            }
-            set {
-                this.statusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.DateTime timeStamp {
-            get {
-                return this.timeStampField;
-            }
-            set {
-                this.timeStampField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool timeStampSpecified {
-            get {
-                return this.timeStampFieldSpecified;
-            }
-            set {
-                this.timeStampFieldSpecified = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public enum ErrorType {
-        
-        /// <remarks/>
-        Transport,
-        
-        /// <remarks/>
-        Validation,
-        
-        /// <remarks/>
-        Application,
-        
-        /// <remarks/>
-        BusinessLogic,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public enum CompletionCodes {
-        
-        /// <remarks/>
-        Complete,
-        
-        /// <remarks/>
-        Incomplete,
-        
-        /// <remarks/>
-        NotProcessed,
-        
-        /// <remarks/>
-        Unknown,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public partial class Diagnostics {
-        
-        private DiagnosticLevels levelField;
-        
-        private bool levelFieldSpecified;
-        
-        private string dataField;
-        
-        private System.Xml.XmlElement diagnosticField;
-        
-        /// <remarks/>
-        public DiagnosticLevels Level {
-            get {
-                return this.levelField;
-            }
-            set {
-                this.levelField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool LevelSpecified {
-            get {
-                return this.levelFieldSpecified;
-            }
-            set {
-                this.levelFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Data {
-            get {
-                return this.dataField;
-            }
-            set {
-                this.dataField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.Xml.XmlElement Diagnostic {
-            get {
-                return this.diagnosticField;
-            }
-            set {
-                this.diagnosticField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public enum DiagnosticLevels {
-        
-        /// <remarks/>
-        Mock,
-        
-        /// <remarks/>
-        Simulate,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public partial class TraceRecord {
-        
-        private string keyField;
-        
-        private System.DateTime startField;
-        
-        private System.DateTime endField;
-        
-        private bool endFieldSpecified;
-        
-        private string appInstanceField;
-        
-        private string clusterField;
-        
-        private string hostField;
-        
-        private string targetURIField;
-        
-        private TraceRole roleField;
-        
-        private bool roleFieldSpecified;
-        
-        private string valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string key {
-            get {
-                return this.keyField;
-            }
-            set {
-                this.keyField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.DateTime start {
-            get {
-                return this.startField;
-            }
-            set {
-                this.startField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.DateTime end {
-            get {
-                return this.endField;
-            }
-            set {
-                this.endField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool endSpecified {
-            get {
-                return this.endFieldSpecified;
-            }
-            set {
-                this.endFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string appInstance {
-            get {
-                return this.appInstanceField;
-            }
-            set {
-                this.appInstanceField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string cluster {
-            get {
-                return this.clusterField;
-            }
-            set {
-                this.clusterField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string host {
-            get {
-                return this.hostField;
-            }
-            set {
-                this.hostField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-        public string targetURI {
-            get {
-                return this.targetURIField;
-            }
-            set {
-                this.targetURIField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public TraceRole role {
-            get {
-                return this.roleField;
-            }
-            set {
-                this.roleField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool roleSpecified {
-            get {
-                return this.roleFieldSpecified;
-            }
-            set {
-                this.roleFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlTextAttribute()]
-        public string Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public enum TraceRole {
-        
-        /// <remarks/>
-        consumer,
-        
-        /// <remarks/>
-        provider,
-        
-        /// <remarks/>
-        gateway,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public partial class Security {
-        
-        private string itemField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("SecurityToken")]
-        public string Item {
-            get {
-                return this.itemField;
-            }
-            set {
-                this.itemField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName="Identifier.System", Namespace="http://services.sabre.com/STL_Header/v120")]
-    public partial class IdentifierSystem {
-        
-        private string instanceField;
-        
-        private string clusterField;
-        
-        private string hostField;
-        
-        private string uriField;
-        
-        private string valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string instance {
-            get {
-                return this.instanceField;
-            }
-            set {
-                this.instanceField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string cluster {
-            get {
-                return this.clusterField;
-            }
-            set {
-                this.clusterField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string host {
-            get {
-                return this.hostField;
-            }
-            set {
-                this.hostField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string uri {
-            get {
-                return this.uriField;
-            }
-            set {
-                this.uriField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlTextAttribute()]
-        public string Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public partial class ProblemSummary {
-        
-        private IdentifierSystem sourceField;
-        
-        private IdentifierSystem reportingSystemField;
-        
-        private MessageCondition messageField;
-        
-        private string shortTextField;
-        
-        private ErrorType typeField;
-        
-        private CompletionCodes statusField;
-        
-        private System.DateTime timeStampField;
-        
-        private bool timeStampFieldSpecified;
-        
-        /// <remarks/>
-        public IdentifierSystem Source {
-            get {
-                return this.sourceField;
-            }
-            set {
-                this.sourceField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public IdentifierSystem ReportingSystem {
-            get {
-                return this.reportingSystemField;
-            }
-            set {
-                this.reportingSystemField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public MessageCondition Message {
-            get {
-                return this.messageField;
-            }
-            set {
-                this.messageField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string ShortText {
-            get {
-                return this.shortTextField;
-            }
-            set {
-                this.shortTextField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ErrorType type {
-            get {
-                return this.typeField;
-            }
-            set {
-                this.typeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public CompletionCodes status {
-            get {
-                return this.statusField;
-            }
-            set {
-                this.statusField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public System.DateTime timeStamp {
-            get {
-                return this.timeStampField;
-            }
-            set {
-                this.timeStampField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool timeStampSpecified {
-            get {
-                return this.timeStampFieldSpecified;
-            }
-            set {
-                this.timeStampFieldSpecified = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName="Message.Condition", Namespace="http://services.sabre.com/STL_Header/v120")]
-    public partial class MessageCondition {
-        
-        private string codeField;
-        
-        private string valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string code {
-            get {
-                return this.codeField;
-            }
-            set {
-                this.codeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlTextAttribute()]
-        public string Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public partial class ResultSummary {
-        
-        private object itemField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Error", typeof(ProblemSummary))]
-        [System.Xml.Serialization.XmlElementAttribute("Success", typeof(string))]
-        public object Item {
-            get {
-                return this.itemField;
-            }
-            set {
-                this.itemField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public partial class TrackingID {
-        
-        private string seqField;
-        
-        private string valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string seq {
-            get {
-                return this.seqField;
-            }
-            set {
-                this.seqField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlTextAttribute()]
-        public string Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public partial class Identification {
-        
-        private string customerIDField;
-        
-        private string customerAppIDField;
-        
-        private TrackingID conversationIDField;
-        
-        private string messageIDField;
-        
-        private System.DateTime timeStampField;
-        
-        private bool timeStampFieldSpecified;
-        
-        /// <remarks/>
-        public string CustomerID {
-            get {
-                return this.customerIDField;
-            }
-            set {
-                this.customerIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string CustomerAppID {
-            get {
-                return this.customerAppIDField;
-            }
-            set {
-                this.customerAppIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public TrackingID ConversationID {
-            get {
-                return this.conversationIDField;
-            }
-            set {
-                this.conversationIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string MessageID {
-            get {
-                return this.messageIDField;
-            }
-            set {
-                this.messageIDField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.DateTime TimeStamp {
-            get {
-                return this.timeStampField;
-            }
-            set {
-                this.timeStampField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool TimeStampSpecified {
-            get {
-                return this.timeStampFieldSpecified;
-            }
-            set {
-                this.timeStampFieldSpecified = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(TypeName="Service", Namespace="http://services.sabre.com/STL_Header/v120")]
-    public partial class Service1 {
-        
-        private string operationField;
-        
-        private string versionField;
-        
-        private string ttlField;
-        
-        private string valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string operation {
-            get {
-                return this.operationField;
-            }
-            set {
-                this.operationField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string version {
-            get {
-                return this.versionField;
-            }
-            set {
-                this.versionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="nonNegativeInteger")]
-        public string ttl {
-            get {
-                return this.ttlField;
-            }
-            set {
-                this.ttlField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlTextAttribute()]
-        public string Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
-    public partial class SabreHeader {
-        
-        private Service1 serviceField;
-        
-        private Identification identificationField;
-        
-        private ResultSummary resultSummaryField;
-        
-        private Security securityField;
-        
-        private TraceRecord[] tracesField;
-        
-        private Diagnostics diagnosticsField;
-        
-        /// <remarks/>
-        public Service1 Service {
-            get {
-                return this.serviceField;
-            }
-            set {
-                this.serviceField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Identification Identification {
-            get {
-                return this.identificationField;
-            }
-            set {
-                this.identificationField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public ResultSummary ResultSummary {
-            get {
-                return this.resultSummaryField;
-            }
-            set {
-                this.resultSummaryField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Security Security {
-            get {
-                return this.securityField;
-            }
-            set {
-                this.securityField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("Trace", IsNullable=false)]
-        public TraceRecord[] Traces {
-            get {
-                return this.tracesField;
-            }
-            set {
-                this.tracesField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Diagnostics Diagnostics {
-            get {
-                return this.diagnosticsField;
-            }
-            set {
-                this.diagnosticsField = value;
             }
         }
     }
@@ -2598,6 +1737,867 @@ namespace Common.Sabre.Hotels.RateDetails {
             }
             set {
                 this.idField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public partial class ProblemBase {
+        
+        private ErrorType typeField;
+        
+        private CompletionCodes statusField;
+        
+        private System.DateTime timeStampField;
+        
+        private bool timeStampFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ErrorType type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public CompletionCodes status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public System.DateTime timeStamp {
+            get {
+                return this.timeStampField;
+            }
+            set {
+                this.timeStampField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool timeStampSpecified {
+            get {
+                return this.timeStampFieldSpecified;
+            }
+            set {
+                this.timeStampFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public enum ErrorType {
+        
+        /// <remarks/>
+        Transport,
+        
+        /// <remarks/>
+        Validation,
+        
+        /// <remarks/>
+        Application,
+        
+        /// <remarks/>
+        BusinessLogic,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public enum CompletionCodes {
+        
+        /// <remarks/>
+        Complete,
+        
+        /// <remarks/>
+        Incomplete,
+        
+        /// <remarks/>
+        NotProcessed,
+        
+        /// <remarks/>
+        Unknown,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public partial class Diagnostics {
+        
+        private DiagnosticLevels levelField;
+        
+        private bool levelFieldSpecified;
+        
+        private string dataField;
+        
+        private System.Xml.XmlElement diagnosticField;
+        
+        /// <remarks/>
+        public DiagnosticLevels Level {
+            get {
+                return this.levelField;
+            }
+            set {
+                this.levelField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool LevelSpecified {
+            get {
+                return this.levelFieldSpecified;
+            }
+            set {
+                this.levelFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Data {
+            get {
+                return this.dataField;
+            }
+            set {
+                this.dataField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.Xml.XmlElement Diagnostic {
+            get {
+                return this.diagnosticField;
+            }
+            set {
+                this.diagnosticField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public enum DiagnosticLevels {
+        
+        /// <remarks/>
+        Mock,
+        
+        /// <remarks/>
+        Simulate,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public partial class TraceRecord {
+        
+        private string keyField;
+        
+        private System.DateTime startField;
+        
+        private System.DateTime endField;
+        
+        private bool endFieldSpecified;
+        
+        private string appInstanceField;
+        
+        private string clusterField;
+        
+        private string hostField;
+        
+        private string targetURIField;
+        
+        private TraceRole roleField;
+        
+        private bool roleFieldSpecified;
+        
+        private string valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string key {
+            get {
+                return this.keyField;
+            }
+            set {
+                this.keyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public System.DateTime start {
+            get {
+                return this.startField;
+            }
+            set {
+                this.startField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public System.DateTime end {
+            get {
+                return this.endField;
+            }
+            set {
+                this.endField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool endSpecified {
+            get {
+                return this.endFieldSpecified;
+            }
+            set {
+                this.endFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string appInstance {
+            get {
+                return this.appInstanceField;
+            }
+            set {
+                this.appInstanceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string cluster {
+            get {
+                return this.clusterField;
+            }
+            set {
+                this.clusterField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string host {
+            get {
+                return this.hostField;
+            }
+            set {
+                this.hostField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+        public string targetURI {
+            get {
+                return this.targetURIField;
+            }
+            set {
+                this.targetURIField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public TraceRole role {
+            get {
+                return this.roleField;
+            }
+            set {
+                this.roleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool roleSpecified {
+            get {
+                return this.roleFieldSpecified;
+            }
+            set {
+                this.roleFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public enum TraceRole {
+        
+        /// <remarks/>
+        consumer,
+        
+        /// <remarks/>
+        provider,
+        
+        /// <remarks/>
+        gateway,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public partial class Security {
+        
+        private string itemField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("SecurityToken")]
+        public string Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="Identifier.System", Namespace="http://services.sabre.com/STL_Header/v120")]
+    public partial class IdentifierSystem {
+        
+        private string instanceField;
+        
+        private string clusterField;
+        
+        private string hostField;
+        
+        private string uriField;
+        
+        private string valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string instance {
+            get {
+                return this.instanceField;
+            }
+            set {
+                this.instanceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string cluster {
+            get {
+                return this.clusterField;
+            }
+            set {
+                this.clusterField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string host {
+            get {
+                return this.hostField;
+            }
+            set {
+                this.hostField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string uri {
+            get {
+                return this.uriField;
+            }
+            set {
+                this.uriField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public partial class ProblemSummary {
+        
+        private IdentifierSystem sourceField;
+        
+        private IdentifierSystem reportingSystemField;
+        
+        private MessageCondition messageField;
+        
+        private string shortTextField;
+        
+        private ErrorType typeField;
+        
+        private CompletionCodes statusField;
+        
+        private System.DateTime timeStampField;
+        
+        private bool timeStampFieldSpecified;
+        
+        /// <remarks/>
+        public IdentifierSystem Source {
+            get {
+                return this.sourceField;
+            }
+            set {
+                this.sourceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public IdentifierSystem ReportingSystem {
+            get {
+                return this.reportingSystemField;
+            }
+            set {
+                this.reportingSystemField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public MessageCondition Message {
+            get {
+                return this.messageField;
+            }
+            set {
+                this.messageField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string ShortText {
+            get {
+                return this.shortTextField;
+            }
+            set {
+                this.shortTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ErrorType type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public CompletionCodes status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public System.DateTime timeStamp {
+            get {
+                return this.timeStampField;
+            }
+            set {
+                this.timeStampField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool timeStampSpecified {
+            get {
+                return this.timeStampFieldSpecified;
+            }
+            set {
+                this.timeStampFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="Message.Condition", Namespace="http://services.sabre.com/STL_Header/v120")]
+    public partial class MessageCondition {
+        
+        private string codeField;
+        
+        private string valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string code {
+            get {
+                return this.codeField;
+            }
+            set {
+                this.codeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public partial class ResultSummary {
+        
+        private object itemField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("Error", typeof(ProblemSummary))]
+        [System.Xml.Serialization.XmlElementAttribute("Success", typeof(string))]
+        public object Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public partial class TrackingID {
+        
+        private string seqField;
+        
+        private string valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+        public string seq {
+            get {
+                return this.seqField;
+            }
+            set {
+                this.seqField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public partial class Identification {
+        
+        private string customerIDField;
+        
+        private string customerAppIDField;
+        
+        private TrackingID conversationIDField;
+        
+        private string messageIDField;
+        
+        private System.DateTime timeStampField;
+        
+        private bool timeStampFieldSpecified;
+        
+        /// <remarks/>
+        public string CustomerID {
+            get {
+                return this.customerIDField;
+            }
+            set {
+                this.customerIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CustomerAppID {
+            get {
+                return this.customerAppIDField;
+            }
+            set {
+                this.customerAppIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public TrackingID ConversationID {
+            get {
+                return this.conversationIDField;
+            }
+            set {
+                this.conversationIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string MessageID {
+            get {
+                return this.messageIDField;
+            }
+            set {
+                this.messageIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime TimeStamp {
+            get {
+                return this.timeStampField;
+            }
+            set {
+                this.timeStampField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool TimeStampSpecified {
+            get {
+                return this.timeStampFieldSpecified;
+            }
+            set {
+                this.timeStampFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName="Service", Namespace="http://services.sabre.com/STL_Header/v120")]
+    public partial class Service1 {
+        
+        private string operationField;
+        
+        private string versionField;
+        
+        private string ttlField;
+        
+        private string valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string operation {
+            get {
+                return this.operationField;
+            }
+            set {
+                this.operationField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string version {
+            get {
+                return this.versionField;
+            }
+            set {
+                this.versionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="nonNegativeInteger")]
+        public string ttl {
+            get {
+                return this.ttlField;
+            }
+            set {
+                this.ttlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://services.sabre.com/STL_Header/v120")]
+    public partial class SabreHeader {
+        
+        private Service1 serviceField;
+        
+        private Identification identificationField;
+        
+        private ResultSummary resultSummaryField;
+        
+        private Security securityField;
+        
+        private TraceRecord[] tracesField;
+        
+        private Diagnostics diagnosticsField;
+        
+        /// <remarks/>
+        public Service1 Service {
+            get {
+                return this.serviceField;
+            }
+            set {
+                this.serviceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Identification Identification {
+            get {
+                return this.identificationField;
+            }
+            set {
+                this.identificationField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public ResultSummary ResultSummary {
+            get {
+                return this.resultSummaryField;
+            }
+            set {
+                this.resultSummaryField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Security Security {
+            get {
+                return this.securityField;
+            }
+            set {
+                this.securityField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("Trace", IsNullable=false)]
+        public TraceRecord[] Traces {
+            get {
+                return this.tracesField;
+            }
+            set {
+                this.tracesField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Diagnostics Diagnostics {
+            get {
+                return this.diagnosticsField;
+            }
+            set {
+                this.diagnosticsField = value;
             }
         }
     }

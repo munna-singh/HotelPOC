@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="HotelRateDescriptionRS" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>Common.Sabre.Hotels.RateDetails.HotelRateDescriptionRS, Web References.Sabre.Hotels.RateDetails.Reference.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>Common.Sabre.Hotels.RateDetails.HotelRateDescriptionRS, Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

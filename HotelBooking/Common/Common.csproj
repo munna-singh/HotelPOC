@@ -50,6 +50,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="SabreSessionManager.cs" />
+    <Compile Include="Utility.cs" />
     <Compile Include="Web References\Sabre.Hotels.CloseSession\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
