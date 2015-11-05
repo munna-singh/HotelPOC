@@ -1,4 +1,5 @@
 ﻿
+using Common;
 using Manager;
 using Repository;
 using System;
@@ -22,8 +23,10 @@ namespace UI.Controllers
             select.TotalTravellers = collection["totalTravellers"];
             select.HotelCode = collection["hotelCode"];
 
+            var session = SabreSessionManager.Create();
+            select.SessionId = session.SecurityValue.BinarySecurityToken;
             var t = new HotelPropertyDescription()
-               .HotelDescription(select.HotelCode, int.Parse(select.TotalTravellers), select.StartDate, select.EndDate);
+               .HotelDescription(select);
 
             ViewBag.HotelProperty = t;
 
@@ -32,6 +35,9 @@ namespace UI.Controllers
             //Get pricing information
             HotelPricing pricing = new HotelPricing();
             var result = pricing.GetPricing(select);
+
+            SessionClose close = new SessionClose();
+            close.Close(select.SessionId);
             return View(t);
         }
 

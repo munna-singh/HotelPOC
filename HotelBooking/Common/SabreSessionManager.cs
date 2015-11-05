@@ -49,9 +49,7 @@ namespace Common
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception Message : " + e.Message);
-                Console.WriteLine("Exception Stack Trace : " + e.StackTrace);
-                Console.Read();
+                throw new Exception(e.InnerException.ToString());
             }
 
             return serviceObj;

@@ -4,54 +4,87 @@
 }
 
 <h2>Hotel Property Details</h2>
-
-<table>
-    <tr>
-        <td>
-            <b>Address</b>
-        </td>
-        <td>
-            @for (var i = 0; i < Model.RoomStay.BasicPropertyInfo.Address.AddressLine.Length; i++)
+<div style="background-color:white; padding:10px; margin:10px; font-size:12px;">
+    @if (@Model.RoomStay != null)
+    {
+        <table>
+            <tr>
+                <td>
+                    <h1>@Model.RoomStay.BasicPropertyInfo.HotelName</h1>
+                </td>
+                <td>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @{
+        var hotelAddress = string.Empty;
+        foreach (var address in Model.RoomStay.BasicPropertyInfo.Address.AddressLine)
+        {
+            hotelAddress += address + ", ";
+        }
+        hotelAddress += Model.RoomStay.BasicPropertyInfo.Address.CountryCode;
+                    }
+                    @hotelAddress
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div>
+                        <span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="font-size:20px;"></span>
+                        @Model.RoomStay.BasicPropertyInfo.ContactNumbers.ContactNumber.Phone  , @Model.RoomStay.BasicPropertyInfo.ContactNumbers.ContactNumber.Fax
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @{
+        var awards = string.Empty;
+        if (@Model.RoomStay.BasicPropertyInfo.Awards != null && @Model.RoomStay.BasicPropertyInfo.Awards.Count() > 0)
+        {
+            foreach (var award in @Model.RoomStay.BasicPropertyInfo.Awards)
             {
-                <div>
-                    @Model.RoomStay.BasicPropertyInfo.Address.AddressLine[i]
-                </div>
+                awards += award + ", ";
             }
+        }
+        <b>Awarded By: </b> @awards
+                    }
 
-        </td>
-        <td>
-            <b>Awards</b>
-        </td>
-        <td>
-            @for (var i = 0; i < Model.RoomStay.BasicPropertyInfo.Awards.Length; i++)
-            {
-                <div>
-                    @Model.RoomStay.BasicPropertyInfo.Awards[i]
-                </div>
-            }
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <img src="~/Images/1.jpg" />
+                </td>
+                <td>
+                    <div style="overflow:auto; max-height:300px; max-width:300px;">
+                        @{
+                            foreach (var t in Model.RoomStay.BasicPropertyInfo.PropertyOptionInfo.GetType().GetProperties())
+                            {
+                                var value = t.GetValue(Model.RoomStay.BasicPropertyInfo.PropertyOptionInfo, null);
+                                <b>@t.Name: </b><span>True/False</span><br />
+                            }
+                        }
+                    </div>
+                </td>
+                <td>
+                    <div style="overflow:auto; max-height:300px">
 
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Property Option Info</b>
-        </td>
-        <td>
-            @{
-                Common.Sabre.Hotels.PropertyDetails.HotelPropertyDescriptionRSRoomStayBasicPropertyInfoPropertyOptionInfoADA_Accessible r;
-            }
-            @foreach (var t in Model.RoomStay.BasicPropertyInfo.PropertyOptionInfo.GetType().GetProperties())
-            {
-                {
-                    //var r1 = ;
-                    //as Common.Sabre.Hotels.PropertyDetails.HotelPropertyDescriptionRSRoomStayBasicPropertyInfoPropertyOptionInfoADA_Accessible;
+                    </div>
+                </td>
+            </tr>           
+        </table>
+    }
+    else
+    {
+        <h1>No result found</h1>
+    }
 
-                }
-                <div>
-                    @t.Name - @t.GetValue(Model.RoomStay.BasicPropertyInfo.PropertyOptionInfo, null)
-                </div>
 
-            }
-        </td>
-    </tr>
-</table>
+
+</div>

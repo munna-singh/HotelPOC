@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.Sabre.Hotels.PropertyDetails;
 using Common;
+using Repository;
 
 namespace Manager
 {
     public class HotelPropertyDescription
     {
-        public HotelPropertyDescriptionRS HotelDescription(string hotelCode, int noOfTravelers, string startDate, string endDate)
+        public HotelPropertyDescriptionRS HotelDescription(HotelSelectDto search)
         {
 
 
@@ -21,7 +22,7 @@ namespace Manager
 
             hpdrq.AvailRequestSegment.GuestCounts
                 = new HotelPropertyDescriptionRQAvailRequestSegmentGuestCounts();
-            hpdrq.AvailRequestSegment.GuestCounts.Count = noOfTravelers.ToString();
+            hpdrq.AvailRequestSegment.GuestCounts.Count = search.TotalTravellers;
 
             hpdrq.AvailRequestSegment.HotelSearchCriteria =
                 new HotelPropertyDescriptionRQAvailRequestSegmentHotelSearchCriteria();
@@ -29,17 +30,20 @@ namespace Manager
                 = new HotelPropertyDescriptionRQAvailRequestSegmentHotelSearchCriteriaCriterion();
             hpdrq.AvailRequestSegment.HotelSearchCriteria.Criterion.HotelRef
                 = new HotelPropertyDescriptionRQAvailRequestSegmentHotelSearchCriteriaCriterionHotelRef();
-            hpdrq.AvailRequestSegment.HotelSearchCriteria.Criterion.HotelRef.HotelCode = hotelCode;
+            hpdrq.AvailRequestSegment.HotelSearchCriteria.Criterion.HotelRef.HotelCode = search.HotelCode;
 
             hpdrq.AvailRequestSegment.TimeSpan
                 = new HotelPropertyDescriptionRQAvailRequestSegmentTimeSpan();
-            hpdrq.AvailRequestSegment.TimeSpan.Start = startDate;
-            hpdrq.AvailRequestSegment.TimeSpan.End = endDate;
+            hpdrq.AvailRequestSegment.TimeSpan.Start = search.StartDate;
+            hpdrq.AvailRequestSegment.TimeSpan.End = search.EndDate;
+
+            Security1 security = new Security1();
+            security.BinarySecurityToken = search.SessionId;
 
             HotelPropertyDescriptionService hpds = new HotelPropertyDescriptionService();
 
             hpds.MessageHeaderValue = this.CreateMessageHeader();
-            hpds.Security = this.CreateSecurityDto();
+            hpds.Security = security;
 
             return hpds.HotelPropertyDescriptionRQ(hpdrq);
         }

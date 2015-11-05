@@ -53,6 +53,8 @@ namespace Manager
             ss.Security = sec;
             ss.MessageHeaderValue = Get("OTA_HotelAvailLLSRQ", "");
             var result = ss.OTA_HotelAvailRQ(availability);
+            SessionClose close = new SessionClose();
+            close.Close(session.SecurityValue.BinarySecurityToken);
             return result;
         }
 
