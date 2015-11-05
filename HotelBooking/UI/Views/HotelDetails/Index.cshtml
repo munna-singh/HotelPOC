@@ -56,13 +56,18 @@
                 </td>
             </tr>
         </table>
-        <table>
+        <table width="100%">
+            <tr>
+                <td></td>
+                <td><b><u>Options Info:</u></b></td>
+                <td><b><u>Prperty Type:</u></b></td>
+            </tr>
             <tr>
                 <td>
                     <img src="~/Images/1.jpg" />
                 </td>
                 <td>
-                    <div style="overflow:auto; max-height:300px; max-width:300px;">
+                    <div style="overflow:auto; max-height:250px; max-width:300px;">
                         @{
                             foreach (var t in Model.RoomStay.BasicPropertyInfo.PropertyOptionInfo.GetType().GetProperties())
                             {
@@ -73,11 +78,407 @@
                     </div>
                 </td>
                 <td>
-                    <div style="overflow:auto; max-height:300px">
-
+                    <div style="overflow:auto; max-height:250px; max-width:300px;">
+                        @{
+                            foreach (var t in Model.RoomStay.BasicPropertyInfo.PropertyTypeInfo.GetType().GetProperties())
+                            {
+                                var value = t.GetValue(Model.RoomStay.BasicPropertyInfo.PropertyTypeInfo, null);
+                                <b>@t.Name: </b><span>True/False</span><br />
+                            }
+                        }
                     </div>
                 </td>
-            </tr>           
+            </tr> 
+            <tr>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>   
+            <tr>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Attractions:</u></b></td>
+                            <td width="50%"><b><u>Additional Attractions:</u></b></td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <div style="overflow:auto; max-height:250px; max-width:400px;">
+                                    <ul>
+                                        @{
+                                            foreach (var attractions in Model.RoomStay.BasicPropertyInfo.VendorMessages.Attractions)
+                                            {
+                                                string attr = string.Empty;
+                                                foreach (var txt in attractions.Text)
+                                                {
+                                                    <li> @txt</li>
+                                                }                                                                                                                
+                                            }
+                                        }
+                                    </ul>
+
+                                </div>
+
+                            </td>
+                            <td valign="top">
+                                <div style="overflow:auto; max-height:250px; max-width:400px;">
+                                    <ul>
+                                        @{
+                                                foreach (var attractions in Model.RoomStay.BasicPropertyInfo.VendorMessages.AdditionalAttractions)
+                                                {
+                                                    <li> @attractions.Text[0]</li>
+                                                }
+                                        }
+                                    </ul>
+
+                                </div>
+                            </td>                           
+                        </tr>
+                    </table>
+                </td>
+            </tr>  
+             <tr>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>   
+            <tr>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Avaiable Service in Hotel:</u></b></td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <div style="overflow:auto; max-height:250px;">
+                                    <ul>
+                                        @{
+                                            foreach (var svc in Model.RoomStay.BasicPropertyInfo.VendorMessages.Services)
+                                            {
+                                                string message = string.Empty;
+                                                foreach (var txt in svc.Text)
+                                                {
+                                                    <li> @txt</li>
+                                                }
+                                                                                                                  
+                                            }
+                                        }
+                                    </ul>
+
+                                </div>
+
+                            </td>                                                       
+                        </tr>
+                    </table>
+                </td>
+            </tr>  
+            <tr>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <b><u>Available Rooms</u></b>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    @if (Model.RoomStay.RoomRates != null)
+                    { 
+                        <table width="100%">
+                       <tr>
+                           <th width="40%">Room Types</th>
+                           <th>Room Code</th>
+                           <th>Price</th>
+                           <th></th>
+                       </tr>
+                       <tr>
+                           <td colspan="4"><hr /></td>
+                       </tr>
+                       @{
+                           foreach(var rate in Model.RoomStay.RoomRates.RoomRate)
+                           {
+                               <tr>                                   
+                                   <td>   
+                                       @{ var name = string.Empty; int counter = 0; }                                 
+                                        @foreach(var desc in rate.AdditionalInfo.Text){
+                                            if (counter == 0)
+                                            { 
+                                                <p><b>@desc</b></p>
+                                                counter += 1;
+                                            }  
+                                            else
+                                            {
+                                                <span style="font-size:10px;">@desc</span>
+                                            }        
+                                        }
+                                       @name                                               
+                                   </td>
+                                   <td>
+                                       @rate.IATA_CharacteristicIdentification
+                                   </td>
+                                   <td>
+                                       @{ 
+                                           var totalAmount = string.Empty;
+                                           foreach(var rte in rate.Rates)
+                                           {
+                                               totalAmount = rte.CurrencyCode + " " + rte.Amount;
+                                           }
+                                        }
+                                       @totalAmount
+                                   </td>
+                                   <td>
+                                       @rate.IATA_ProductIdentification
+                                   </td>
+                                   <td>
+                                       @using (Html.BeginForm("Index", "HotelBook"))
+                                       {
+                                        <input type="hidden" name="startDate" value="@Model.RoomStay.TimeSpan.Start" />
+                                        <input type="hidden" name="endDate" value="@Model.RoomStay.TimeSpan.End" />
+                                        <input type="hidden" name="totalTravellers" value="@ViewBag.TotalTravellers" />
+                                        <input type="hidden" name="hotelCode" value="@Model.RoomStay.BasicPropertyInfo.HotelCode"/>
+                                        <input type="hidden" name="propertyRphNumber" value="@rate.RPH" />
+                                           <button type="submit" class="btn btn-success">Book</button>
+                                       }
+                                   </td>
+                               </tr>
+                                <tr><td>&nbsp;</td></tr>
+                                <tr>
+                                    <td colspan="4" valign="baseline">
+                                        <b>CancelPolicy:</b> Cancellation should be made  @rate.AdditionalInfo.CancelPolicy.Numeric @rate.AdditionalInfo.CancelPolicy.Option before check-In date.
+                                    </td>
+                                </tr>
+                               <tr>
+                                 <td colspan="4"><hr /></td>
+                               </tr>
+                           }                           
+                       }
+                    
+                   </table>
+                    }
+                    else
+                    {
+                        <p style="color:red; font-size:15px;">No rooms available</p>
+                    }
+                </td>
+            </tr>  
+            <tr>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Deposite Policy:</u></b></td>
+                            <td width="50%"><b><u>Cancellation Policy:</u></b></td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <div style="overflow:auto; max-height:250px;">
+                                    <ul>
+                                        @{
+                                            foreach (var deposite in Model.RoomStay.BasicPropertyInfo.VendorMessages.Deposit)
+                                            {
+                                                var message = string.Empty;
+                                                foreach (var txt in deposite.Text)
+                                                {
+                                                    <li> @txt</li>
+                                                }                 
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </td>
+                            <td valign="top">
+                                <div style="overflow:auto; max-height:250px;">
+                                    <ul>
+                                    @{
+                                        foreach (var cancel in Model.RoomStay.BasicPropertyInfo.VendorMessages.Cancellation)
+                                        {
+                                            var message = string.Empty;
+                                            foreach (var txt in cancel.Text)
+                                            {
+                                                <li> @txt</li>
+                                            }
+                                        }
+                                    }
+                                 </ul>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </table>                    
+                </td>
+            </tr> 
+            <tr>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr> 
+            <tr>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Description:</u></b></td>
+                            <td width="50%"><b><u>Dining:</u></b></td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <div style="overflow:auto; max-height:250px;">
+                                    <ul>
+                                    @{
+                                        foreach (var desc in Model.RoomStay.BasicPropertyInfo.VendorMessages.Description)
+                                        {
+                                            var message = string.Empty;
+                                            foreach (var txt in desc.Text)
+                                            {                                               
+                                                <li>@txt</li>
+                                            }
+                                        }
+                                    }
+                                  </ul>
+                                </div>
+                            </td>
+                            <td valign="top">
+                                <div style="overflow:auto; max-height:250px;">
+                                    <ul>
+                                    @{
+                                        foreach (var dinn in Model.RoomStay.BasicPropertyInfo.VendorMessages.Dining)
+                                        {
+                                            var message = string.Empty;
+                                            foreach (var txt in dinn.Text)
+                                            {
+                                                <li>@txt</li>
+                                            }
+                                        }
+                                      }
+                                </ul>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Directions:</u></b></td>
+                            <td width="50%"><b><u>Facilities:</u></b></td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <div style="overflow:auto; max-height:250px;">
+                                    <ul>
+                                    @{
+                                        foreach (var dir in Model.RoomStay.BasicPropertyInfo.VendorMessages.Directions)
+                                        {
+                                            var message = string.Empty;
+                                            foreach (var txt in dir.Text)
+                                            {
+                                                <li>@txt</li>
+                                            }
+                                        }
+                                    }
+                                        </ul>
+                                </div>
+                            </td>
+                            <td valign="top">
+                                <div style="overflow:auto; max-height:250px;">
+                                    <ul>
+                                    @{
+                                        foreach (var fac in Model.RoomStay.BasicPropertyInfo.VendorMessages.Facilities)
+                                        {
+                                            var message = string.Empty;
+                                            foreach (var txt in fac.Text)
+                                            {
+                                                <li>@txt</li>
+                                            }
+                                        }
+                                    }
+                                        </ul>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+             <tr>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Hotel Policies:</u></b></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="overflow:auto; max-height:250px;">
+                                    <ul>
+                                    @{
+                                        foreach (var pol in Model.RoomStay.BasicPropertyInfo.VendorMessages.Policies)
+                                        {
+                                            var message = string.Empty;
+                                            foreach (var txt in pol.Text)
+                                            {
+                                                <li>@txt</li>
+                                            }
+                                           
+                                        }
+                                    }
+                                        </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                </tr>
+            <tr>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Rooms Descriptions:</u></b></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="overflow:auto; max-height:250px;">
+                                    <ul>
+                                    @{
+                                        foreach (var room in Model.RoomStay.BasicPropertyInfo.VendorMessages.Rooms)
+                                        {
+                                            var message = string.Empty;
+                                            foreach (var txt in room.Text)
+                                            {
+                                               <li>@txt</li>
+                                            }
+                                        }
+                                    }
+                                        </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                </tr>
         </table>
     }
     else

@@ -20,17 +20,11 @@ namespace UI.Controllers
             select.EndDate = collection["endDate"];
             select.TotalTravellers = collection["totalTravellers"];
             select.HotelCode = collection["hotelCode"];
+            select.propertyRphNumber = collection["propertyRphNumber"];  
 
+            var pnrDetails = new HotelBookingManager().Book(select);
 
-            select.StartDate = "11-22";
-            select.EndDate = "11-24";
-            select.HotelCode = "0008100";
-            select.TotalTravellers = "2";
-            select.propertyRphNumber = "1";
-
-            new HotelBookingManager().Book(select);
-
-            return View();
+            return View(pnrDetails);
         }
 
     }

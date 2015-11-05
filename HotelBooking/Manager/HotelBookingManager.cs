@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Sabre.Hotels.TravelItineraryReadInfo;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Manager
 {
     public class HotelBookingManager
     {
-        public void Book(HotelSelectDto hotelSelectDto)
+        public TravelItineraryReadRS Book(HotelSelectDto hotelSelectDto)
         {
             var session = SabreSessionManager.Create();
             hotelSelectDto.SessionId = session.SecurityValue.BinarySecurityToken;
@@ -32,7 +33,7 @@ namespace Manager
                 var endTransaction = new EndTransaction().End(session.SecurityValue.BinarySecurityToken);
 
                 var pnrDetails = new ReadTravelerInfo().ReadInfo(session.SecurityValue.BinarySecurityToken, endTransaction.ItineraryRef.ID);
-                
+                return pnrDetails;
             }
             catch
             {

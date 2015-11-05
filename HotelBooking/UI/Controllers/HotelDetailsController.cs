@@ -30,7 +30,7 @@ namespace UI.Controllers
 
             ViewBag.HotelProperty = t;
 
-            //return View(t);
+            ViewBag.TotalTravellers = select.TotalTravellers;
 
             //Get pricing information
             HotelPricing pricing = new HotelPricing();
