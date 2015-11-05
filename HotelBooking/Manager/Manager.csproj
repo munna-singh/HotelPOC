@@ -40,9 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddTravelerInfo.cs" />
+    <Compile Include="BookHotel.cs" />
+    <Compile Include="EndTransaction.cs" />
     <Compile Include="HotelPricing.cs" />
     <Compile Include="HotelPropertyDescription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadTravelerInfo.cs" />
     <Compile Include="SearchHotel.cs" />
   </ItemGroup>
   <ItemGroup>

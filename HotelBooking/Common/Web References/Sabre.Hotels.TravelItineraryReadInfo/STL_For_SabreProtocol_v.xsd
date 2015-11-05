@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:STL="http://services.sabre.com/STL/v01" xmlns:stlh="http://services.sabre.com/STL_Header/v120" xmlns="http://services.sabre.com/STL/v01" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://services.sabre.com/STL/v01" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="STL_Header_v.1.2.0.xsd" namespace="http://services.sabre.com/STL_Header/v120" />
+  <xsd:annotation>
+    <xsd:documentation>
+			October 11, 2011 - added ShortText to SystemSpecificResults.
+
+			May 25, 2011 - version 1.1.1 - dmh -
+			moved ApplicationResults and Results to STL namespace
+
+			Created: April 21, 2011
+			Description: This schema is the minimal
+			Sabre Type Library (STL) schema needed for the Sabre SOAP Envelope schema to
+			identify the STL_Payload substitution
+			group head element and type to be extended by message schemas..
+
+			Copyright Sabre 2011
+			The copyright to the computer
+			program(s) hereinis the property of Sabre. The program(s) may be used and/or copied only
+			with the written permission
+			of Sabre or in accordance with the terms and conditions stipulated in
+			theagreement/contract under which the program(s)
+			have been supplied.
+		</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element abstract="true" name="STL_Payload" type="STL:STL_Payload">
+    <xsd:annotation>
+      <xsd:documentation>Create all message root elements as member of the substitution group with the element as the head.
+				Global message types must be defined as an extension of the STL_Payload type.
+			</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="STL_Payload">
+    <xsd:annotation>
+      <xsd:documentation>All message roots should be created as an extension of this base type. Global message elements
+				must declare they are a member of the STL_Payload substitution group. This type may be used when an empty payload is
+				needed for error handling.
+			</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" ref="STL:ApplicationResults" />
+    </xsd:sequence>
+    <xsd:attribute name="version">
+      <xsd:annotation>
+        <xsd:documentation>Version of the payload message.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1" />
+          <xsd:maxLength value="255" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:element abstract="true" name="Results" type="STL:Results">
+    <xsd:annotation>
+      <xsd:documentation>Results is an abstract type to be used as a substitution group head.
+				ApplicationResults is an
+				example of its intended usage.
+			</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="Results" />
+  <xsd:element name="ApplicationResults" substitutionGroup="STL:Results" type="STL:ApplicationResults">
+    <xsd:annotation>
+      <xsd:documentation>ApplicationResults can be used anywhere where Results is referenced, specifically as
+				the contents
+				of a Sabre SOAP Fault/detail element.
+			</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="ApplicationResults">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="STL:Results">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="99" name="Success" type="STL:ProblemInformation" />
+          <xsd:element minOccurs="0" maxOccurs="99" name="Error" type="STL:ProblemInformation" />
+          <xsd:element minOccurs="0" maxOccurs="99" name="Warning" type="STL:ProblemInformation" />
+        </xsd:sequence>
+        <xsd:attribute name="status" type="stlh:CompletionCodes" use="required" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="ProblemInformation" type="STL:ProblemInformation" />
+  <xsd:complexType name="ProblemInformation">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="99" name="SystemSpecificResults" type="STL:SystemSpecificResults" />
+    </xsd:sequence>
+    <xsd:attribute name="type" type="stlh:ErrorType">
+      <xsd:annotation>
+        <xsd:documentation>An indication of the source of error when processing the request.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="timeStamp" type="xsd:dateTime" />
+  </xsd:complexType>
+  <xsd:complexType name="SystemSpecificResults">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="HostCommand" type="STL:HostCommand">
+        <xsd:annotation>
+          <xsd:documentation>Host system command run to create this result.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" maxOccurs="99" name="Message" type="stlh:Message.Condition">
+        <xsd:annotation>
+          <xsd:documentation>Application specific code and Message. A textual description to provide more
+						information about
+						the specific condition, warning or error with code attribute as numeric value.
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ShortText" type="stlh:Text.Short">
+        <xsd:annotation>
+          <xsd:documentation>An abbreviated version of the error in textual format.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Element" type="stlh:Text.Long">
+        <xsd:annotation>
+          <xsd:documentation>If present, this attribute may identify an unknown or misspelled tag that caused
+						an error in
+						processing. It is recommended that the Tag attribute use XPath notation to identify the
+						location of a tag in the
+						event that more than one tag of the same name is present in the document.
+						Alternatively, the tag name alone can be
+						used to identify missing data [Type=ReqFieldMissing].
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="RecordID" type="stlh:Identifier">
+        <xsd:annotation>
+          <xsd:documentation>If present, this attribute allows for batch processing and the identification of the
+						record that
+						failed amongst a group of records. This value may contain a concatenation of a unique failed
+						transaction ID with
+						specific record(s) associated with that transaction.
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="DocURL" type="xsd:anyURI">
+        <xsd:annotation>
+          <xsd:documentation>If present, this attribute refers to an online description of the error that occurred.
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="timeStamp" type="xsd:dateTime" />
+  </xsd:complexType>
+  <xsd:complexType name="HostCommand">
+    <xsd:simpleContent>
+      <xsd:extension base="stlh:Text.Long">
+        <xsd:attribute name="LNIATA" type="xsd:string" use="optional" />
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>
