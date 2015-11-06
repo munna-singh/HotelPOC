@@ -196,7 +196,7 @@
                        <tr>
                            <th width="40%">Room Types</th>
                            <th>Room Code</th>
-                           <th>Price</th>
+                           <th>Base Price</th>
                            <th></th>
                        </tr>
                        <tr>
@@ -232,7 +232,15 @@
                                                totalAmount = rte.CurrencyCode + " " + rte.Amount;
                                            }
                                         }
-                                       @totalAmount
+                                       @using (Html.BeginForm("Index", ""))
+                                       {
+                                        @Html.ActionLink(totalAmount, "Index", "PriceBreakup", new { @startDate = @Model.RoomStay.TimeSpan.Start,
+                                                                                                     @endDate = @Model.RoomStay.TimeSpan.End,
+                                                                                                     @totalTravellers = @ViewBag.TotalTravellers,
+                                                                                                     @hotelCode = @Model.RoomStay.BasicPropertyInfo.HotelCode,
+                                                                                                     @propertyRphNumber = @rate.RPH}, null) 
+                                       }
+                                       
                                    </td>
                                    <td>
                                        @rate.IATA_ProductIdentification
@@ -265,7 +273,7 @@
                     }
                     else
                     {
-                        <p style="color:red; font-size:15px;">No rooms available</p>
+                        <p style="color:red; font-size:15px;">No room available</p>
                     }
                 </td>
             </tr>  
@@ -284,6 +292,8 @@
                         <tr>
                             <td valign="top">
                                 <div style="overflow:auto; max-height:250px;">
+                                    @if (Model.RoomStay.BasicPropertyInfo.VendorMessages.Deposit != null)
+                                    { 
                                     <ul>
                                         @{
                                             foreach (var deposite in Model.RoomStay.BasicPropertyInfo.VendorMessages.Deposit)
@@ -296,6 +306,7 @@
                                             }
                                         }
                                     </ul>
+                                    }
                                 </div>
                             </td>
                             <td valign="top">
@@ -489,7 +500,7 @@
     }
     else
     {
-        <h1>No result found</h1>
+        <h1><p style="color:red;">No record found.</p></h1>
     }
 
 

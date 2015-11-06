@@ -184,6 +184,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelBookController.cs" />
     <Compile Include="Controllers\HotelDetailsController.cs" />
+    <Compile Include="Controllers\PriceBreakupController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -301,6 +302,7 @@
     <Content Include="Views\Home\SearchHotel.cshtml" />
     <Content Include="Views\HotelDetails\Index.cshtml" />
     <Content Include="Views\HotelBook\Index.cshtml" />
+    <Content Include="Views\PriceBreakup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
