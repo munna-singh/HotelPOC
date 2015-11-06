@@ -25,20 +25,26 @@ namespace UI.Controllers
 
             var session = SabreSessionManager.Create();
             select.SessionId = session.SecurityValue.BinarySecurityToken;
-            var t = new HotelPropertyDescription()
+            var hotelDesc = new HotelPropertyDescription()
                .HotelDescription(select);
-
-            ViewBag.HotelProperty = t;
 
             ViewBag.TotalTravellers = select.TotalTravellers;
 
             //Get pricing information
-            HotelPricing pricing = new HotelPricing();
-            var result = pricing.GetPricing(select);
+            if (hotelDesc.RoomStay != null && hotelDesc.RoomStay.RoomRates != null)
+            {
+                List<object> priceDetails = new List<object>();
+                HotelPricing pricing = new HotelPricing();
+                foreach (var room in hotelDesc.RoomStay.RoomRates.RoomRate)
+                {
+                    select.RPHNumber = room.RPH;
+                    priceDetails.Add(pricing.GetPricing(select));
+                }
 
-            SessionClose close = new SessionClose();
-            close.Close(select.SessionId);
-            return View(t);
+            }
+            SessionClose closeSession = new SessionClose();
+            closeSession.Close(select.SessionId);
+            return View(hotelDesc);
         }
 
     }

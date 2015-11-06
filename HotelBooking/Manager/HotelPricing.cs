@@ -13,8 +13,8 @@ namespace Manager
     public class HotelPricing
     {
         public HotelRateDescriptionRS GetPricing(HotelSelectDto searchCriteria)
-        {
-            var session = SabreSessionManager.Create();
+        {    
+         
             Security1 sec = new Security1();
             HotelRateDescriptionRQ req = new HotelRateDescriptionRQ();
             HotelRateDescriptionRQAvailRequestSegment availSeg =
@@ -46,22 +46,22 @@ namespace Manager
 
             guests.Count = searchCriteria.TotalTravellers;
 
-            ratePlan.CurrencyCode = "USD";
-            ratePlan.RPH = "1";
+            ratePlan.RateCode = "USD";
+            ratePlan.RPH = searchCriteria.RPHNumber.TrimStart('0');
             ratePlans.RatePlanCandidate = ratePlan;
 
-            //availSeg.HotelSearchCriteria = searchCrit;
-            //availSeg.GuestCounts = guests;
-            //availSeg.TimeSpan = journeyDate;
-            //availSeg.RatePlanCandidates = ratePlans;
+            /*availSeg.HotelSearchCriteria = searchCrit;
+            availSeg.GuestCounts = guests;
+            availSeg.TimeSpan = journeyDate;              */
+            availSeg.RatePlanCandidates = ratePlans;      
 
             req.AvailRequestSegment = availSeg;
 
             HotelRateDescriptionService client = new HotelRateDescriptionService();
             client.MessageHeaderValue = Get("HotelRateDescriptionLLSRQ", "HotelRateDescriptionRQ");
-            sec.BinarySecurityToken = session.SecurityValue.BinarySecurityToken;
+            sec.BinarySecurityToken = searchCriteria.SessionId;
             client.Security = sec;
-            var XML = Common.Utility.Serialize(req);
+            //var XML = Common.Utility.Serialize(req);
             var result = client.HotelRateDescriptionRQ(req);
             return result;
         }

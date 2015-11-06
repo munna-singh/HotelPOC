@@ -17,6 +17,7 @@
                     <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
                     <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
                 </td>
+                <td align="right"><b>Check-In Time: </b>@Model.RoomStay.BasicPropertyInfo.CheckInTime</td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -30,6 +31,7 @@
                     }
                     @hotelAddress
                 </td>
+                <td align="right"><b>Check-Out Time: </b>@Model.RoomStay.BasicPropertyInfo.CheckOutTime</td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -122,6 +124,8 @@
                             </td>
                             <td valign="top">
                                 <div style="overflow:auto; max-height:250px; max-width:400px;">
+                                    @if (Model.RoomStay.BasicPropertyInfo.VendorMessages.AdditionalAttractions != null)
+                                    { 
                                     <ul>
                                         @{
                                                 foreach (var attractions in Model.RoomStay.BasicPropertyInfo.VendorMessages.AdditionalAttractions)
@@ -130,7 +134,7 @@
                                                 }
                                         }
                                     </ul>
-
+                                    }
                                 </div>
                             </td>                           
                         </tr>
