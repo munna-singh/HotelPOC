@@ -1,0 +1,33 @@
+﻿@model Common.Sabre.Hotels.RateDetails.HotelRateDescriptionRS
+@{
+    ViewBag.Title = "Price breakup";
+}
+
+<div style="font-size:14px;">
+
+    @if (Model != null)
+    {
+        <table width="50%" border="1" align="center" style="border-style:solid; border-width:1px;">
+            <tr>
+                <td colspan="2" align="center" style="font-size:20px; font-weight:bold;">@Model.RoomStay.BasicPropertyInfo.HotelName</td>
+            </tr>
+            <tr>
+                <td><b>Base Price:</b></td>
+                <td>USD @Model.RoomStay.RoomRates.RoomRate[0].Rates[0].Amount</td>
+            </tr>
+            <tr>
+                <td><b>Taxes and Others:</b></td>
+                <td>USD @Model.RoomStay.RoomRates.RoomRate[0].Rates[0].HotelTotalPricing.TotalTaxes.Amount</td>
+            </tr>
+            <tr>
+                <td><b>Total:</b></td>
+                <td><b>USD @Model.RoomStay.RoomRates.RoomRate[0].Rates[0].HotelTotalPricing.Amount</b></td>
+            </tr>
+        </table>      
+    }
+    else
+    {
+        <h1><p style="color:red;">No record found.</p></h1>
+    }
+
+</div>
