@@ -124,9 +124,11 @@
                                 <div style="overflow:auto; max-height:250px; max-width:400px;">
                                     <ul>
                                         @{
+                                                if (Model.RoomStay.BasicPropertyInfo.VendorMessages.AdditionalAttractions != null) { 
                                                 foreach (var attractions in Model.RoomStay.BasicPropertyInfo.VendorMessages.AdditionalAttractions)
                                                 {
                                                     <li> @attractions.Text[0]</li>
+                                                }
                                                 }
                                         }
                                     </ul>
