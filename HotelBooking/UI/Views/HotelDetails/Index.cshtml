@@ -363,6 +363,8 @@
                                 <div style="overflow:auto; max-height:250px;">
                                     <ul>
                                     @{
+                                        if (Model.RoomStay.BasicPropertyInfo.VendorMessages.Dining != null) 
+                                        { 
                                         foreach (var dinn in Model.RoomStay.BasicPropertyInfo.VendorMessages.Dining)
                                         {
                                             var message = string.Empty;
@@ -370,6 +372,7 @@
                                             {
                                                 <li>@txt</li>
                                             }
+                                        }
                                         }
                                       }
                                 </ul>
