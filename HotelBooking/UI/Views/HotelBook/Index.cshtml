@@ -1,9 +1,15 @@
-﻿@model Common.Sabre.Hotels.TravelItineraryReadInfo.TravelItineraryReadRS
+﻿@model Common.Sabre.Hotels.EndTransaction.EndTransactionRS
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Hotel Booking";
 }
+<h1>Your booking was successful</h1>
 
-<h2>Index</h2>
+<br />
 
-<h1>Your ticket has been booked.</h1>
+<h1>Thank you for your booking, you will receive an email confirming your booking.</h1>
+
+<br />
+
+<h1>Your PNR number is @Model.ItineraryRef.ID</h1>
+
