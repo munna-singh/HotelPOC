@@ -14,7 +14,7 @@ namespace UI.Controllers
     {
         //
         // GET: /PriceBreakup/
-
+        [Authorize]
         public ActionResult Index(FormCollection collection)
         {
             HotelRateDescriptionRS priceBreakup = null;

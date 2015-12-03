@@ -45,7 +45,9 @@ namespace Manager
             hpds.MessageHeaderValue = this.CreateMessageHeader();
             hpds.Security = security;
 
-            return hpds.HotelPropertyDescriptionRQ(hpdrq);
+            var result =  hpds.HotelPropertyDescriptionRQ(hpdrq);
+            var XML = Common.Utility.Serialize(result);
+            return result;
         }
 
         private Security1 CreateSecurityDto()

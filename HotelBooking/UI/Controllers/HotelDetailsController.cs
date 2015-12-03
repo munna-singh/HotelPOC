@@ -14,7 +14,7 @@ namespace UI.Controllers
     {
         //
         // GET: /HotelDetails/
-
+        [Authorize]
         public ActionResult Index(FormCollection collection)
         {
             HotelSelectDto select = new HotelSelectDto();

@@ -1,133 +1,218 @@
 ﻿@model Common.Sabre.Hotels.Search.OTA_HotelAvailRS
+@using System.Web.Script.Serialization;
 
 @{
     ViewBag.Title = "Hotel Search Result";
     var counter = 1;
 }
-
+<style type="text/css">
+    .hotel-map-label {
+        color: #29abe2;
+        font-weight: bold;
+        border-style: solid;
+        border-color: #ffffff;
+        background-color: #ffffff;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+</style>
 <h1>Hotel Search Result</h1>
 
-@if (Model.AvailabilityOptions != null) { 
-<div style="font-size:12px; padding-left:50px;">
+@if (Model.AvailabilityOptions != null)
+{
+    JavaScriptSerializer js = new JavaScriptSerializer();
+    string jsonResult = js.Serialize(Model);
+    ;
+    //Include Maps To website
+    <div>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false" type="text/javascript"></script>
+        <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            //console.log(@jsonResult);
+            var output = @Html.Raw(Json.Encode(@Model));
+            console.log(output);
+            // check DOM Ready
+            $(document).ready(function () {
+                // execute
+                (function () {
+                    // map options
+                    var options = {
+                        zoom: 10,
+                        center: new google.maps.LatLng(@ViewBag.Lat, @ViewBag.Lan),
+                        mapTypeId: google.maps.MapTypeId.TERRAIN,
+                        mapTypeControl: false
+                    };
 
-    @foreach (var details in Model.AvailabilityOptions)
-    {
-        using (Html.BeginForm("Index", "HotelDetails"))
-        {
-            <table width="100%" class="rcorners">
-                <tr>
+                    // init map
+                    var map = new google.maps.Map(document.getElementById('map_canvas'), options);
 
-                    <td colspan="4"></td>
-                </tr>
-                <tr>
-                    <td width="5%">&nbsp;</td>
-                    <td style="width:20%">
-                        @{ var imageName = counter + ".jpg";
-                         counter++;
-                         if (counter > 4) { counter = 1; }
+
+                    // set multiple marker
+                    $.each(output.AvailabilityOptions, function(index, details){
+                        var price ="";
+                        if(details.BasicPropertyInfo.RateRange != null && details.BasicPropertyInfo.RateRange.Min != null)
+                        {
+                            price = details.BasicPropertyInfo.RateRange.CurrencyCode + " $" + details.BasicPropertyInfo.RateRange.Min;
                         }
-                        <img src="~/Images/@imageName" style="width:250px; height:250px;" />
-                    </td>
-                    <td style="width:55%">
-                        <table width="100%">
-                            <tr>
-                                <td>
-                                    <h3>
-                                        @details.BasicPropertyInfo.HotelName
-                                    </h3>
-                                    Code: @details.BasicPropertyInfo.HotelCode
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @{var hotelAddress = string.Empty;}
-                                    @foreach (var address in details.BasicPropertyInfo.Address)
-                                    {
-                                        hotelAddress += address + " ";
-                                    }
+                        else
+                        {
+                            price = "N/A";
+                        }
 
-                                    <p>@hotelAddress </p>
-                                    <p>@details.BasicPropertyInfo.LocationDescription.Text</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @{
-            if (@details.BasicPropertyInfo.RateRange != null)
+                        var markerImage = 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png';
+                        var marker = new MarkerWithLabel({
+                            position: new google.maps.LatLng(details.BasicPropertyInfo.Latitude, details.BasicPropertyInfo.Longitude),
+                            labelContent: price,
+                            icon: markerImage,
+                            labelAnchor: new google.maps.Point(-15, 25),
+                            labelClass: "hotel-map-label",
+                            title: details.BasicPropertyInfo.HotelName,
+                            map: map,
+                            hotel: details,
+                            animation: google.maps.Animation.DROP
+                        });
+
+                        google.maps.event.addListener(marker, 'click', function () {
+                            //alert("I am " + marker.title + ". Check browser console log for more details.");
+                            self.showHotelItemDetails(details);
+                        });
+                    
+                    });                   
+                })();
+            });
+
+
+            function showHotelItemDetails(hotel)
             {
-                <h3>$@details.BasicPropertyInfo.RateRange.Min - $@details.BasicPropertyInfo.RateRange.Max</h3>
+                console.log(hotel);
+                location.hash = '';
+                location.hash = "#" + hotel.BasicPropertyInfo.HotelCode;
             }
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @{var specialOffers = string.Empty;}
-                                    @{if (details.BasicPropertyInfo.SpecialOffers.Text != null)
-                                    {
-                                        specialOffers = details.BasicPropertyInfo.SpecialOffers.Text;
-                                    }
-                                    else
-                                    {
-                                        specialOffers = "Not available";
-                                    }
-                                    }
-                                    <p> <b>Special Offers:</b> @specialOffers</p>
+        </script>
 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p><b>Latitude:</b> @details.BasicPropertyInfo.Latitude</p>
-                                    <p><b>Longitude:</b> @details.BasicPropertyInfo.Longitude</p>
-                                </td>
-                            </tr>
-                        </table>
+    </div>
+    <div id="map_canvas" style="height:400px;"></div>
+    <div style="font-size:12px;">
 
-                    </td>
+        @foreach (var details in Model.AvailabilityOptions)
+        {
+            using (Html.BeginForm("Index", "HotelDetails"))
+            {
+                <table width="100%" class="rcorners" id="@details.BasicPropertyInfo.HotelCode">
+                    <tr>
 
-                    <td style="width:20%">
-                        <p> <b>AdultsOnly: </b> @details.BasicPropertyInfo.PropertyOptionInfo.AdultsOnly.Ind </p>
-                        <p> <b>BeachFront: </b> @details.BasicPropertyInfo.PropertyOptionInfo.BeachFront.Ind </p>
-                        <p> <b>Breakfast: </b> @details.BasicPropertyInfo.PropertyOptionInfo.Breakfast.Ind </p>
-                        <p> <b>Dining: </b> @details.BasicPropertyInfo.PropertyOptionInfo.Dining.Ind </p>
-                        <p> <b>DryClean: </b> @details.BasicPropertyInfo.PropertyOptionInfo.DryClean.Ind </p>
-                        <p> <b>FitnessCenter: </b> @details.BasicPropertyInfo.PropertyOptionInfo.FitnessCenter.Ind </p>
-                        <p> <b>FreeLocalCalls: </b> @details.BasicPropertyInfo.PropertyOptionInfo.FreeLocalCalls.Ind </p>
-                        <p> <b>FreeParking: </b> @details.BasicPropertyInfo.PropertyOptionInfo.FreeParking.Ind </p>
-                        <p>.....</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="5%">&nbsp;</td>
-                    <td colspan="1">
-                        <p><b>Phone: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Phone  <b>Fax: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Fax</p>
-                    </td>
-                    <td>
-                        <b>Start Date:</b> @ViewBag.StartDate  <b>End Date:</b> @ViewBag.EndDate
-                        <input type="hidden" name="startDate" value="@ViewBag.StartDate" />
-                        <input type="hidden" name="endDate" value="@ViewBag.EndDate" />
-                        <input type="hidden" name="totalTravellers" value="@ViewBag.TotalTravellers" />
-                        <input type="hidden" name="hotelCode" value="@details.BasicPropertyInfo.HotelCode" />
-                    </td>
-                    <td>
-                        <button type="submit" class="btn btn-warning" style="width:150px;">Select</button>
-                    </td>
-                </tr>
-            </table>
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td width="5%">&nbsp;</td>
+                        <td style="width:20%">
+                            @{ var imageName = counter + ".jpg";
+                             counter++;
+                             if (counter > 4) { counter = 1; }
+                            }
+                            <img src="~/Images/@imageName" style="width:250px; height:250px;" />
+                        </td>
+                        <td style="width:55%">
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <h3>
+                                            @details.BasicPropertyInfo.HotelName
+                                        </h3>
+                                        Code: @details.BasicPropertyInfo.HotelCode
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @{var hotelAddress = string.Empty;}
+                                        @foreach (var address in details.BasicPropertyInfo.Address)
+                                        {
+                                            hotelAddress += address + " ";
+                                        }
+
+                                        <p>@hotelAddress </p>
+                                        <p>@details.BasicPropertyInfo.LocationDescription.Text</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @{
+                if (@details.BasicPropertyInfo.RateRange != null)
+                {
+                    <h3>$@details.BasicPropertyInfo.RateRange.Min - $@details.BasicPropertyInfo.RateRange.Max</h3>
+                }
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @{var specialOffers = string.Empty;}
+                                        @{if (details.BasicPropertyInfo.SpecialOffers.Text != null)
+                                        {
+                                            specialOffers = details.BasicPropertyInfo.SpecialOffers.Text;
+                                        }
+                                        else
+                                        {
+                                            specialOffers = "Not available";
+                                        }
+                                        }
+                                        <p> <b>Special Offers:</b> @specialOffers</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p><b>Latitude:</b> @details.BasicPropertyInfo.Latitude</p>
+                                        <p><b>Longitude:</b> @details.BasicPropertyInfo.Longitude</p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+
+                        <td style="width:20%">
+                            <div style="max-height:300px; overflow:auto">
+                                @foreach (var t in details.BasicPropertyInfo.PropertyOptionInfo.GetType().GetProperties())
+                                {
+                                    var childType = t.GetValue(details.BasicPropertyInfo.PropertyOptionInfo, null);
+                                    var val = childType.GetType().GetProperty("Ind").GetValue(childType, null);
+                                    <p><b>@t.Name </b> @val</p>
+                                    var value = t;
+                                }
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="5%">&nbsp;</td>
+                        <td colspan="1">
+                            <p><b>Phone: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Phone  <b>Fax: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Fax</p>
+                        </td>
+                        <td>
+                            <b>Start Date:</b> @ViewBag.StartDate  <b>End Date:</b> @ViewBag.EndDate
+                            <input type="hidden" name="startDate" value="@ViewBag.StartDate" />
+                            <input type="hidden" name="endDate" value="@ViewBag.EndDate" />
+                            <input type="hidden" name="totalTravellers" value="@ViewBag.TotalTravellers" />
+                            <input type="hidden" name="hotelCode" value="@details.BasicPropertyInfo.HotelCode" />
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-warning" style="width:150px;">Select</button>
+                        </td>
+                    </tr>
+                </table>
+            }
         }
-    }
-</div>
+    </div>
 }
 else
 {
     <p style="color:red; font-size:15px;">No record found  </p>
 }
 
-<style  type="text/css">
+<style type="text/css">
     .rcorners {
-    border-radius: 7px;
-    border: 2px solid #73AD21;
- 
-}
+        border-radius: 7px;
+        border: 2px solid #73AD21;
+    }
 </style>

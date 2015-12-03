@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Sabre.Hotels.TravelItineraryReadInfo;
+using Common;
 
 namespace Manager
 {
@@ -12,6 +13,7 @@ namespace Manager
         public TravelItineraryReadRS ReadInfo(string securityToken, string pnrIdentifier = null)
         {
             TravelItineraryReadRQ tirq = new TravelItineraryReadRQ();
+            //tirq.Version = "3.6.0";
             tirq.MessagingDetails = new TravelItineraryReadRQMessagingDetails();
             tirq.MessagingDetails.SubjectAreas = new string[] { "FULL" };
             if (pnrIdentifier != null)
@@ -23,6 +25,7 @@ namespace Manager
             TravelItineraryReadService trs = new TravelItineraryReadService();
             trs.Security = this.CreateSecurityDto(securityToken);
             trs.MessageHeaderValue = this.CreateMessageHeader();
+            var t = Utility.Serialize<TravelItineraryReadRQ>(tirq);
             return trs.TravelItineraryReadRQ(tirq);
         }
         private Security1 CreateSecurityDto(string securityToken)

@@ -22,8 +22,14 @@
                     <img src="~/Images/travel-edge-adx-small.png" alt="Home Page" />
                 </a>
             </td>
-            <td align="right" style="font-size:14px;">
-                Welcome ABC
+            <td align="right" style="font-size:14px;">                
+             @{
+                 if (User.Identity.Name != string.Empty)
+                 {
+                    <span> Welcome </span><b>@User.Identity.Name</b> @Html.ActionLink("[Log out]", "LogOut", "Account", null, null)
+                 }
+            }   
+                
             </td>
         </tr>
         <tr>

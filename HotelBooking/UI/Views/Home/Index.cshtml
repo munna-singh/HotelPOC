@@ -26,16 +26,20 @@
                     <tr>
                         <td>
                             <div class="form-group">
-                                <label for="ddlLocation">Select Address</label>
-                                <select id="ddlLocation" name="ddlLocation" style="height:50px; font-size:18px;width:715px;">
-                                    <option value="DFW">Dallas Fort Worth International</option>
-                                    <option value="ATL">Hartsfield Jackson Atlanta International</option>
-                                    <option value="ORD">Chicago O'Hare International</option>
-                                    <option value="LAX">Los Angeles International</option>
-                                    <option value="SFO">San Francisco International</option>
-                                    <option value="LAS">Las Vegas</option>
-                                    <option value="IAH">Houston</option>
-                                </select>
+                                <label for="place-input">Address</label>
+                                @*<select id="ddlLocation" name="ddlLocation" style="height:50px; font-size:18px;width:715px;">
+                                        <option value="DFW">Dallas Fort Worth International</option>
+                                        <option value="ATL">Hartsfield Jackson Atlanta International</option>
+                                        <option value="ORD">Chicago O'Hare International</option>
+                                        <option value="LAX">Los Angeles International</option>
+                                        <option value="SFO">San Francisco International</option>
+                                        <option value="LAS">Las Vegas</option>
+                                        <option value="IAH">Houston</option>
+                                    </select> <br />*@
+                                <input id="place-input" class="form-control" type="text" placeholder="Type a location" style="height:50px; font-size:18px;width:715px;">
+                                <input type="hidden" name="lat" id="lat" />
+                                <input type="hidden" name="lan" id="lan" />
+                                <input type="hidden" name="add" id="add" />
                             </div>
                         </td>
                     </tr>
@@ -47,15 +51,15 @@
                                         <div class="form-group">
                                             <label for="datetimepickerCheckIn">Check In</label>
                                             <div style="padding-left:0px;">
-                                                <input type="date" name="checkIn" style="height:50px; font-size:18px;">
+                                                <input class="form-control" type="date" name="checkIn" style="height:50px; width:300px; font-size:18px;">
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group">
                                             <label for="datetimepickerCheckOut">Check Out</label>
-                                            <div  style="padding-left:0px;">
-                                                <input type="date" name="checkOut" style="height:50px; font-size:18px;">
+                                            <div style="padding-left:0px;">
+                                                <input class="form-control" type="date" name="checkOut" style="height:50px; width:300px;font-size:18px;">
                                             </div>
                                         </div>
                                     </td>
@@ -64,7 +68,7 @@
                                     <td>
                                         <div class="form-group">
                                             <label for="ddlTotalGuest">No of Guest</label>
-                                            <select id="ddlTotalGuest" name="ddlTotalGuest" style="height:50px; font-size:18px;width:300px">
+                                            <select id="ddlTotalGuest" class="form-control" name="ddlTotalGuest" style="height:50px;  font-size:18px;width:300px">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -80,7 +84,7 @@
                                     <td>
                                         <div class="form-group">
                                             <label for="ddlNoOfRooms">No of Rooms</label>
-                                            <select id="ddlNoOfRooms" name="ddlNoOfRooms" style="height:50px; font-size:18px;width:300px">
+                                            <select id="ddlNoOfRooms" class="form-control" name="ddlNoOfRooms" style="height:50px; width:310px; font-size:18px;width:300px">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -92,16 +96,15 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2" align="right" style="padding-right:110px;">
-                                        <button type="submit" class="btn btn-warning" style="width:150px;height:50px;">Search</button></td>
+                                        <button type="submit" class="btn btn-warning" style="width:150px;height:50px;">Search</button>
+                                    </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                     <tr>
                         <td width="100%">
-                            <table style="width:100%">
-                               
-                            </table>
+                            <table style="width:100%"></table>
                         </td>
 
                     </tr>
@@ -110,3 +113,32 @@
         </section>
     }
 }
+
+
+<script src="http://maps.google.com/maps/api/js?libraries=places"></script>
+<script type="text/javascript">
+    var input = $('#place-input');
+
+    var autocomplete = new google.maps.places.Autocomplete(input[0]);
+
+    autocomplete.addListener('place_changed', function () {
+        var place = autocomplete.getPlace();
+        console.log(place);
+        if (!place.geometry) {
+            window.alert("Information not returned by google.");
+            return;
+        }
+        else {
+            $('#lat').val(place.geometry.location.lat());
+            $('#lan').val(place.geometry.location.lng());
+            //$('#add').val(place.formatted_address);
+        }
+        return false;
+    }
+);
+    $('#place-input').keypress(function (e) {
+        if (e.keyCode == 13) {
+            return false;
+        }
+    });
+</script>

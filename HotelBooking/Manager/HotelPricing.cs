@@ -61,8 +61,10 @@ namespace Manager
             client.MessageHeaderValue = Get("HotelRateDescriptionLLSRQ", "HotelRateDescriptionRQ");
             sec.BinarySecurityToken = searchCriteria.SessionId;
             client.Security = sec;
-            //var XML = Common.Utility.Serialize(req);
+            
             var result = client.HotelRateDescriptionRQ(req);
+
+            var XML = Common.Utility.Serialize(result);
             return result;
         }
 

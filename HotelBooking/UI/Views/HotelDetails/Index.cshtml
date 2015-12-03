@@ -205,6 +205,8 @@
                        @{
                            foreach(var rate in Model.RoomStay.RoomRates.RoomRate)
                            {
+                               if(rate.RPH != null )
+                               { 
                                <tr>                                   
                                    <td>   
                                        @{ var name = string.Empty; int counter = 0; }                                 
@@ -266,6 +268,7 @@
                                <tr>
                                  <td colspan="4"><hr /></td>
                                </tr>
+                               }
                            }                           
                        }
                     
@@ -400,6 +403,8 @@
                                 <div style="overflow:auto; max-height:250px;">
                                     <ul>
                                     @{
+                                    if (Model.RoomStay.BasicPropertyInfo.VendorMessages.Directions != null)
+                                    { 
                                         foreach (var dir in Model.RoomStay.BasicPropertyInfo.VendorMessages.Directions)
                                         {
                                             var message = string.Empty;
@@ -408,6 +413,7 @@
                                                 <li>@txt</li>
                                             }
                                         }
+                                    }
                                     }
                                         </ul>
                                 </div>

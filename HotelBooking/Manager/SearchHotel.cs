@@ -31,19 +31,30 @@ namespace Manager
             OTA_HotelAvailRQAvailRequestSegmentPOS pos = new OTA_HotelAvailRQAvailRequestSegmentPOS();
             OTA_HotelAvailRQAvailRequestSegmentPOSSource source = new OTA_HotelAvailRQAvailRequestSegmentPOSSource();
 
-            ref1.HotelCityCode = searchCriteria.Address;
+            OTA_HotelAvailRQAvailRequestSegmentRatePlanCandidates ratePlan = new OTA_HotelAvailRQAvailRequestSegmentRatePlanCandidates();
+            ratePlan.RateRange = new OTA_HotelAvailRQAvailRequestSegmentRatePlanCandidatesRateRange() { Min = "1" };
+
+            if (searchCriteria.Address != null && searchCriteria.Address != string.Empty)
+                ref1.HotelCityCode = searchCriteria.Address;
+
+            if (searchCriteria.Latitude != null && searchCriteria.Longitude != null)
+            {
+                ref1.Latitude =  searchCriteria.Latitude.ToString("N2");
+                ref1.Longitude = searchCriteria.Longitude.ToString("N2");
+            }
             refrs[0] = ref1;
             cirterian.HotelRef = refrs;
             crt.Criterion = cirterian;
             req.HotelSearchCriteria = crt;
             guest.Count = searchCriteria.TotalGuest;
             req.GuestCounts = guest;
+            crt.NumProperties = "30";
 
             //req.po
             var startDate = Convert.ToDateTime(searchCriteria.StartDate);
             var endDate = Convert.ToDateTime(searchCriteria.EndDate);
-            journeyDate.Start = startDate.Month.ToString() + "-" + startDate.Day.ToString();
-            journeyDate.End = endDate.Month.ToString() + "-" + endDate.Day.ToString();
+            journeyDate.Start = startDate.ToString("MM-dd");// .Month.ToString() + "-" + startDate.Day.ToString();
+            journeyDate.End = endDate.ToString("MM-dd"); //.Month.ToString() + "-" + endDate.Day.ToString();
             req.TimeSpan = journeyDate;
 
             availability.AvailRequestSegment = req;
@@ -52,9 +63,11 @@ namespace Manager
             sec.BinarySecurityToken = session.SecurityValue.BinarySecurityToken;
             ss.Security = sec;
             ss.MessageHeaderValue = Get("OTA_HotelAvailLLSRQ", "");
+            var XMLRequest = Common.Utility.Serialize(availability);
             var result = ss.OTA_HotelAvailRQ(availability);
             SessionClose close = new SessionClose();
             close.Close(session.SecurityValue.BinarySecurityToken);
+            var XML = Common.Utility.Serialize(result);
             return result;
         }
 

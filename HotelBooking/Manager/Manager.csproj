@@ -46,6 +46,7 @@
     <Compile Include="HotelBookingManager.cs" />
     <Compile Include="HotelPricing.cs" />
     <Compile Include="HotelPropertyDescription.cs" />
+    <Compile Include="ModifyBooking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadTravelerInfo.cs" />
     <Compile Include="SearchHotel.cs" />
