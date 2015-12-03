@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<table>
+    <tr>
+        <td colspan="2"><h1>Cancel/Modify Booking</h1></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="form-group">
+                <label for="txtPNR">PNR#</label>
+                <div style="padding-left:0px;">
+                    <input type="text" name="txtPNR" id="txtPNR">
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @using (Html.BeginForm("ModifyBooking", "ModifyBooking"))
+            {
+                <input type="hidden" class="hdnPNR" name="hdnPNR" />
+                <button type="submit" class="btn btn-warning" style="width:150px;height:50px;">Modify</button>
+            }
+        </td>
+        <td>
+            @using (Html.BeginForm("CancelBooking", "ModifyBooking"))
+            {
+                <input type="hidden" class="hdnPNR" name="hdnPNR" />
+                <button type="submit" class="btn btn-warning" style="width:150px;height:50px;">Cancel</button>
+            }
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+   
+    $("#txtPNR")
+  .focusout(function () {
+      $(".hdnPNR").val($("#txtPNR").val());
+  });
+</script>
