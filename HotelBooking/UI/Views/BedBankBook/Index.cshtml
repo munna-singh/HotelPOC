@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Bed Bank Booking / Cancel";
+}
+
+
+    @{if (ViewBag.BookingRef != null)
+        {
+            <h1>Your booking was successful</h1>
+            <br />
+            <h1>Thank you for your booking, you will receive an email confirming your booking.</h1>
+            <br />
+            <h1>Your Booking Reference number is @ViewBag.BookingRef</h1>
+        }
+        else
+        {
+            <h1>Your booking has not done, Some issue occured : @ViewBag.ErrorGot</h1>
+        }
+    }
+        
+
+
+

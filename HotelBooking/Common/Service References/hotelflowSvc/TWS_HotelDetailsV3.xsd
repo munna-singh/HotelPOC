@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://tempuri.org/TWS_HotelDetailsV3.xsd" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" xmlns:mstns="http://tempuri.org/TWS_HotelDetailsV3.xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://tempuri.org/TWS_HotelDetailsV3.xsd" id="TWS_HotelDetailsV3" msdata:schemafragmentcount="2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element msdata:IsDataSet="true" msdata:UseCurrentLocale="true" name="TWS_HotelDetailsV3">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="StatusCode">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="type" type="xs:string" />
+              <xs:element name="code" type="xs:string" />
+              <xs:element name="description" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Hotel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Location">
+                <xs:complexType>
+                  <xs:attribute form="unqualified" name="country" type="xs:string" />
+                  <xs:attribute form="unqualified" name="state" type="xs:string" />
+                  <xs:attribute form="unqualified" name="city" type="xs:string" />
+                  <xs:attribute form="unqualified" name="searchingCity" type="xs:string" />
+                  <xs:attribute form="unqualified" name="destinationCode" type="xs:string" />
+                  <xs:attribute form="unqualified" name="destinationId" type="xs:string" />
+                  <xs:attribute form="unqualified" name="location" type="xs:string" />
+                  <xs:attribute form="unqualified" name="address" type="xs:string" />
+                  <xs:attribute form="unqualified" name="zip" type="xs:string" />
+                  <xs:attribute form="unqualified" name="longitude" type="xs:decimal" />
+                  <xs:attribute form="unqualified" name="latitude" type="xs:decimal" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="RefPoints">
+                <xs:complexType>
+                  <xs:attribute form="unqualified" name="type" type="xs:string" />
+                  <xs:attribute form="unqualified" name="typeId" type="xs:int" />
+                  <xs:attribute form="unqualified" name="name" type="xs:string" />
+                  <xs:attribute form="unqualified" name="airportCode" type="xs:string" />
+                  <xs:attribute form="unqualified" name="direction" type="xs:string" />
+                  <xs:attribute form="unqualified" name="distance" type="xs:decimal" />
+                  <xs:attribute form="unqualified" name="unit" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Descriptions">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element form="unqualified" name="VoucherRemark" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="ShortDescription">
+                      <xs:complexType>
+                        <xs:attribute form="unqualified" name="desc" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="FreeTextShortDescription">
+                      <xs:complexType>
+                        <xs:attribute form="unqualified" name="desc" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="LongDescription">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FreeTextLongDescription" type="xs:string" />
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="Description">
+                            <xs:complexType>
+                              <xs:attribute form="unqualified" name="hotelID" type="xs:int" use="required" />
+                              <xs:attribute form="unqualified" name="languageID" type="xs:int" use="required" />
+                              <xs:attribute form="unqualified" name="templateID" type="xs:int" use="required" />
+                              <xs:attribute form="unqualified" name="textFieldType" type="xs:int" use="required" />
+                              <xs:attribute form="unqualified" name="category" type="xs:string" />
+                              <xs:attribute form="unqualified" name="categoryId" type="xs:int" />
+                              <xs:attribute form="unqualified" name="value" type="xs:string" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Media">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Images">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="Image">
+                            <xs:complexType>
+                              <xs:attribute form="unqualified" name="type" type="xs:int" />
+                              <xs:attribute form="unqualified" name="path" type="xs:string" />
+                              <xs:attribute form="unqualified" name="hotelID" type="xs:int" />
+                              <xs:attribute form="unqualified" name="HotelImgID" type="xs:int" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Movies">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="Movie">
+                            <xs:complexType>
+                              <xs:attribute form="unqualified" name="MovieId" type="xs:int" use="required" />
+                              <xs:attribute form="unqualified" name="activityId" type="xs:int" />
+                              <xs:attribute form="unqualified" name="title" type="xs:string" />
+                              <xs:attribute form="unqualified" name="path" type="xs:string" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Amenities">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Amenity">
+                      <xs:complexType>
+                        <xs:attribute form="unqualified" name="hotelID" type="xs:int" use="required" />
+                        <xs:attribute form="unqualified" name="amenityID" type="xs:int" use="required" />
+                        <xs:attribute form="unqualified" name="name" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="RoomType">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="HotelRoomTypeIds">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="HotelRoomTypeId">
+                            <xs:complexType>
+                              <xs:attribute msprop:Generator_ColumnPropNameInTable="ID_Column" msprop:Generator_UserColumnName="ID" form="unqualified" name="ID" type="xs:int" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Facilities">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="Facility">
+                            <xs:complexType>
+                              <xs:attribute form="unqualified" name="facilityId" type="xs:int" use="required" />
+                              <xs:attribute form="unqualified" name="name" type="xs:string" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Discounts">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="Discount">
+                            <xs:complexType>
+                              <xs:attribute form="unqualified" name="type" type="xs:string" />
+                              <xs:attribute form="unqualified" name="fromDate" type="xs:string" />
+                              <xs:attribute form="unqualified" name="toDate" type="xs:string" />
+                              <xs:attribute form="unqualified" name="value" type="xs:string" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute form="unqualified" name="hotelID" type="xs:int" use="required" />
+                  <xs:attribute form="unqualified" name="roomId" type="xs:int" use="required" />
+                  <xs:attribute form="unqualified" name="name" type="xs:string" />
+                  <xs:attribute form="unqualified" name="description" type="xs:string" />
+                  <xs:attribute form="unqualified" name="maxGuest" type="xs:int" />
+                  <xs:attribute form="unqualified" name="maxChild" type="xs:int" />
+                  <xs:attribute form="unqualified" name="roomCategoryID" type="xs:int" />
+                  <xs:attribute form="unqualified" name="roomCategory" type="xs:string" />
+                  <xs:attribute form="unqualified" name="roomTypeCategory" type="xs:string" />
+                  <xs:attribute form="unqualified" name="roomTypeCategoryId" type="xs:int" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="DrivingDirections">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Option">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element msdata:Ordinal="3" form="unqualified" name="DrivingDirectionDesc">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="2147483647" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute form="unqualified" name="hotelId" type="xs:int" />
+                        <xs:attribute form="unqualified" name="seqNum" type="xs:int" />
+                        <xs:attribute form="unqualified" name="name" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute form="unqualified" name="hotelID" type="xs:int" use="required" />
+            <xs:attribute form="unqualified" name="name" type="xs:string" />
+            <xs:attribute form="unqualified" name="brand" type="xs:string" />
+            <xs:attribute form="unqualified" name="brandId" type="xs:int" />
+            <xs:attribute form="unqualified" name="rooms" type="xs:int" />
+            <xs:attribute form="unqualified" name="provider" type="xs:string" />
+            <xs:attribute form="unqualified" name="checkInTime" type="xs:int" />
+            <xs:attribute form="unqualified" name="checkOutTime" type="xs:int" />
+            <xs:attribute form="unqualified" name="currency" type="xs:string" />
+            <xs:attribute form="unqualified" name="thumb" type="xs:string" />
+            <xs:attribute form="unqualified" name="hotelPhone" type="xs:string" />
+            <xs:attribute form="unqualified" name="hotelFax" type="xs:string" />
+            <xs:attribute form="unqualified" name="starLevel" type="xs:double" />
+            <xs:attribute form="unqualified" name="isOpaque" type="xs:boolean" />
+            <xs:attribute form="unqualified" name="ranking" type="xs:int" />
+            <xs:attribute form="unqualified" name="bestValue" type="xs:unsignedByte" />
+            <xs:attribute msdata:AutoIncrement="true" msdata:AllowDBNull="false" name="Hotel_Id" type="xs:int" use="prohibited" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Home">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" name="PropertyType" type="xs:string" />
+              <xs:element minOccurs="0" name="PropertySubType" type="xs:string" />
+              <xs:element minOccurs="0" name="NumOfBathrooms" type="xs:int" />
+              <xs:element name="HotelId" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true" name="Description_Constraint1">
+      <xs:selector xpath=".//mstns:Description" />
+      <xs:field xpath="@hotelID" />
+      <xs:field xpath="@languageID" />
+      <xs:field xpath="@templateID" />
+      <xs:field xpath="@textFieldType" />
+    </xs:unique>
+    <xs:unique msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true" name="Image_Constraint1">
+      <xs:selector xpath=".//mstns:Image" />
+      <xs:field xpath="@HotelImgID" />
+    </xs:unique>
+    <xs:unique msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true" name="Movie_Constraint1">
+      <xs:selector xpath=".//mstns:Movie" />
+      <xs:field xpath="@MovieId" />
+    </xs:unique>
+    <xs:unique msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true" name="Amenity_Constraint1">
+      <xs:selector xpath=".//mstns:Amenity" />
+      <xs:field xpath="@hotelID" />
+      <xs:field xpath="@amenityID" />
+    </xs:unique>
+    <xs:unique msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true" name="Facility_Constraint1">
+      <xs:selector xpath=".//mstns:Facility" />
+      <xs:field xpath="@facilityId" />
+    </xs:unique>
+    <xs:unique msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true" name="RoomType_Constraint1">
+      <xs:selector xpath=".//mstns:RoomType" />
+      <xs:field xpath="@roomId" />
+      <xs:field xpath="@hotelID" />
+    </xs:unique>
+    <xs:unique msdata:PrimaryKey="true" name="Constraint1">
+      <xs:selector xpath=".//mstns:Hotel" />
+      <xs:field xpath="@mstns:Hotel_Id" />
+    </xs:unique>
+    <xs:unique msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true" name="Home_Constraint1">
+      <xs:selector xpath=".//mstns:Home" />
+      <xs:field xpath="mstns:HotelId" />
+    </xs:unique>
+    <xs:keyref name="FK_Hotel_Home" refer="mstns:Constraint1">
+      <xs:selector xpath=".//mstns:Home" />
+      <xs:field xpath="mstns:HotelId" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

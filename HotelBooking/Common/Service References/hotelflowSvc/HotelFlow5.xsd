@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tourico.com/webservices/hotelv3" elementFormDefault="qualified" targetNamespace="http://tourico.com/webservices/hotelv3" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd1" namespace="http://schemas.tourico.com/webservices/hotelv3" />
+  <xs:import schemaLocation="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd5" namespace="http://tempuri.org/TWS_HotelDetailsV3.xsd" />
+  <xs:element name="SearchHotels">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="request" type="q1:SearchRequest" />
+        <xs:element minOccurs="0" maxOccurs="1" name="features" type="tns:ArrayOfFeature" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfFeature">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Feature" nillable="true" type="tns:Feature" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Feature">
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="SearchHotelsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="SearchHotelsResult" type="q2:SearchResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchHotelsById">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="request" type="q3:SearchHotelsByIdRequest" />
+        <xs:element minOccurs="0" maxOccurs="1" name="features" type="tns:ArrayOfFeature" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchHotelsByIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="SearchHotelsByIdResult" type="q4:SearchResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckAvailabilityAndPrices">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="request" type="q5:SearchHotelsByIdRequest" />
+        <xs:element minOccurs="0" maxOccurs="1" name="features" type="tns:ArrayOfFeature" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckAvailabilityAndPricesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="CheckAvailabilityAndPricesResult" type="q6:SearchResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchHotelsByDestinationIds">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="request" type="q7:SearchHotelsByDestinationIdsRequest" />
+        <xs:element minOccurs="0" maxOccurs="1" name="features" type="tns:ArrayOfFeature" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchHotelsByDestinationIdsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="SearchHotelsByDestinationIdsResult" type="q8:SearchResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BookHotelV3">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="request" type="q9:BookV3Request" />
+        <xs:element minOccurs="0" maxOccurs="1" name="features" type="tns:ArrayOfFeature" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BookHotelV3Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="BookHotelV3Result" type="q10:RGInfoResults" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRGInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="request" type="q11:RGInfoRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRGInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="GetRGInfoResult" type="q12:RGInfoResults" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DoAmend">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="request" type="q13:AmendRequest" />
+        <xs:element minOccurs="0" maxOccurs="1" name="features" type="tns:ArrayOfFeature" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DoAmendResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="DoAmendResult" type="q14:AmendResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CostAmend">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="request" type="q15:CostAmendRequest" />
+        <xs:element minOccurs="0" maxOccurs="1" name="features" type="tns:ArrayOfFeature" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CostAmendResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="CostAmendResult" type="q16:AmendResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHotelDetailsV3">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="HotelIds" type="tns:ArrayOfHotelID" />
+        <xs:element minOccurs="0" maxOccurs="1" name="Features" type="tns:ArrayOfFeature" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfHotelID">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="HotelID" nillable="true" type="tns:HotelID" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HotelID">
+    <xs:attribute name="id" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:element name="GetHotelDetailsV3Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetHotelDetailsV3Result">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any namespace="http://tempuri.org/TWS_HotelDetailsV3.xsd" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTermAndConditions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="HotelId" type="q17:TermAndConditionsRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTermAndConditionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.tourico.com/webservices/hotelv3" minOccurs="0" maxOccurs="1" name="GetTermAndConditionsResult" type="q18:TermAndConditionsResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCancellationFee">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="nResID" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="clxDate" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCancellationPolicies">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="nResId" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="hotelId" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="hotelRoomTypeId" type="xs:int" />
+        <xs:element minOccurs="0" maxOccurs="1" name="productId" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="dtCheckIn" type="xs:dateTime" />
+        <xs:element minOccurs="1" maxOccurs="1" name="dtCheckOut" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

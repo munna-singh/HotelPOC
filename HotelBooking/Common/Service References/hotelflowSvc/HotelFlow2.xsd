@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.tourico.com/webservices/faults" elementFormDefault="qualified" targetNamespace="http://schemas.tourico.com/webservices/faults" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="WSFault" type="tns:WSFault" />
+  <xs:complexType name="WSFault">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="WSErrorCode" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TouricoLogId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

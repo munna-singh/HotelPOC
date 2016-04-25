@@ -1,0 +1,97 @@
+﻿@model Common.hotelflowSvc.Hotel[]
+@{
+    ViewBag.Title = "Tourico Hotel Search Result";
+}
+<h1>Tourico Hotel Search Result</h1>
+
+ <div style="background-color:white; padding:10px; margin:10px; font-size:12px;">
+
+     <script src="~/Scripts/jquery-1.8.2.js"></script>
+     <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+     
+     <table>
+            @foreach (Common.hotelflowSvc.Hotel t in Model)
+            {
+                <tr>
+                    <td>
+                        <h1>@t.name</h1>
+                    </td>
+                    <td>
+                        <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
+                        <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
+                        <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
+                    </td>
+                    <td align="right"><b>Min.Avg Price: </b>@t.minAverPublishPrice</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        @{
+                            @t.Location.address
+                        }
+                    </td>
+                    <td align="right"><b>Category: </b>@t.category</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div>
+                            @* <span class="glyphicon glyphicon-phone-alt" aria-hidden="true" style="font-size:20px;"></span>*@
+                            @t.desc
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src=@t.thumb />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <b><u>Available Rooms: @t.NumOfRoom</u></b>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><b>RoomType Id</b></td>
+                    <td><b>Type</b></td>
+                    <td><b>Room Category</b></td>
+                    <td><b>Room No.</b></td>
+                    <td><b>Availability</b></td>
+                    <td><b>Price</b></td>
+                </tr>
+
+                            foreach (Common.hotelflowSvc.RoomType r in t.RoomTypes)
+                            {
+                                <tr>
+                                    @using (Html.BeginForm("BookHotel", "BookTourico"))
+                                {
+                                        @*<td>
+                                            <a href="#" class="dialog-trigger">@r.hotelRoomTypeId</a>
+                                            <div id="client-detail-modal">
+                                                @Html.Partial("popupRoomInfo",Model )
+                                            </div>
+                                        </td>*@
+                                        <td>@r.name </td>
+                                        <td>@r.roomTypeCategory </td>
+                                        <td>@r.roomId</td>
+                                        <td>@(r.isAvailable ? "Yes" : "No")</td>
+                                        <td>@r.Occupancies[0].occupPublishPrice</td>
+                                        <td>
+                                            <input type="hidden" name="startDate" value="@ViewBag.StartDate" />
+                                            <input type="hidden" name="endDate" value="@ViewBag.EndDate" />
+                                            <input type="hidden" name="hotelCode" value="@t.hotelId" />
+                                            <input type="hidden" name="hotelroomTypeId" value="@r.hotelRoomTypeId" />
+                                            <input type="hidden" name="occPubPrice" value="@r.Occupancies[0].occupPublishPrice" />
+                                            <button type="submit" class="btn btn-warning" style="width:150px;">Book</button>
+                                        </td>
+                                    }
+                                </tr>
+                                }
+                            }
+        </table>
+
+    </div>

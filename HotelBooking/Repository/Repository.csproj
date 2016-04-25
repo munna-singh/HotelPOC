@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BedBankSearchDto.cs" />
     <Compile Include="HotelSearchDto.cs" />
     <Compile Include="HotelSelectDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

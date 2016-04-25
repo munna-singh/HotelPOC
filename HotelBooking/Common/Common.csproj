@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Common</RootNamespace>
     <AssemblyName>Common</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,9 +31,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="com.hotelbeds.distribution.hotel_api_model">
+      <HintPath>..\packages\hotel-api-sdk-net.0.1\lib\net452\com.hotelbeds.distribution.hotel_api_model.dll</HintPath>
+    </Reference>
+    <Reference Include="com.hotelbeds.distribution.hotel_api_sdk">
+      <HintPath>..\packages\hotel-api-sdk-net.0.1\lib\net452\com.hotelbeds.distribution.hotel_api_sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\hotel-api-sdk-net.0.1\lib\net452\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\hotel-api-sdk-net.0.1\lib\net452\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Services" />
@@ -50,6 +63,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="SabreSessionManager.cs" />
+    <Compile Include="Service References\hotelflowSvc\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Utility.cs" />
     <Compile Include="Web References\Sabre.Hotels.CloseSession\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -104,16 +122,106 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Dlls\TE.ThirdPartyProviders.Sabre.dll" />
+    <Content Include="Newtonsoft.Json.xml" />
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.AmendResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.BookHotelV3Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.CancellationFeeInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.CancellationFeeInfoWrapper.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.CheckAvailabilityAndPricesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.CostAmendResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.DoAmendResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.GetHotelDetailsV3Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.GetRGInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.GetTermAndConditionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.HotelPolicyType1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.HotelPolicyTypeWrapper.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.RGInfoResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.SearchHotelsByDestinationIdsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.SearchHotelsByIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.SearchHotelsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.SearchResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.TermAndCondition.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.TWS_HotelDetailsV3.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\hotelflowSvc\configuration91.svcinfo" />
+    <None Include="Service References\hotelflowSvc\configuration.svcinfo" />
+    <None Include="Service References\hotelflowSvc\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="System.Net.Http.Formatting.xml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Service References\hotelflowSvc\HotelFlow.wsdl" />
+    <None Include="Service References\hotelflowSvc\HotelFlow.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\hotelflowSvc\HotelFlow1.wsdl" />
+    <None Include="Service References\hotelflowSvc\HotelFlow1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\hotelflowSvc\HotelFlow2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\hotelflowSvc\HotelFlow3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\hotelflowSvc\HotelFlow4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\hotelflowSvc\HotelFlow5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\hotelflowSvc\HotelFlow6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\hotelflowSvc\TWS_HotelDetailsV3.xsd" />
     <None Include="Web References\Sabre.Hotels.CloseSession\envelope.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -651,6 +759,9 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Common_Sabre_Hotels_Reservation_OTA_HotelResService</CachedSettingsPropName>
     </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\hotelflowSvc\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

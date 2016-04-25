@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tourico.com/webservices/hotelv3" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:sh="http://schemas.tourico.com/webservices/authentication" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tourico.com/webservices/hotelv3" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tourico.com/webservices/hotelv3/Imports">
+      <xsd:import schemaLocation="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd0" namespace="http://tourico.com/webservices/hotelv3" />
+      <xsd:import schemaLocation="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd3" namespace="http://schemas.tourico.com/webservices/faults" />
+      <xsd:import schemaLocation="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd1" namespace="http://schemas.tourico.com/webservices/hotelv3" />
+      <xsd:import schemaLocation="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd2" namespace="http://schemas.tourico.com/webservices" />
+      <xsd:import schemaLocation="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd4" namespace="http://microsoft.com/wsdl/types/" />
+      <xsd:import schemaLocation="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd5" namespace="http://tempuri.org/TWS_HotelDetailsV3.xsd" />
+      <xsd:import schemaLocation="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd6" namespace="http://tourico.com/webservices/" />
+      <xsd:import schemaLocation="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd7" namespace="http://tourico.com/webservices/TWS_ClxPolicies.xsd" />
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://schemas.tourico.com/webservices/authentication" elementFormDefault="qualified" targetNamespace="http://schemas.tourico.com/webservices/authentication">
+      <xsd:complexType name="AuthenticationHeader">
+        <xsd:sequence>
+          <xsd:element name="LoginName" nillable="true" type="xsd:string" />
+          <xsd:element name="Password" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Culture" type="tns:Culture" />
+          <xsd:element minOccurs="0" name="Version" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AuthenticationHeader" nillable="true" type="tns:AuthenticationHeader" />
+      <xsd:simpleType name="Culture">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="None" />
+          <xsd:enumeration value="en_US" />
+          <xsd:enumeration value="zh_CN" />
+          <xsd:enumeration value="it_IT" />
+          <xsd:enumeration value="ja_JP" />
+          <xsd:enumeration value="de_DE" />
+          <xsd:enumeration value="fr_FR" />
+          <xsd:enumeration value="ru_RU" />
+          <xsd:enumeration value="pt_PT" />
+          <xsd:enumeration value="es_AR" />
+          <xsd:enumeration value="he_IL" />
+          <xsd:enumeration value="ko_KR" />
+          <xsd:enumeration value="pl_PL" />
+          <xsd:enumeration value="zh_TW" />
+          <xsd:enumeration value="nl_NL" />
+          <xsd:enumeration value="da_DK" />
+          <xsd:enumeration value="en_GB" />
+          <xsd:enumeration value="es_ES" />
+          <xsd:enumeration value="sv_SE" />
+          <xsd:enumeration value="pt_BR" />
+          <xsd:enumeration value="ar_SA" />
+          <xsd:enumeration value="el_GR" />
+          <xsd:enumeration value="cs_CZ" />
+          <xsd:enumeration value="bg_BG" />
+          <xsd:enumeration value="ro_RO" />
+          <xsd:enumeration value="tr_TR" />
+          <xsd:enumeration value="fi_FI" />
+          <xsd:enumeration value="nb_NO" />
+          <xsd:enumeration value="ar_EG" />
+          <xsd:enumeration value="es_MX" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="Culture" nillable="true" type="tns:Culture" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IHotelFlow_SearchHotels_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchHotels" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_SearchHotels_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchHotelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_SearchHotels_WSFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.tourico.com/webservices/faults" name="detail" element="q1:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_SearchHotelsById_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchHotelsById" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_SearchHotelsById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchHotelsByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_SearchHotelsById_WSFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.tourico.com/webservices/faults" name="detail" element="q2:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_CheckAvailabilityAndPrices_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckAvailabilityAndPrices" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_CheckAvailabilityAndPrices_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckAvailabilityAndPricesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_CheckAvailabilityAndPrices_WSFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.tourico.com/webservices/faults" name="detail" element="q3:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_SearchHotelsByDestinationIds_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchHotelsByDestinationIds" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_SearchHotelsByDestinationIds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchHotelsByDestinationIdsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_SearchHotelsByDestinationIds_WSFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.tourico.com/webservices/faults" name="detail" element="q4:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_BookHotelV3_InputMessage">
+    <wsdl:part name="parameters" element="tns:BookHotelV3" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_BookHotelV3_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BookHotelV3Response" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_BookHotelV3_WSFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.tourico.com/webservices/faults" name="detail" element="q5:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_GetRGInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRGInfo" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_GetRGInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRGInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_GetRGInfo_WSFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.tourico.com/webservices/faults" name="detail" element="q6:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_DoAmend_InputMessage">
+    <wsdl:part name="parameters" element="tns:DoAmend" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_DoAmend_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DoAmendResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_DoAmend_WSFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.tourico.com/webservices/faults" name="detail" element="q7:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_CostAmend_InputMessage">
+    <wsdl:part name="parameters" element="tns:CostAmend" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_CostAmend_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CostAmendResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_CostAmend_WSFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.tourico.com/webservices/faults" name="detail" element="q8:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_GetHotelDetailsV3_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHotelDetailsV3" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_GetHotelDetailsV3_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHotelDetailsV3Response" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_GetHotelDetailsV3_WSFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.tourico.com/webservices/faults" name="detail" element="q9:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_GetTermAndConditions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTermAndConditions" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_GetTermAndConditions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTermAndConditionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_GetTermAndConditions_WSFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://schemas.tourico.com/webservices/faults" name="detail" element="q10:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="CancellationFeeRequest">
+    <wsdl:part name="parameters" element="tns:GetCancellationFee" />
+  </wsdl:message>
+  <wsdl:message name="CancellationFeeInfoWrapper">
+    <wsdl:part xmlns:q11="http://tourico.com/webservices/" name="parameters" element="q11:GetCancellationFeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_GetCancellationFee_WSFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://schemas.tourico.com/webservices/faults" name="detail" element="q12:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="CancellationPoliciesRequest">
+    <wsdl:part name="parameters" element="tns:GetCancellationPolicies" />
+  </wsdl:message>
+  <wsdl:message name="HotelPolicyTypeWrapper">
+    <wsdl:part xmlns:q13="http://tourico.com/webservices/" name="parameters" element="q13:GetCancellationPoliciesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHotelFlow_GetCancellationPolicies_WSFault_FaultMessage">
+    <wsdl:part xmlns:q14="http://schemas.tourico.com/webservices/faults" name="detail" element="q14:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticationHeader">
+    <wsdl:part name="Header" element="sh:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:portType name="IHotelFlow">
+    <wsdl:operation name="SearchHotels">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/SearchHotels" message="tns:IHotelFlow_SearchHotels_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/SearchHotelsResponse" message="tns:IHotelFlow_SearchHotels_OutputMessage" />
+      <wsdl:fault wsaw:Action="SearchHotels" name="WSFault" message="tns:IHotelFlow_SearchHotels_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchHotelsById">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/SearchHotelsById" message="tns:IHotelFlow_SearchHotelsById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/SearchHotelsByIdResponse" message="tns:IHotelFlow_SearchHotelsById_OutputMessage" />
+      <wsdl:fault wsaw:Action="SearchHotelsById" name="WSFault" message="tns:IHotelFlow_SearchHotelsById_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckAvailabilityAndPrices">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/CheckAvailabilityAndPrices" message="tns:IHotelFlow_CheckAvailabilityAndPrices_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/CheckAvailabilityAndPricesResponse" message="tns:IHotelFlow_CheckAvailabilityAndPrices_OutputMessage" />
+      <wsdl:fault wsaw:Action="CheckAvailabilityAndPrices" name="WSFault" message="tns:IHotelFlow_CheckAvailabilityAndPrices_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchHotelsByDestinationIds">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/SearchHotelsByDestinationIds" message="tns:IHotelFlow_SearchHotelsByDestinationIds_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/SearchHotelsByDestinationIdsResponse" message="tns:IHotelFlow_SearchHotelsByDestinationIds_OutputMessage" />
+      <wsdl:fault wsaw:Action="SearchHotelsByDestinationIds" name="WSFault" message="tns:IHotelFlow_SearchHotelsByDestinationIds_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BookHotelV3">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/BookHotelV3" message="tns:IHotelFlow_BookHotelV3_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/BookHotelV3Response" message="tns:IHotelFlow_BookHotelV3_OutputMessage" />
+      <wsdl:fault wsaw:Action="BookHotelV3" name="WSFault" message="tns:IHotelFlow_BookHotelV3_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRGInfo">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/GetRGInfo" message="tns:IHotelFlow_GetRGInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/GetRGInfoResponse" message="tns:IHotelFlow_GetRGInfo_OutputMessage" />
+      <wsdl:fault wsaw:Action="GetRGInfo" name="WSFault" message="tns:IHotelFlow_GetRGInfo_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DoAmend">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/DoAmend" message="tns:IHotelFlow_DoAmend_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/DoAmendResponse" message="tns:IHotelFlow_DoAmend_OutputMessage" />
+      <wsdl:fault wsaw:Action="DoAmend" name="WSFault" message="tns:IHotelFlow_DoAmend_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CostAmend">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/CostAmend" message="tns:IHotelFlow_CostAmend_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/CostAmendResponse" message="tns:IHotelFlow_CostAmend_OutputMessage" />
+      <wsdl:fault wsaw:Action="CostAmend" name="WSFault" message="tns:IHotelFlow_CostAmend_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHotelDetailsV3">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/GetHotelDetailsV3" message="tns:IHotelFlow_GetHotelDetailsV3_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/GetHotelDetailsV3Response" message="tns:IHotelFlow_GetHotelDetailsV3_OutputMessage" />
+      <wsdl:fault wsaw:Action="GetHotelDetailsV3" name="WSFault" message="tns:IHotelFlow_GetHotelDetailsV3_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTermAndConditions">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/GetTermAndConditions" message="tns:IHotelFlow_GetTermAndConditions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/GetTermAndConditionsResponse" message="tns:IHotelFlow_GetTermAndConditions_OutputMessage" />
+      <wsdl:fault wsaw:Action="GetTermAndConditions" name="WSFault" message="tns:IHotelFlow_GetTermAndConditions_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCancellationFee">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/GetCancellationFee" name="CancellationFeeRequest" message="tns:CancellationFeeRequest" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/GetCancellationFeeResponse" name="CancellationFeeInfoWrapper" message="tns:CancellationFeeInfoWrapper" />
+      <wsdl:fault wsaw:Action="GetCancellationFee" name="WSFault" message="tns:IHotelFlow_GetCancellationFee_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCancellationPolicies">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/GetCancellationPolicies" name="CancellationPoliciesRequest" message="tns:CancellationPoliciesRequest" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/hotelv3/IHotelFlow/GetCancellationPoliciesResponse" name="HotelPolicyTypeWrapper" message="tns:HotelPolicyTypeWrapper" />
+      <wsdl:fault wsaw:Action="GetCancellationPolicies" name="WSFault" message="tns:IHotelFlow_GetCancellationPolicies_WSFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

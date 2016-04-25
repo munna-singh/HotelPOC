@@ -1,0 +1,63 @@
+﻿@model Common.hotelflowSvc.TWS_HotelDetailsV3
+@{
+    ViewBag.Title = "Tourico Hotel Info";
+}
+<h1>Tourico Hotel Search Result</h1>
+
+
+
+<table>
+    <thead>
+        <tr>
+            
+        </tr>
+    </thead>
+    <tbody> 
+
+        <tr>
+            <td><b>Hotel Id</b></td>
+            <td><b>Rooms</b></td>
+            <td><b>Currency</b></td>
+            <td><b>Thumb</b></td>
+            <td><b>Phone</b></td>
+        </tr>
+             
+            @foreach (System.Data.DataRow dr in Model.Tables["Hotel"].Rows)
+            {                
+            <tr>
+                <td>@Html.ActionLink(dr[0].ToString(), "CheckAvailability", new { hotelId = Convert.ToInt32(dr[0].ToString()) })</td>    
+                <td>@dr["rooms"].ToString()</td>    
+                <td>@dr["currency"].ToString()</td>    
+                <td> <img  src=@dr["thumb"].ToString() /></td>    
+                <td>@dr["hotelphone"].ToString()</td>       
+            </tr>          
+           }
+
+        <tr>
+            <td><b>Description: </b></td>
+        </tr>
+        @foreach (System.Data.DataRow dr in Model.Tables["LongDescription"].Rows)
+        {
+            <tr>
+                <td>@dr[0].ToString()</td>               
+            </tr>
+        }
+
+        <tr>
+            <td><b>Room No.</b></td>
+            <td><b>Name</b></td>
+            <td><b>Room Category</b></td>          
+        </tr>
+        
+        @foreach (System.Data.DataRow dr in Model.Tables["RoomType"].Rows)
+        {
+            <tr>
+                <td>@dr["roomId"].ToString()</td>
+                <td>@dr["name"].ToString()</td>
+                <td>@dr["roomTypeCategory"].ToString()</td>               
+            </tr>
+        }
+
+
+    </tbody>
+</table>

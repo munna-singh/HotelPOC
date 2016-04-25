@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="060cc54c-4334-4a83-8602-e11023c0e838" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="HotelFlow.xsd" MetadataType="Schema" ID="6b5d34b7-cd9d-41c2-9faf-19b228555782" SourceId="1" SourceUrl="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd7" />
+    <MetadataFile FileName="HotelFlow.wsdl" MetadataType="Wsdl" ID="4e17e0fe-54d7-4bc8-befd-ff78e7bd63bf" SourceId="1" SourceUrl="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="TWS_HotelDetailsV3.xsd" MetadataType="Schema" ID="0a6159ad-9964-4149-9fb1-b04ff0ce5846" SourceId="1" SourceUrl="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd5" />
+    <MetadataFile FileName="HotelFlow1.xsd" MetadataType="Schema" ID="8a21510a-1a06-48b4-b1df-35705d1ad5db" SourceId="1" SourceUrl="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd4" />
+    <MetadataFile FileName="HotelFlow2.xsd" MetadataType="Schema" ID="cf05bd66-1152-427a-ad65-e2b09340feb3" SourceId="1" SourceUrl="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd3" />
+    <MetadataFile FileName="HotelFlow3.xsd" MetadataType="Schema" ID="2682d127-8788-42d3-a14b-fdbaa6ba873e" SourceId="1" SourceUrl="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd2" />
+    <MetadataFile FileName="HotelFlow4.xsd" MetadataType="Schema" ID="539f7466-8891-4b15-98fa-a94aad4ce345" SourceId="1" SourceUrl="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd1" />
+    <MetadataFile FileName="HotelFlow5.xsd" MetadataType="Schema" ID="6b41eb25-d519-468c-ae31-60fa2c28f4c8" SourceId="1" SourceUrl="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd0" />
+    <MetadataFile FileName="HotelFlow1.wsdl" MetadataType="Wsdl" ID="7c5f1d6b-1233-4604-9030-be37269bdf6f" SourceId="1" SourceUrl="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?wsdl" />
+    <MetadataFile FileName="HotelFlow6.xsd" MetadataType="Schema" ID="8e4954fc-9165-44de-b3e7-065bdf3b27f3" SourceId="1" SourceUrl="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd6" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

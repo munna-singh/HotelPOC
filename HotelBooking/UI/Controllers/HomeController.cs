@@ -26,6 +26,26 @@ namespace UI.Controllers
 
 
         [Authorize]
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "bedbank")]
+        public ActionResult searchBedbank(FormCollection collection)
+        {
+            HotelSearchDto searchCriteria = new HotelSearchDto();
+            searchCriteria.Address = collection["add"];
+            searchCriteria.Latitude = double.Parse(collection["lat"]);
+            searchCriteria.Longitude = double.Parse(collection["lan"]);
+            searchCriteria.StartDate = collection["checkIn"];
+            searchCriteria.EndDate = collection["checkOut"];
+            searchCriteria.TotalGuest = collection["ddlTotalGuest"];
+            searchCriteria.TotalRoom = collection["ddlNoOfRooms"];
+
+            TempData["HotelSearchDto"] = searchCriteria;
+            return RedirectToAction("SearchHotel", "BedBank");
+        }
+
+        [Authorize]
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "sebre")]
         public ActionResult SearchHotel(FormCollection collection)
         {
             HotelSearchDto searchCriteria = new HotelSearchDto();
@@ -37,7 +57,7 @@ namespace UI.Controllers
             searchCriteria.TotalGuest = collection["ddlTotalGuest"];
             searchCriteria.TotalRoom = collection["ddlNoOfRooms"];
             //Check in cache
-            var key =  searchCriteria.Latitude.ToString() + searchCriteria.Longitude.ToString() +  searchCriteria.StartDate.ToString() + searchCriteria.EndDate.ToString();
+            var key = searchCriteria.Latitude.ToString() + searchCriteria.Longitude.ToString() + searchCriteria.StartDate.ToString() + searchCriteria.EndDate.ToString();
             var result = GetFromCache(key);
             if (result == null)
             {
@@ -54,6 +74,15 @@ namespace UI.Controllers
 
         }
 
+        [Authorize]
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "Tourico")]
+        public ActionResult SearchTourico(FormCollection collection)
+        {
+            TempData["col"] = collection;
+            return RedirectToAction("SearchTourico", "BookTourico", collection);
+        }
+
         private void AddToCache(object value, string key)
         {
             _cache.Set(key, value, new CacheItemPolicy());
@@ -62,7 +91,7 @@ namespace UI.Controllers
         private object GetFromCache(string key)
         {
             var item = _cache.Get(key);
-            return item; 
+            return item;
         }
     }
 }

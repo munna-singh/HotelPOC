@@ -26,7 +26,9 @@
              @{
                  if (User.Identity.Name != string.Empty)
                  {
-                    <span> Welcome </span><b>@User.Identity.Name</b> @Html.ActionLink("[Log out]", "LogOut", "Account", null, null)
+                    <span> Welcome </span><b>@User.Identity.Name</b>
+                    @*<b>@Html.ActionLink("[BED BANK]", "Index", "BedBank", null, null)</b>*@
+                    @Html.ActionLink("[Log out]", "LogOut", "Account", null, null)
                  }
             }   
                 
