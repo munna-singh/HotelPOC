@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="EndTransactionRS" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>Common.Sabre.Hotels.EndTransaction.EndTransactionRS, Web References.Sabre.Hotels.EndTransaction.Reference.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>Common.Sabre.Hotels.EndTransaction.EndTransactionRS, Web References.Sabre.Hotels.EndTransaction.Reference.cs.dll, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

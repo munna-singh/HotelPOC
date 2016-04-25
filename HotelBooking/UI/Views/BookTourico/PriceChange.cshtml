@@ -1,0 +1,33 @@
+﻿@model System.ServiceModel.FaultException
+
+@{
+    ViewBag.Title = "Hotel Booking - Price Change";
+}
+<h1>Your booking Status</h1>
+
+<br />
+
+<br />
+
+<h1>@Model.Message</h1>
+
+<h1>Do You Want to Book with New Price?</h1>
+
+<table>
+<tr>
+<td>    
+   
+</td>
+<td>
+@using (Html.BeginForm("BookHotelFinal", "BookTourico"))
+{
+    <input type="hidden" name="hotelCode" value="@ViewBag.HotelId" />
+    <input type="hidden" name="hotelroomTypeId" value="@ViewBag.HotelRoomTypeId" />
+    <input type="hidden" name="message" value="@Model.Message" />
+    <button type="submit" class="btn btn-warning" style="width:150px;">Yes</button>
+    <button type="button" class="btn btn-warning" style="width:150px;" onclick="history.back()">Back</button>
+ }
+</td>
+</tr>
+</table>
+

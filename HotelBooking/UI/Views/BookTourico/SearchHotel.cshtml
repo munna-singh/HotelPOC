@@ -1,0 +1,238 @@
+﻿@model Common.hotelflowSvc.Hotel[]
+
+@using System.Web.Script.Serialization;
+
+@{
+    ViewBag.Title = "Hotel Search Result - Tourico";
+ }
+<style type="text/css">
+    .hotel-map-label {
+        color: #29abe2;
+        font-weight: bold;
+        border-style: solid;
+        border-color: #ffffff;
+        background-color: #ffffff;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+</style>
+<h1>Hotel Search Result - Tourico</h1>
+
+@if (true)
+{
+   // JavaScriptSerializer js = new JavaScriptSerializer();
+    //string jsonResult = js.Serialize(Model);
+    ;
+    //Include Maps To website
+    <div>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false" type="text/javascript"></script>
+        <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel.js" type="text/javascript"></script>
+        <script type="text/javascript">
+           
+          
+            // check DOM Ready
+            $(document).ready(function () {
+                // execute
+                (function () {
+                    // map options
+                    var options = {
+                        zoom: 10,
+                        center: new google.maps.LatLng(@ViewBag.Lat, @ViewBag.Lan),
+                        mapTypeId: google.maps.MapTypeId.TERRAIN,
+                        mapTypeControl: false
+                    };
+
+                    // init map
+                    var map = new google.maps.Map(document.getElementById('map_canvas'), options);
+
+                    @foreach (Common.hotelflowSvc.Hotel htl in Model)
+                        {
+                        <text>
+
+                            var price = "";
+                            price = htl.RoomTypes[0].Occupancies[0].occupPrice.ToString();
+                            alert(price);
+                            var markerImage = 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png';
+                            var marker = new MarkerWithLabel({
+                            position: new google.maps.LatLng(@htl.Location.latitude, @htl.Location.longitude),
+                            labelContent: price,
+                            icon: markerImage,
+                            labelAnchor: new google.maps.Point(-15, 25),
+                            labelClass: "hotel-map-label",
+                            title: htl.name,
+                            map: map,
+                            hotel: htl,
+                            animation: google.maps.Animation.DROP
+                            });
+
+                            google.maps.event.addListener(marker, 'click', function () {
+                                //alert("I am " + marker.title + ". Check browser console log for more details.");
+                                self.showHotelItemDetails(htl);
+                            });
+                                                              
+                            </text>
+                      };
+
+
+                    //// set multiple marker
+                    //$.each(output.AvailabilityOptions, function(index, details){
+                    //        var price ="";
+                    //        if(details.BasicPropertyInfo.RateRange != null && details.BasicPropertyInfo.RateRange.Min != null)
+                    //        {
+                    //            price = details.BasicPropertyInfo.RateRange.CurrencyCode + " $" + details.BasicPropertyInfo.RateRange.Min;
+                    //        }
+                    //        else
+                    //        {
+                    //            price = "N/A";
+                    //        }
+
+                    //        var markerImage = 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png';
+                    //        var marker = new MarkerWithLabel({
+                    //        position: new google.maps.LatLng(details.BasicPropertyInfo.Latitude, details.BasicPropertyInfo.Longitude),
+                    //        labelContent: price,
+                    //        icon: markerImage,
+                    //        labelAnchor: new google.maps.Point(-15, 25),
+                    //        labelClass: "hotel-map-label",
+                    //        title: details.BasicPropertyInfo.HotelName,
+                    //        map: map,
+                    //        hotel: details,
+                    //        animation: google.maps.Animation.DROP
+                    //    });
+
+                    //    google.maps.event.addListener(marker, 'click', function () {
+                    //    //alert("I am " + marker.title + ". Check browser console log for more details.");
+                    //    self.showHotelItemDetails(details);
+                    //});
+
+                    //});                   
+                })();
+            });
+
+
+            function showHotelItemDetails(hotel)
+            {
+                console.log(hotel);
+                location.hash = '';
+                location.hash = "#" + hotel.hotelId;
+            }
+        </script>
+
+    </div>
+    <div id="map_canvas" style="height:400px;"></div>
+    <div style="font-size:12px;">
+
+        @foreach (Common.hotelflowSvc.Hotel details in Model)
+        {
+            using (Html.BeginForm("CheckAvailability", "BookTourico"))
+            {
+                <table width="100%" class="rcorners" id="@details.hotelId">
+                    <tr>
+
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td width="5%">&nbsp;</td>
+                        <td style="width:20%">
+                            @*@{ var imageName = counter + ".jpg";
+                             counter++;
+                             if (counter > 4) { counter = 1; }
+                            }*@
+                            <img src=@details.thumb style="width:250px; height:250px;" />
+                        </td>
+                        <td style="width:55%">
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <h3>
+                                            @details.name
+                                        </h3>
+                                        Code: @details.hotelId
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @*@{var hotelAddress = string.Empty;}
+                                        @foreach (var address in details.BasicPropertyInfo.Address)
+                                        {
+                                            hotelAddress += address + " ";
+                                        }*@
+
+                                        <p>@details.Location.location </p>
+                                        <p>@details.Location.address </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @{
+               
+                    <h3>$@details.minAverPublishPrice - $@details.RoomTypes[0].Occupancies[0].occupPublishPrice</h3>
+                
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @{var specialOffers = string.Empty;}
+                                       
+                                            specialOffers = "Not available";
+                                       
+                                        <p> <b>Special Offers:</b> @specialOffers</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p><b>Latitude:</b> @details.Location.latitude</p>
+                                        <p><b>Longitude:</b> @details.Location.longitude</p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+
+                        @*<td style="width:20%">
+                            <div style="max-height:300px; overflow:auto">
+                                @foreach (var t in details.BasicPropertyInfo.PropertyOptionInfo.GetType().GetProperties())
+                                {
+                                    var childType = t.GetValue(details.BasicPropertyInfo.PropertyOptionInfo, null);
+                                    var val = childType.GetType().GetProperty("Ind").GetValue(childType, null);
+                                    <p><b>@t.Name </b> @val</p>
+                                    var value = t;
+                                }
+                            </div>
+
+                        </td>*@
+                    </tr>
+                    <tr>
+                        <td width="5%">&nbsp;</td>
+                        <td colspan="1">
+                            <p><b>Phone: </b>  <b>Fax: </b> </p>
+                        </td>
+                        <td>
+                            <b>Start Date:</b> @ViewBag.StartDate  <b>End Date:</b> @ViewBag.EndDate
+                            <input type="hidden" name="startDate" value="@ViewBag.StartDate" />
+                            <input type="hidden" name="endDate" value="@ViewBag.EndDate" />
+                            <input type="hidden" name="totalTravellers" value="@ViewBag.TotalTravellers" />
+                            <input type="hidden" name="hotelCode" value="@details.hotelId" />
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-warning" style="width:150px;">Select</button>
+                        </td>
+                    </tr>
+                </table>
+            }
+        }
+    </div>
+}
+else
+{
+    <p style="color:red; font-size:15px;">No record found  </p>
+}
+
+<style type="text/css">
+    .rcorners {
+        border-radius: 7px;
+        border: 2px solid #73AD21;
+    }
+</style>

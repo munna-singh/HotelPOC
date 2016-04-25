@@ -1,0 +1,148 @@
+﻿@model List<com.hotelbeds.distribution.hotel_api_model.auto.model.Hotel>
+@{
+    ViewBag.Title = "Bed Bank Hotel Search Result";
+    var counter = 1;
+}
+
+<style type="text/css">
+    .hotel-map-label {
+        color: #29abe2;
+        font-weight: bold;
+        border-style: solid;
+        border-color: #ffffff;
+        background-color: #ffffff;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+</style>
+
+<h1>Bed Bank Hotel Search Result</h1>
+
+@if (Model.Count > 0)
+{
+    <div>
+        <script type="text/javascript"
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var lat = @ViewBag.latOrg;
+                var lon = @ViewBag.lanOrg;
+                var myLatlng = new google.maps.LatLng(lat, lon) // This is used to center the map to show our markers
+                var mapOptions = {
+                    center: myLatlng,
+                    zoom: 6,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    marker: true
+                };
+                var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+                var marker = new google.maps.Marker({
+                    position: myLatlng
+                });
+                marker.setMap(map);
+            });
+
+        </script>
+    </div>
+}
+<div id="map_canvas" style="height:400px;"></div>
+<div style="font-size:12px;">
+    @foreach (var details in Model)
+    {
+        using (Html.BeginForm("Index", "BBHotelDetails"))
+        {
+            <table width="100%" class="rcorners" id="@details.code">
+                <tr>
+                    <td colspan="4s"></td>
+                </tr>
+                <tr>
+                    <td width="5%">&nbsp;</td>
+                    <td style="width:20%">
+                        @{ var imageName = counter + ".jpg";
+                            counter++;
+                            if (counter > 4) { counter = 1; }
+                        }
+                        <img src="~/Images/@imageName" style="width:250px; height:250px;" />
+                    </td>
+                    <td style="width:55%">
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <h3>
+                                     Hotel Name:   @details.name
+                                    </h3>
+                                    Code: @details.code
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Currency : @details.currency</p>
+                                    <p>Zone Code :@details.zoneCode</p>
+                                    <p>Zone : @details.zoneName</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @{
+                                        if (@details.minRate.ToString() != null)
+                                        {
+                                            <h3>Price Range : &euro;@details.minRate - &euro;@details.maxRate</h3>
+                                        }
+
+
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @{var specialOffers = string.Empty;}
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p><b>Latitude:</b> @details.latitude</p>
+                                    <p><b>Longitude:</b> @details.longitude</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width:20%">
+                        <div style="max-height:300px; overflow:auto">
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="5%">&nbsp;</td>
+                    <td colspan="1">
+                        @*<p><b>Phone: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Phone  <b>Fax: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Fax</p>*@
+                    </td>
+                    <td>
+                        <b>Start Date:</b> @ViewBag.checkIn.ToString("dd/MMM/yyyy")  <b>End Date:</b> @ViewBag.checkOut.ToString("dd/MMM/yyyy")
+                        <input type="hidden" name="checkIn" value="@ViewBag.checkIn" />
+                        <input type="hidden" name="checkOut" value="@ViewBag.checkOut" />
+                        <input type="hidden" name="totalTravellers" value="@ViewBag.TotalTravellers" />
+                        <input type="hidden" name="hotelCode" value="@details.code" />
+                        <input type="hidden" name="LatOrg" value="@ViewBag.LatOrg" />
+                        <input type="hidden" name="LanOrg" value="@ViewBag.LanOrg" />
+                        <input type="hidden" name="Lat" value="@ViewBag.Lat" />
+                        <input type="hidden" name="Lan" value="@ViewBag.Lan" />
+                        <input type="hidden" name="radius" value="@ViewBag.radius" />
+                        @*<input type="text" name="totalGuests" value="@ViewBag.totalTravellers" />*@
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-warning" style="width:150px;">Select</button>
+                    </td>
+                </tr>
+            </table>
+        }
+    }
+</div>
+
+<style type="text/css">
+    .rcorners {
+        border-radius: 7px;
+        border: 2px solid #73AD21;
+    }
+</style>

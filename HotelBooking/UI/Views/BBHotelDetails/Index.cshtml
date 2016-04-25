@@ -1,0 +1,345 @@
+﻿@model com.hotelbeds.distribution.hotel_api_model.auto.model.Hotel
+@using System.Web.Script.Serialization;
+
+@{
+    ViewBag.Title = "Selected Hotel Details";
+    var counter = 1;
+}
+
+@*<h1>Selected Hotel Details</h1>*@
+
+<div style="background-color:white; padding:10px; margin:10px; font-size:12px;">
+    @if (@Model.name != null)
+    {
+        <table>
+            <tr>
+                <td>
+                    <h1>Hotel : @Model.name</h1>
+                    <h2>Zone Code : @Model.zoneCode &nbsp;&nbsp; Zone Name : @Model.zoneName</h2>
+                    <h4>Destination : @Model.destinationName</h4>
+                </td>
+                @*<td>
+        <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
+        <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
+    </td>*@
+                <td align="right"><b>Check-In: </b>@ViewBag.checkIn.ToString("dd/MMM/yyyy")</td>
+                <td align="right"><b>Check-Out: </b>@ViewBag.checkOut.ToString("dd/MMM/yyyy")</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:orange; font-size:20px;"></span>
+                </td>
+                @*<td align="right"><b>Check-In: </b>@ViewBag.checkIn</td>
+                <td align="right"><b>Check-Out: </b>@ViewBag.checkOut</td>*@
+                <td><b>Prperty Type:</b></td>
+                <td><b>@Model.categoryCode &nbsp;&nbsp;@Model.categoryName</b></td>
+            </tr>
+        </table>
+        <table width="100%">
+            <tr>
+                @*Options Info:*@
+                <td></td>
+                <td><b><u></u></b></td>
+                @*<td><b><u>Prperty Type:</u></b></td><td><b>@Model.categoryCode &nbsp;&nbsp;@Model.categoryName</b></td>*@
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                @*<td><b>@Model.categoryCode &nbsp;&nbsp;@Model.categoryName</b></td>*@
+            </tr>
+            <tr>
+                <td>
+                    <img src="~/Images/1.jpg" />
+                </td>
+            </tr>
+            <tr hidden>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr hidden>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Attractions:</u></b></td>
+                            <td width="50%"><b><u>Additional Attractions:</u></b></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr hidden>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    @*<b><u>Available Rooms</u></b>*@
+                </td>
+            </tr>
+            <tr>
+    <td colspan="3">
+        @*@if (Model.rooms != null)
+        {
+            <table width="100%">
+                <tr>
+                    <th width="40%">Room Types</th>
+                    <th>Room Code</th>
+                    <th>Base Price</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td colspan="4"><hr /></td>
+                </tr>
+
+                @foreach (var room in Model.rooms)
+                {
+                    <tr>
+                        <td>@room.rates[0].boardName</td>
+                        <td>@room.rates[0].boardCode</td>
+                        <td>@room.rates[0].hotelSellingRate</td>
+            
+                    </tr>
+                }
+                </table>
+                    }
+                    else
+                    {
+                        <p style="color:red; font-size:15px;">No room available</p>
+                    }*@
+                </td>
+            </tr>
+            <tr hidden>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr hidden>
+                <td colspan="3">
+                    
+    
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Credit Cards:</u></b></td>
+                        </tr>
+                        <tr>
+                            <td width="50%"><b><u>Credit Card Code</u></b></td>
+                            <td width="50%"><b><u>Credit Card</u></b></td>
+                            <td width="50%"><b><u>Payment Type</u></b></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                    
+            <tr hidden>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr hidden>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Description:</u></b></td>
+                            <td width="50%"><b><u>Payment Type:</u></b></td>
+                        </tr>
+                        <tr>
+                            @*<td valign="top">
+                                        @{
+                                            foreach (var desc in Model.rooms)
+                                            {
+                                                foreach (var txt in desc.rates)
+                                                {
+                                                    <td>@txt.paymentType</td>
+                                                }
+                                            }
+                                        }
+                            </td>*@
+                            <td valign="top">
+                                <div style="overflow:auto; max-height:250px;">
+                                    @*<ul>
+                                        @{
+                                            if (Model.RoomStay.BasicPropertyInfo.VendorMessages.Dining != null)
+                                            {
+                                                foreach (var dinn in Model.RoomStay.BasicPropertyInfo.VendorMessages.Dining)
+                                                {
+                                                    var message = string.Empty;
+                                                    foreach (var txt in dinn.Text)
+                                                    {
+                                                        <li>@txt</li>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </ul>*@
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr hidden>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr hidden>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Directions:</u></b></td>
+                            <td width="50%"><b><u>Facilities:</u></b></td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <div style="overflow:auto; max-height:250px;">
+                                    @*<ul>
+                                        @{
+                                            if (Model.RoomStay.BasicPropertyInfo.VendorMessages.Directions != null)
+                                            {
+                                                foreach (var dir in Model.RoomStay.BasicPropertyInfo.VendorMessages.Directions)
+                                                {
+                                                    var message = string.Empty;
+                                                    foreach (var txt in dir.Text)
+                                                    {
+                                                        <li>@txt</li>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </ul>*@
+                                </div>
+                            </td>
+                            <td valign="top">
+                                @*<div style="overflow:auto; max-height:250px;">
+                                    <ul>
+                                        @{
+                                            foreach (var fac in Model.RoomStay.BasicPropertyInfo.VendorMessages.Facilities)
+                                            {
+                                                var message = string.Empty;
+                                                foreach (var txt in fac.Text)
+                                                {
+                                                    <li>@txt</li>
+                                                }
+                                            }
+                                        }
+                                    </ul>
+                                </div>*@
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr hidden>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr hidden>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Hotel Policies:</u></b></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @*<div style="overflow:auto; max-height:250px;">
+                                    <ul>
+                                        @{
+                                            foreach (var pol in Model.RoomStay.BasicPropertyInfo.VendorMessages.Policies)
+                                            {
+                                                var message = string.Empty;
+                                                foreach (var txt in pol.Text)
+                                                {
+                                                    <li>@txt</li>
+                                                }
+
+                                            }
+                                        }
+                                    </ul>
+                                </div>*@
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr hidden>
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%"><b><u>Rooms Descriptions:</u></b></td>
+                        </tr>
+                        
+                    </table>
+                    <table> 
+                        @foreach (var room in Model.rooms)
+                        {
+                            foreach (var perroom in room.rates)
+                            {
+                                <tr>
+                                    <td>@perroom.rateKey</td>
+                                    <td>&euro; @perroom.sellingRate</td>
+                                    <td>
+                                        @using (Html.BeginForm("Index", "BedBankBook"))
+                                        {
+                                            <input type="hidden" name="checkIn" value="@ViewBag.checkIn" />
+                                            <input type="hidden" name="checkOut" value="@ViewBag.checkOut" />
+                                            <input type="hidden" name="totalTravellers" value="@ViewBag.totalTravellers" />
+                                            <input type="hidden" name="hotelcode" value="@ViewBag.hotelcode" />
+                                            <input type="hidden" name="LatOrg" value="@ViewBag.LatOrg" />
+                                            <input type="hidden" name="LanOrg" value="@ViewBag.LanOrg" />
+                                            <input type="hidden" name="radius" value="@ViewBag.radius" />
+                                            <input type="hidden" name="rateKey" value="@perroom.rateKey" />
+
+                                            <button type="submit" class="btn btn-success">Book</button>
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        <tr>
+                            <td>
+                                @*@using (Html.BeginForm("Index", "BedBankBook"))
+                                {
+                                    <input type="hidden" name="checkIn" value="@ViewBag.checkIn" />
+                                    <input type="hidden" name="checkOut" value="@ViewBag.checkOut" />
+                                    <input type="hidden" name="totalTravellers" value="@ViewBag.totalTravellers" />
+                                    <input type="hidden" name="hotelcode" value="@ViewBag.hotelcode" />
+                                    <input type="hidden" name="Lat" value="@ViewBag.Lat" />
+                                    <input type="hidden" name="Lan" value="@ViewBag.Lan" />
+                                    <input type="hidden" name="radius" value="@ViewBag.radius" />
+                                    <input type="hidden" name="rateKey" value="@ViewBag.rateKey" />
+                                }*@
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    }
+    else
+    {
+        <h1><p style="color:red;">No rooms found.</p></h1>
+    }
+
+</div>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tourico.com/webservices/TWS_ClxPolicies.xsd" elementFormDefault="qualified" targetNamespace="http://tourico.com/webservices/TWS_ClxPolicies.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="HotelPolicy" type="tns:HotelPolicyType" />
+  <xs:complexType name="HotelPolicyType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="RoomTypePolicy" type="tns:RoomTypePolicyType" />
+    </xs:sequence>
+    <xs:attribute name="hotelId" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="RoomTypePolicyType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="CancelPolicy" type="tns:ArrayOfCancelPenaltyType" />
+    </xs:sequence>
+    <xs:attribute name="hotelRoomTypeId" type="xs:int" />
+    <xs:attribute name="CheckIn" type="xs:string" />
+    <xs:attribute name="CheckOut" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfCancelPenaltyType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CancelPenalty" type="tns:CancelPenaltyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CancelPenaltyType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Deadline" type="tns:DeadlineType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AmountPercent" type="tns:AmountPercentType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PenaltyDescription" type="tns:ParagraphType" />
+    </xs:sequence>
+    <xs:attribute name="ConfirmClassCode" type="xs:string" />
+    <xs:attribute name="PolicyCode" type="xs:string" />
+    <xs:attribute name="NonRefundable" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="DeadlineType">
+    <xs:attribute name="AbsoluteDeadline" type="xs:dateTime" />
+    <xs:attribute name="OffsetTimeUnit" type="tns:TimeUnitType" />
+    <xs:attribute name="OffsetUnitMultiplier" type="xs:int" />
+    <xs:attribute name="OffsetDropTime" type="tns:DeadlineTypeOffsetDropTime" />
+  </xs:complexType>
+  <xs:simpleType name="TimeUnitType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Year" />
+      <xs:enumeration value="Month" />
+      <xs:enumeration value="Week" />
+      <xs:enumeration value="Day" />
+      <xs:enumeration value="Hour" />
+      <xs:enumeration value="Second" />
+      <xs:enumeration value="FullDuration" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DeadlineTypeOffsetDropTime">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BeforeArrival" />
+      <xs:enumeration value="AfterBooking" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AmountPercentType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="CurrencyCode" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="NmbrOfNights" type="xs:nonNegativeInteger" />
+    <xs:attribute name="BasisType" type="tns:AmountPercentTypeBasisType" />
+    <xs:attribute name="Percent" type="xs:double" />
+    <xs:attribute name="Amount" type="xs:decimal" />
+    <xs:attribute name="DecimalPlaces" type="xs:int" />
+  </xs:complexType>
+  <xs:simpleType name="AmountPercentTypeBasisType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FullStay" />
+      <xs:enumeration value="Nights" />
+      <xs:enumeration value="FirstLast" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ParagraphType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Text" type="tns:FormattedTextTextType" />
+    </xs:sequence>
+    <xs:attribute name="ParagraphNumber" type="xs:int" />
+  </xs:complexType>
+  <xs:complexType name="FormattedTextTextType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Formatted" type="xs:boolean" />
+        <xs:attribute name="Language" type="xs:language" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

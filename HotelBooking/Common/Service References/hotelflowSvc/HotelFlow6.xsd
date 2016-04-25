@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tourico.com/webservices/" elementFormDefault="qualified" targetNamespace="http://tourico.com/webservices/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://demo-hotelws.touricoholidays.com/HotelFlow.svc?xsd=xsd7" namespace="http://tourico.com/webservices/TWS_ClxPolicies.xsd" />
+  <xs:element name="GetCancellationFeeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetCancellationFeeResult" type="tns:CancellationFeeInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="CancellationFeeInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="CancellationFeeValue" type="xs:decimal" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Currency" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetCancellationPoliciesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://tourico.com/webservices/TWS_ClxPolicies.xsd" minOccurs="0" maxOccurs="1" ref="q1:HotelPolicy" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
