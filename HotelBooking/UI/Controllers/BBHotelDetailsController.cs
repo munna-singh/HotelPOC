@@ -73,7 +73,9 @@ namespace UI.Controllers
                         new Pax
                         {
                              age = 35,
-                             type = com.hotelbeds.distribution.hotel_api_model.auto.common.SimpleTypes.HotelbedsCustomerType.AD
+                             type = com.hotelbeds.distribution.hotel_api_model.auto.common.SimpleTypes.HotelbedsCustomerType.AD,
+                             name = "Munna",
+                             surname = "Singh"
                         }
                     }
                 });

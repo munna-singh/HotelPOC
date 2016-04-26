@@ -68,7 +68,9 @@ namespace UI.Controllers
                         new Pax
                         {
                              age = 35,
-                             type = com.hotelbeds.distribution.hotel_api_model.auto.common.SimpleTypes.HotelbedsCustomerType.AD
+                             type = com.hotelbeds.distribution.hotel_api_model.auto.common.SimpleTypes.HotelbedsCustomerType.AD,
+                             name = "Munna",
+                             surname = "Singh"
                         }
                     }
                 });
@@ -138,7 +140,7 @@ namespace UI.Controllers
 
                         ConfirmRoom confirmRoom = new ConfirmRoom();
                         confirmRoom.details = new List<RoomDetail>();
-                        confirmRoom.detailed(RoomDetail.GuestType.ADULT, 30, "NombrePasajero1", "ApellidoPasajero1", 1);
+                        confirmRoom.detailed(RoomDetail.GuestType.ADULT, 30, "Munna", "Singh", 1);
                         //confirmRoom.detailed(RoomDetail.GuestType.ADULT, 30, "NombrePasajero2", "ApellidoPasajero2", 1);
 
                         BookingCheck bookingCheck = new BookingCheck();
@@ -162,10 +164,10 @@ namespace UI.Controllers
                                     booking.cardType = "VI";
                                     booking.cardNumber = "4444333322221111";
                                     booking.expiryDate = "0620";
-                                    booking.cardCVC = "0620";
+                                    booking.cardCVC = "620";
                                     booking.email = "pmayol@multinucleo.com";
                                     booking.phoneNumber = "654654654";
-                                    booking.cardHolderName = "AUTHORISED";
+                                    booking.cardHolderName = "Munna Kumar Singh";
 
                                     booking.addRoom(rateKey, confirmRoom);
 
@@ -185,12 +187,13 @@ namespace UI.Controllers
                                             paxes = new List<Pax>
                                             {
                                                 Capacity = 1
+                                                
                                             }
                                         });
                                         br.remark = "***SDK***TESTING";
                                         br.holder = new Holder();
-                                        br.holder.name = "Test";
-                                        br.holder.surname = "Surname";
+                                        br.holder.name = "Munna";
+                                        br.holder.surname = "Singh";
 
                                         br.clientReference = "Client reference";
 
@@ -225,9 +228,14 @@ namespace UI.Controllers
                                     //"Booking Response"
                                     if (responseBooking != null)
                                     {
-                                        ViewBag.BookingRef = responseBooking.booking.reference;
-                                        if (responseBooking.booking.reference == null)
+                                        if (responseBooking.error != null)
                                             ViewBag.ErrorGot = responseBooking.error.message;
+                                        else
+                                        {
+                                            ViewBag.BookingRef = responseBooking.booking.reference;
+                                        }
+                                        //if (responseBooking.booking.reference == null)
+                                            
                                     }
                                         //"Confirmation succedded. Canceling reservation with id "    
                                         #region Confirmation Succeeded
