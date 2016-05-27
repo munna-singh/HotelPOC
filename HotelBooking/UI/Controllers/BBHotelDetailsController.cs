@@ -23,25 +23,26 @@ namespace UI.Controllers
             #region Hotel Search
             //Hotel hotelfiltered = new Hotel();
 
-            //HotelApiClient client = new HotelApiClient();
-            //StatusRS status = client.status();
-            //List<Hotel> hotels = new List<Hotel>();
-            //if (status != null && status.error == null)
-            //{
-            //    List<Tuple<string, string>> param;
-            //    Availability avail = new Availability();
-            //    avail.checkIn = Convert.ToDateTime(collection["checkIn"]);
-            //    avail.checkOut = Convert.ToDateTime(collection["checkOut"]);
-            //    var hotelcodeqq = collection["hotelCode"];
-            //    var address = collection["add"];
-            //    ViewBag.checkIn = avail.checkIn;
-            //    ViewBag.checkOut = avail.checkOut;
-            //    avail.language = "CAS";
-            //    avail.shiftDays = 2;
-            //    AvailRoom room = new AvailRoom();
-            //    room.adults = Convert.ToInt32(collection["totalTravellers"]);
-            //    ViewBag.GuestNo = room.adults;
-            //    room.children = 0;
+            HotelApiClient client = new HotelApiClient();
+            StatusRS status = client.status();
+            List<Hotel> hotels = new List<Hotel>();
+            if (status != null && status.error == null)
+            {
+                //List<Tuple<string, string>> param;
+                Availability avail = new Availability();
+                avail.checkIn = Convert.ToDateTime(collection["checkIn"]);
+                avail.checkOut = Convert.ToDateTime(collection["checkOut"]);
+                var address = collection["add"];
+                ViewBag.checkIn = avail.checkIn;
+                ViewBag.checkOut = avail.checkOut;
+                //avail.destination = "PMI";
+                //avail.zone = 90;
+                avail.language = "CAS";
+                avail.shiftDays = 2;
+                AvailRoom room = new AvailRoom();
+                room.adults = Convert.ToInt32(collection["totalTravellers"]);
+                ViewBag.GuestNo = room.adults;
+                room.children = 0;
 
             //    room.details = new List<RoomDetail>();
             //    room.adultOf(30);

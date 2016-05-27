@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TE.Tourico.Hotel;
 
 namespace UI.Controllers
 {
@@ -33,6 +34,17 @@ namespace UI.Controllers
             SessionClose closeSession = new SessionClose();
             closeSession.Close(select.SessionId);
             return View(hotelDesc);
+        }
+
+        public ActionResult TouricoHotelDetails(FormCollection collection)
+        {
+            TouricoHotelSearchProvider searchProvider = new TouricoHotelSearchProvider();
+
+            var hotelInfo = searchProvider.RetrieveHotelInfo(collection["hotelCode"]);
+            ViewBag.StartDate = collection["startDate"];
+            ViewBag.EndDate = collection["endDate"];
+            ViewBag.RoomTypes = collection["roomTypes"];
+            return View(hotelInfo);
         }
 
     }

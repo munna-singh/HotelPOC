@@ -37,7 +37,9 @@ namespace Manager
             if (searchCriteria.Address != null && searchCriteria.Address != string.Empty)
                 ref1.HotelCityCode = searchCriteria.Address;
 
+#pragma warning disable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
             if (searchCriteria.Latitude != null && searchCriteria.Longitude != null)
+#pragma warning restore CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
             {
                 ref1.Latitude =  searchCriteria.Latitude.ToString("N2");
                 ref1.Longitude = searchCriteria.Longitude.ToString("N2");

@@ -36,13 +36,25 @@ namespace UI.Controllers
             HotelAvailabilityProviderReq providerReq = new HotelAvailabilityProviderReq();
             if (hotelDto != null)
             {
-                ViewBag.error = null;
-                providerReq.CheckInDate = Convert.ToDateTime(hotelDto.StartDate);
-                ViewBag.checkIn = providerReq.CheckInDate;
-                providerReq.CheckOutDate = Convert.ToDateTime(hotelDto.EndDate);
-                ViewBag.checkOut = providerReq.CheckOutDate;
-                providerReq.MaxRating = 5;
-                providerReq.MinRating = 0;
+               // List<Tuple<string, string>> param;
+                Availability avail = new Availability();
+                //avail.checkIn = Convert.ToDateTime(collection["checkIn"]);
+                avail.checkIn = Convert.ToDateTime(hotelDto.StartDate);
+                //avail.checkOut = Convert.ToDateTime(collection["checkOut"]);
+                avail.checkOut = Convert.ToDateTime(hotelDto.EndDate);
+                //var address = collection["add"];
+                var address = hotelDto.Address;
+                ViewBag.checkIn = avail.checkIn;
+                ViewBag.checkOut = avail.checkOut;
+                //avail.destination = "PMI";
+                //avail.zone = 90;
+                avail.language = "CAS";
+                avail.shiftDays = 2;
+                AvailRoom room = new AvailRoom();
+                //room.adults = Convert.ToInt32(collection["ddlTotalGuest"]);
+                room.adults = Convert.ToInt32(hotelDto.TotalGuest);
+                ViewBag.GuestNo = room.adults;
+                room.children = 0;
 
                 //Hotel code should come from search manager class
                 if (hotelDto.HotelCodes != null) 
