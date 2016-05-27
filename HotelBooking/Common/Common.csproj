@@ -31,21 +31,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="com.hotelbeds.distribution.hotel_api_model">
-      <HintPath>..\packages\hotel-api-sdk-net.0.1\lib\net452\com.hotelbeds.distribution.hotel_api_model.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="com.hotelbeds.distribution.hotel_api_sdk">
-      <HintPath>..\packages\hotel-api-sdk-net.0.1\lib\net452\com.hotelbeds.distribution.hotel_api_sdk.dll</HintPath>
+    <Reference Include="log4net.ElasticSearch, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.ElasticSearch.2.3.2\lib\net45\log4net.ElasticSearch.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\hotel-api-sdk-net.0.1\lib\net452\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Net.Http.Formatting">
-      <HintPath>..\packages\hotel-api-sdk-net.0.1\lib\net452\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Services" />
@@ -56,6 +58,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConfigSettingsBase.cs" />
+    <Compile Include="Exceptions\DynamicProviderException.cs" />
+    <Compile Include="Exceptions\PipelineFilterException.cs" />
+    <Compile Include="Exceptions\ProviderException.cs" />
+    <Compile Include="Exceptions\ProviderUnavailableException.cs" />
+    <Compile Include="Exceptions\TravelEdgeException.cs" />
+    <Compile Include="Logging\ApiCallLogger.cs" />
+    <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Logging\LoggingConfigSettings.cs" />
+    <Compile Include="Logging\LogicalOperation.cs" />
+    <Compile Include="Logging\TELoggerTraceListener.cs" />
+    <Compile Include="Logging\XMLHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -122,7 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Dlls\TE.ThirdPartyProviders.Sabre.dll" />
-    <Content Include="Newtonsoft.Json.xml" />
+    <None Include="packages.config" />
     <None Include="Service References\hotelflowSvc\Common.hotelflowSvc.AmendResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -186,14 +200,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="System.Net.Http.Formatting.xml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -762,6 +774,10 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\hotelflowSvc\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Auth\" />
+    <Folder Include="Communication\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

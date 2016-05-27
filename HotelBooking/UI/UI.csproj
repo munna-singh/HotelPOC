@@ -42,16 +42,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="com.hotelbeds.distribution.hotel_api_model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\hotel-api-sdk-net.0.1\lib\net452\com.hotelbeds.distribution.hotel_api_model.dll</HintPath>
+      <HintPath>..\packages\hotel-api-sdk-net.0.5\lib\net452\com.hotelbeds.distribution.hotel_api_model.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="com.hotelbeds.distribution.hotel_api_sdk, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\hotel-api-sdk-net.0.1\lib\net452\com.hotelbeds.distribution.hotel_api_sdk.dll</HintPath>
+      <HintPath>..\packages\hotel-api-sdk-net.0.5\lib\net452\com.hotelbeds.distribution.hotel_api_sdk.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -60,7 +60,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\hotel-api-sdk-net.0.1\lib\net452\System.Net.Http.Formatting.dll</HintPath>
+      <HintPath>..\packages\hotel-api-sdk-net.0.5\lib\net452\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Caching">
@@ -202,6 +202,7 @@
     <Compile Include="Controllers\ModifyBookingController.cs" />
     <Compile Include="Controllers\MultipleButtonAttribute.cs" />
     <Compile Include="Controllers\PriceBreakupController.cs" />
+    <Compile Include="Controllers\XMLSerializer.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -295,7 +296,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="System.Net.Http.Formatting.xml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -352,6 +355,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{e81aeedb-6619-406c-8207-b8c529854dce}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HotelBeds\HotelBeds.csproj">
+      <Project>{6284df74-fb25-4205-a344-234f345a2c6a}</Project>
+      <Name>HotelBeds</Name>
     </ProjectReference>
     <ProjectReference Include="..\Manager\Manager.csproj">
       <Project>{dc212e93-efc9-4bb9-a881-75f37169b51c}</Project>
