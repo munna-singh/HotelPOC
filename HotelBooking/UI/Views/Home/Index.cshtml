@@ -1,11 +1,16 @@
 ﻿@{
     ViewBag.Title = "Hotel Search";
 }
+
+
+
 @section featured {
     @using (Html.BeginForm())
     {
         <section class="featured" style="font-size:12px;">
+            
             <div class="content-wrapper">
+                
                 <table style="width:100%">
                     <tr>
                         <td>
@@ -41,15 +46,61 @@
                             </div>
                         </td>
                     </tr>
+                    @*<tr>
+                        <td>
+                            <div class="form-group">
+                                <label for="place-input">Hotels</label>
+                                <div style="padding-left:0px;">
+                                    <input class="form-control" type="text" value="@ViewBag.hotelCodes" id="hotelcodes" name="hotelcodes" style="height:50px; width:300px; font-size:18px;">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <label for="ddlProvider">Provider</label>
+                                <div style="padding-left:0px;">
+                                    <select id="ddlProvider" class="form-control" name="ddlProvider" style="height:50px; width:310px; font-size:18px;width:300px">
+                                        <option value="Sabre">Sabre</option>
+                                        <option value="HotelBeds">Hotel Beds</option>
+                                        <option value="Turico">Turico</option>
+                                        <option value="ALL">ALL Providers</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>*@
                     <tr>
                         <td width="100%">
                             <table style="width:100%">
                                 <tr>
                                     <td>
                                         <div class="form-group">
+                                            <label for="place-input">Hotels</label>
+                                            <div style="padding-left:0px;">
+                                                <input class="form-control" type="text" value="@ViewBag.hotelCodes" placeholder="Type Hotel Codes" id="hotelcodes" name="hotelcodes" style="height:50px; width:300px; font-size:18px;">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <label for="ddlProvider">Provider</label>
+                                            <div style="padding-left:0px;">
+                                                <select id="ddlProvider" class="form-control" name="ddlProvider" style="height:50px; width:310px; font-size:18px;width:300px">
+                                                    <option value="HotelBeds">Hotel Beds</option>
+                                                    <option value="Sabre">Sabre</option>
+                                                    <option value="Turico">Turico</option>
+                                                    <option value="ALL">ALL Providers</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
                                             <label for="datetimepickerCheckIn">Check In</label>
                                             <div style="padding-left:0px;">
-                                                <input class="form-control" type="date"   value="@ViewBag.CheckIn" id="checkIn" name="checkIn" style="height:50px; width:300px; font-size:18px;">
+                                                <input class="form-control" type="date" value="@ViewBag.CheckIn" id="checkIn" name="checkIn" style="height:50px; width:300px; font-size:18px;">
                                             </div>
                                         </div>
                                     </td>
@@ -57,7 +108,7 @@
                                         <div class="form-group">
                                             <label for="datetimepickerCheckOut">Check Out</label>
                                             <div style="padding-left:0px;">
-                                                <input class="form-control" type="date" id="checkOut"  name="checkOut" value="@ViewBag.CheckOut" style="height:50px; width:300px;font-size:18px;">
+                                                <input class="form-control" type="date" id="checkOut" name="checkOut" value="@ViewBag.CheckOut" style="height:50px; width:300px;font-size:18px;">
                                             </div>
                                         </div>
                                     </td>
@@ -93,10 +144,19 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    
                                     <td colspan="3" align="right" style="padding-right:110px;">
-                                        <button type="submit" class="btn btn-warning" name="action:sebre" style="width:150px;height:50px;">Sabre Search</button>
-                                        <button type="submit" class="btn btn-warning" name="action:bedbank" style="width:150px;height:50px;">Bed Bank Search</button>
-                                        <button type="submit" class="btn btn-warning" style="width:150px;height:50px;" value="Tourico Search" name="action:Tourico">Tourico</button>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-warning" name="action:bedbank" style="width:150px;height:50px;">Search</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" align="right" style="padding-right:110px;">
+                                        @*<button type="submit" class="btn btn-warning" name="action:sebre" style="width:150px;height:50px;">Sabre Search</button>
+                                            <button type="submit" class="btn btn-warning" name="action:bedbank" style="width:150px;height:50px;">Bed Bank Search</button>
+                                            <button type="submit" class="btn btn-warning" style="width:150px;height:50px;" value="Tourico Search" name="action:Tourico">Tourico</button>*@
+
                                     </td>
                                 </tr>
                             </table>
@@ -140,6 +200,6 @@
         }
     });
 
-    
+
 
 </script>

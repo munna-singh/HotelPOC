@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6284DF74-FB25-4205-A344-234F345A2C6A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HotelBeds</RootNamespace>
+    <AssemblyName>HotelBeds</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=3.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="com.hotelbeds.distribution.hotel_api_model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\hotel-api-sdk-net.0.4\lib\net452\com.hotelbeds.distribution.hotel_api_model.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="com.hotelbeds.distribution.hotel_api_sdk, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\hotel-api-sdk-net.0.4\lib\net452\com.hotelbeds.distribution.hotel_api_sdk.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\hotel-api-sdk-net.0.4\lib\net452\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contract\IHotelSearchProvider.cs" />
+    <Compile Include="Dtos\HotelAvailabilityProviderRes.cs" />
+    <Compile Include="Dtos\HotelInfo.cs" />
+    <Compile Include="Dtos\HotelSearchResultItem.cs" />
+    <Compile Include="Handlers\HotelBedsDetailsHandler.cs" />
+    <Compile Include="HotelBedsWorker.cs" />
+    <Compile Include="Handlers\HotelBedsAvailabilityHandler.cs" />
+    <Compile Include="Models\TCurrency.cs" />
+    <Compile Include="Models\TMoney.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\HotelBedsConstants.cs" />
+    <Compile Include="Provider\HotelBedsSearchProvider.cs" />
+    <Compile Include="Provider\Exceptions\HotelBedsProviderException.cs" />
+    <Compile Include="Provider\Messaging\HotelBedsSession.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Dtos\AddressDto.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Dtos\GeoLocation.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Dtos\CountryLookupDto.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Dtos\HotelNearbyAttractionDto.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Dtos\SubdivisionLookupDto.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Enums\CurrencyFormat.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Enums\CurrencyTypes.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Enums\DistanceMeasureType.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Enums\HotelOptionTypes.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Enums\JSonConverters.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Enums\LocationTypes.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Enums\PropertyTypes.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Enums\ProviderTypes.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Enums\RatingTypes.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Enums\SimpleTypes.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\HotelPropertyDetail.cs" />
+    <Compile Include="ServiceCatalogues\HotelCatalog\Provider\HotelAvailabilityProviderReq.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll">
+      <Link>AutoMapper.Net4.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Newtonsoft.Json.xml" />
+    <Content Include="System.Net.Http.Formatting.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="com.hotelbeds.distribution.hotel_api_sdk.dll.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{e81aeedb-6619-406c-8207-b8c529854dce}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{d09f9d68-24a6-48d9-9b86-ef3ba31dd176}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ServiceCatalogues\HotelCatalog\Dtos\Controller\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

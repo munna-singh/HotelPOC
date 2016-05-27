@@ -11,6 +11,9 @@ using Newtonsoft.Json;
 using com.hotelbeds.distribution.hotel_api_model.auto.model;
 using Manager;
 using Repository;
+using HotelBeds.Handlers;
+using HotelBeds.ServiceCatalogues.HotelCatalog.Provider;
+using HotelBeds.Provider;
 
 namespace UI.Controllers
 {
@@ -28,89 +31,62 @@ namespace UI.Controllers
 
         public ActionResult SearchHotel(FormCollection collection)
         {
-
             HotelSearchDto hotelDto = TempData["HotelSearchDto"] as HotelSearchDto;
-
-
-            #region Hotel Search
-            HotelApiClient client = new HotelApiClient();
-            StatusRS status = client.status();
-            List<Hotel> hotels = new List<Hotel>();
-            if (status != null && status.error == null)
+            HotelBedsSearchProvider provider = new HotelBedsSearchProvider();
+            HotelAvailabilityProviderReq providerReq = new HotelAvailabilityProviderReq();
+            if (hotelDto != null)
             {
-                List<Tuple<string, string>> param;
-                Availability avail = new Availability();
-                //avail.checkIn = Convert.ToDateTime(collection["checkIn"]);
-                avail.checkIn = Convert.ToDateTime(hotelDto.StartDate);
-                //avail.checkOut = Convert.ToDateTime(collection["checkOut"]);
-                avail.checkOut = Convert.ToDateTime(hotelDto.EndDate);
-                //var address = collection["add"];
-                var address = hotelDto.Address;
-                ViewBag.checkIn = avail.checkIn;
-                ViewBag.checkOut = avail.checkOut;
-                //avail.destination = "PMI";
-                //avail.zone = 90;
-                avail.language = "CAS";
-                avail.shiftDays = 2;
-                AvailRoom room = new AvailRoom();
-                //room.adults = Convert.ToInt32(collection["ddlTotalGuest"]);
-                room.adults = Convert.ToInt32(hotelDto.TotalGuest);
-                ViewBag.GuestNo = room.adults;
-                room.children = 0;
+                ViewBag.error = null;
+                providerReq.CheckInDate = Convert.ToDateTime(hotelDto.StartDate);
+                ViewBag.checkIn = providerReq.CheckInDate;
+                providerReq.CheckOutDate = Convert.ToDateTime(hotelDto.EndDate);
+                ViewBag.checkOut = providerReq.CheckOutDate;
+                providerReq.MaxRating = 5;
+                providerReq.MinRating = 0;
 
-                room.details = new List<RoomDetail>();
-                room.adultOf(30);
-                avail.rooms.Add(room);
-                room = new AvailRoom();
-                room.adults = Convert.ToInt32(hotelDto.TotalGuest);
-                room.children = 0;
-                room.details = new List<RoomDetail>();
-                room.adultOf(30);
-                avail.rooms.Add(room);
-                avail.payed = Availability.Pay.AT_HOTEL;
-
-                AvailabilityRQ ar = new AvailabilityRQ();
-                ar.stay = new Stay(Convert.ToDateTime(hotelDto.StartDate), Convert.ToDateTime(hotelDto.EndDate), 0, true);
-
-                ar.occupancies = new List<Occupancy>();
-                ar.occupancies.Add(new Occupancy
+                //Hotel code should come from search manager class
+                if (hotelDto.HotelCodes != null) 
                 {
-                    adults = Convert.ToInt32(hotelDto.TotalGuest),
-                    rooms = 1,
-                    children = 0,
-                    paxes = new List<Pax>()
-                    {
-                        new Pax
-                        {
-                             age = 35,
-                             type = com.hotelbeds.distribution.hotel_api_model.auto.common.SimpleTypes.HotelbedsCustomerType.AD
-                        }
-                    }
-                });
-
-                ar.geolocation = new GeoLocation();
-                ar.geolocation.latitude = Convert.ToDouble(hotelDto.Latitude);
-                ar.geolocation.longitude = Convert.ToDouble(hotelDto.Longitude);
-                ViewBag.latOrg = ar.geolocation.latitude;
-                ViewBag.lanOrg = ar.geolocation.longitude;
-                ar.geolocation.radius = 100;
-                ViewBag.radius = ar.geolocation.radius;
-
-                ar.geolocation.unit = com.hotelbeds.distribution.hotel_api_model.util.UnitMeasure.UnitMeasureType.km;
-
-                AvailabilityRS responseAvail = client.doAvailability(ar);
-                if (responseAvail != null && responseAvail.hotels != null && responseAvail.hotels.hotels != null && responseAvail.hotels.hotels.Count > 0)
-                {
-                    int hotelsAvailable = responseAvail.hotels.hotels.Count;
-                    hotels = responseAvail.hotels.hotels;
-                    //ViewBag.LatOrg = hotels[0].latitude;
-                    //ViewBag.LanOrg = hotels[0].longitude;
-                    ViewBag.totalTravellers = Convert.ToInt32(hotelDto.TotalGuest);
+                    providerReq.HotelCodes = hotelDto.HotelCodes.Split(',').ToList<string>();
                 }
+                
+                else if (hotelDto.Latitude.ToString().Length > 0)
+                {
+                    providerReq.GeoLocation = new HotelBeds.ServiceCatalogues.HotelCatalog.Dtos.GeoLocation()
+                    {
+                        
+                        Latitude = Convert.ToDecimal(hotelDto.Latitude),
+                        Longitude = Convert.ToDecimal(hotelDto.Longitude)
+                    };
+                }
+                ViewBag.LatOrg = hotelDto.Latitude;
+                ViewBag.LanOrg = hotelDto.Longitude;
+                providerReq.TotalAdults = Convert.ToInt16(hotelDto.TotalGuest);
+                ViewBag.TotalTravellers = providerReq.TotalAdults;
+                providerReq.TotalRooms = Convert.ToInt16(hotelDto.TotalRoom);
+                ViewBag.TotalRooms = providerReq.TotalRooms;
+                try
+                {
+                    //Call provider not handler
+                    var hotels = provider.Search(providerReq).Hotels;
+                    if (hotels != null)
+                        return View(hotels);
+                    else
+                        return null;
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.error = ex.Message;
+                    return View();
+                }
+                
+               
             }
-
-            #endregion
-            return View(hotels);
+            else
+            {
+                return View("Home");
+            }
+            
         }
 
     }

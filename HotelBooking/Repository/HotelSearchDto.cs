@@ -15,5 +15,7 @@ namespace Repository
         public string TotalRoom { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public string Provider { get; set; }
+        public string HotelCodes { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model List<com.hotelbeds.distribution.hotel_api_model.auto.model.Hotel>
+﻿@model List<HotelBeds.Dtos.HotelSearchResultItem>
 @{
     ViewBag.Title = "Bed Bank Hotel Search Result";
     var counter = 1;
@@ -18,7 +18,8 @@
 
 <h1>Bed Bank Hotel Search Result</h1>
 
-@if (Model.Count > 0)
+
+@if ((Model != null) && (Model.Count > 0))
 {
     <div>
         <script type="text/javascript"
@@ -26,8 +27,8 @@
         </script>
         <script type="text/javascript">
             $(document).ready(function () {
-                var lat = @ViewBag.latOrg;
-                var lon = @ViewBag.lanOrg;
+                var lat = @ViewBag.LatOrg;
+                var lon = @ViewBag.LanOrg;
                 var myLatlng = new google.maps.LatLng(lat, lon) // This is used to center the map to show our markers
                 var mapOptions = {
                     center: myLatlng,
@@ -44,14 +45,16 @@
 
         </script>
     </div>
-}
+
 <div id="map_canvas" style="height:400px;"></div>
+
 <div style="font-size:12px;">
+    
     @foreach (var details in Model)
     {
         using (Html.BeginForm("Index", "BBHotelDetails"))
         {
-            <table width="100%" class="rcorners" id="@details.code">
+            <table width="100%" class="rcorners" id="@details.HotelInfo">
                 <tr>
                     <td colspan="4s"></td>
                 </tr>
@@ -69,30 +72,53 @@
                             <tr>
                                 <td>
                                     <h3>
-                                     Hotel Name:   @details.name
+                                        Hotel :   @details.HotelInfo.HotelCode  @details.HotelInfo.HotelName
                                     </h3>
-                                    Code: @details.code
+                                    @*Code: @details.code*@
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <p>Currency : @details.currency</p>
-                                    <p>Zone Code :@details.zoneCode</p>
-                                    <p>Zone : @details.zoneName</p>
+                                    <p>Zone : @details.HotelInfo.Description</p>
+                                    @*<p>Zone :@details.HotelInfo.Location.Latitude</p>*@
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <h3>
+                                        Rating :   @details.HotelInfo.Rating
+                                    </h3>
+                                    <h3>
+                                        Rating Type:   @details.HotelInfo.RatingType
+                                    </h3>
+                                    @*Code: @details.code*@
+                                </td>
+                            </tr>
+                            
                             <tr>
                                 <td>
                                     @{
-                                        if (@details.minRate.ToString() != null)
+                                        if (@details.Price.ToString() != null)
                                         {
-                                            <h3>Price Range : &euro;@details.minRate - &euro;@details.maxRate</h3>
+                                            <h3>Price  :   @details.Price </h3>
                                         }
 
 
                                     }
                                 </td>
                             </tr>
+                            @*<tr>
+                                <td>
+                                    Available Room Codes : 
+                                    @{
+                                        foreach (var item in @details.rooms)
+                                        {
+                                            <p>@item.code</p>
+                                        }
+                                    }
+                                    
+                               </td>
+                            </tr>*@
                             <tr>
                                 <td>
                                     @{var specialOffers = string.Empty;}
@@ -101,8 +127,12 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <p><b>Latitude:</b> @details.latitude</p>
-                                    <p><b>Longitude:</b> @details.longitude</p>
+                                    
+                                    
+                                        <p><b>Latitude:</b> @details.HotelInfo.Location.Latitude</p>
+                                        <p><b>Longitude:</b> @details.HotelInfo.Location.Longitude</p>
+                                    
+                                    
                                 </td>
                             </tr>
                         </table>
@@ -123,12 +153,13 @@
                         <input type="hidden" name="checkIn" value="@ViewBag.checkIn" />
                         <input type="hidden" name="checkOut" value="@ViewBag.checkOut" />
                         <input type="hidden" name="totalTravellers" value="@ViewBag.TotalTravellers" />
-                        <input type="hidden" name="hotelCode" value="@details.code" />
+                        <input type="hidden" name="hotelCode" value="@details.HotelInfo.HotelCode" />
                         <input type="hidden" name="LatOrg" value="@ViewBag.LatOrg" />
                         <input type="hidden" name="LanOrg" value="@ViewBag.LanOrg" />
                         <input type="hidden" name="Lat" value="@ViewBag.Lat" />
                         <input type="hidden" name="Lan" value="@ViewBag.Lan" />
                         <input type="hidden" name="radius" value="@ViewBag.radius" />
+                        <input type="hidden" name="totalRooms" value="@ViewBag.TotalRooms" />
                         @*<input type="text" name="totalGuests" value="@ViewBag.totalTravellers" />*@
                     </td>
                     <td>
@@ -136,10 +167,11 @@
                     </td>
                 </tr>
             </table>
-        }
-    }
+                                            }
+                                        }
 </div>
 
+}
 <style type="text/css">
     .rcorners {
         border-radius: 7px;

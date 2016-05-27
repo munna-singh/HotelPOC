@@ -32,14 +32,19 @@ namespace UI.Controllers
         {
             HotelSearchDto searchCriteria = new HotelSearchDto();
             searchCriteria.Address = collection["add"];
-            searchCriteria.Latitude = double.Parse(collection["lat"]);
-            searchCriteria.Longitude = double.Parse(collection["lan"]);
+            if (collection["lat"] != "")
+                searchCriteria.Latitude = double.Parse(collection["lat"]);
+            if (collection["lan"] != "")
+                searchCriteria.Longitude = double.Parse(collection["lan"]);
             searchCriteria.StartDate = collection["checkIn"];
             searchCriteria.EndDate = collection["checkOut"];
             searchCriteria.TotalGuest = collection["ddlTotalGuest"];
             searchCriteria.TotalRoom = collection["ddlNoOfRooms"];
-
+            searchCriteria.Provider = collection["ddlProvider"];
+            if (collection["hotelcodes"] != "")
+                searchCriteria.HotelCodes = collection["hotelcodes"];
             TempData["HotelSearchDto"] = searchCriteria;
+            //Call manager class and there make a call to provider based on selected ddl value(Provider)
             return RedirectToAction("SearchHotel", "BedBank");
         }
 
@@ -56,6 +61,7 @@ namespace UI.Controllers
             searchCriteria.EndDate = collection["checkOut"];
             searchCriteria.TotalGuest = collection["ddlTotalGuest"];
             searchCriteria.TotalRoom = collection["ddlNoOfRooms"];
+            searchCriteria.Provider = collection["ddlProvider"];
             //Check in cache
             var key = searchCriteria.Latitude.ToString() + searchCriteria.Longitude.ToString() + searchCriteria.StartDate.ToString() + searchCriteria.EndDate.ToString();
             var result = GetFromCache(key);
@@ -76,7 +82,7 @@ namespace UI.Controllers
 
         [Authorize]
         [HttpPost]
-        [MultipleButton(Name = "action", Argument = "Tourico")]
+        //[MultipleButton(Name = "action", Argument = "Tourico")]
         public ActionResult SearchTourico(FormCollection collection)
         {
             TempData["col"] = collection;
