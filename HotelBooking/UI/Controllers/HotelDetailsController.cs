@@ -7,33 +7,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TE.Core.ServiceCatalogues.HotelCatalog.Provider;
 using TE.Tourico.Hotel;
 
 namespace UI.Controllers
 {
+    
     public class HotelDetailsController : Controller
     {
+        public string selectedHotelCode = null;
+
         //
         // GET: /HotelDetails/
         [Authorize]
-        public ActionResult Index(FormCollection collection)
+        public ActionResult Index(string hotelCode)
         {
-            HotelSelectDto select = new HotelSelectDto();
-            select.StartDate = collection["startDate"];
-            select.EndDate = collection["endDate"];
-            select.TotalTravellers = collection["totalTravellers"];
-            select.HotelCode = collection["hotelCode"];
+            selectedHotelCode = hotelCode;
+            HotelSearchDto searchCriteria = TempData["HotelSearchDto"] as HotelSearchDto;
+            
+            //Call manager class and there make a call to provider based on selected ddl value(Provider)
+            var provider = HotelProviderBroker.GetHotelSearchProvider((HotelSearchProviderTypes)int.Parse(searchCriteria.Provider));
+            var searchResponse = provider.RetrieveHotelRates(ConvertToProviderRequest(searchCriteria));
 
-            var session = SabreSessionManager.Create();
-            select.SessionId = session.SecurityValue.BinarySecurityToken;
-            var hotelDesc = new HotelPropertyDescription()
-               .HotelDescription(select);
 
-            ViewBag.TotalTravellers = select.TotalTravellers;
+            return View();
+        }
 
-            SessionClose closeSession = new SessionClose();
-            closeSession.Close(select.SessionId);
-            return View(hotelDesc);
+        private HotelPropertyProviderReq ConvertToProviderRequest(HotelSearchDto hotelDto)
+        {
+            HotelPropertyProviderReq providerReq = new HotelPropertyProviderReq();
+            if (hotelDto != null)
+            {
+                providerReq.CheckInDate = Convert.ToDateTime(hotelDto.StartDate);
+                providerReq.CheckOutDate = Convert.ToDateTime(hotelDto.EndDate);
+                providerReq.HotelCode = selectedHotelCode;
+                providerReq.NoOfGuest = Convert.ToInt16(hotelDto.TotalGuest);
+
+            }
+            return providerReq;
         }
 
         public ActionResult TouricoHotelDetails(FormCollection collection)

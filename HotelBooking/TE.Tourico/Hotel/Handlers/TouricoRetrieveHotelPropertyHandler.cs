@@ -3,7 +3,7 @@ using TE.Common;
 using TE.Core.ServiceCatalogues.HotelCatalog.Dtos;
 using TE.Core.ServiceCatalogues.HotelCatalog.Provider;
 using TE.Core.Tourico.Hotel;
-using TE.ThirdPartyProviders.Tourico.TouricoHotelSvc;
+using TE.ThirdPartyProviders.Tourico.TouricoIHotelFlowSvc;
 
 
 namespace TE.Tourico.Hotel

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelBeds.Provider.Messaging
+namespace TE.HotelBeds.Provider.Messaging
 {
     /// <summary>
     /// Persist session details for Hotel Beds SOAP requests.

@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TE.Core.Tourico.Hotel.Dtos;
 using TE.Core.Tourico.Hotel.Handler;
-using TE.Core.Tourico.Hotel.ServiceCatlog;
 using TE.Core.ServiceCatalogues.HotelCatalog.Dtos;
 using TE.Core.ServiceCatalogues.HotelCatalog.Provider;
+using TE.Core.ServiceCatalogues.HotelCatalog;
 
 namespace TE.Tourico.Hotel
 {
-   public class TouricoHotelSearchProvider : IHotelSearchProvider, IHotelDetailsProvider
+   public class TouricoHotelSearchProvider : IHotelSearchProvider
     {
         public HotelPropertyProviderRes RetrieveHotelInfo(string hotelCode)
         {
@@ -29,15 +28,21 @@ namespace TE.Tourico.Hotel
             return propertyInfo;
         }
 
+        public HotelRateProviderRes RetrieveHotelRateDetails(HotelRateProviderReq request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<HotelRateProviderRes> RetrieveHotelRates(HotelPropertyProviderReq request)
+        {
+            throw new NotImplementedException();
+        }
+
         public HotelAvailabilityProviderRes Search(HotelAvailabilityProviderReq request)
         {
             var response = new TouricoHotelAvailabilityHandler().Execute(request);
             return response;
         }
 
-        HotelInfo IHotelDetailsProvider.RetrieveHotelInfo(string hotelCode)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

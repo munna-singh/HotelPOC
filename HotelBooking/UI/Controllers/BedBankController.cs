@@ -12,7 +12,7 @@ using com.hotelbeds.distribution.hotel_api_model.auto.model;
 using Manager;
 using Repository;
 using HotelBeds.Handlers;
-using HotelBeds.ServiceCatalogues.HotelCatalog.Provider;
+using HotelBeds.ServiceCatalogues.HotelCatalog;
 using HotelBeds.Provider;
 
 namespace UI.Controllers

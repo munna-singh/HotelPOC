@@ -1,24 +1,25 @@
 ﻿using Common.Exceptions;
 using Common.Sabre.Hotels.CloseSession;
-using HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
+//using TE.HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TE.HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
 
-namespace HotelBeds.Provider.Exceptions
+namespace TE.HotelBeds.Provider.Exceptions
 {
     public class HotelBedsProviderException : DynamicProviderException
     {
         public HotelBedsProviderException(Fault fault)
-            : base(ProviderTypes.Sabre.ToString(), fault.faultcode.Name, fault.faultstring, null, null)
+            : base(ProviderTypes.HotelBeds.ToString(), fault.faultcode.Name, fault.faultstring, null, null)
         {
             InitializeSingleMessage();
         }
 
         public HotelBedsProviderException(string errorCode, string errorMessage)
-            : base(ProviderTypes.Sabre.ToString(), errorCode, errorMessage, null, null)
+            : base(ProviderTypes.HotelBeds.ToString(), errorCode, errorMessage, null, null)
         {
             InitializeSingleMessage();
         }

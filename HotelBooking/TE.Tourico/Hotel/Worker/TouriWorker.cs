@@ -1,5 +1,5 @@
 ﻿using System;
-using TE.ThirdPartyProviders.Tourico.TouricoHotelSvc;
+using TE.ThirdPartyProviders.Tourico.TouricoIHotelFlowSvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

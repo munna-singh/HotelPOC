@@ -1,17 +1,26 @@
-﻿using HotelBeds.Contract;
-using HotelBeds.Dtos;
-using HotelBeds.Handlers;
-using HotelBeds.ServiceCatalogues.HotelCatalog.Provider;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HotelBeds.Provider
+using Common;
+using TE.HotelBeds.Handlers;
+using TE.Core.ServiceCatalogues.HotelCatalog;
+using TE.Core.ServiceCatalogues.HotelCatalog.Provider; 
+namespace TE.HotelBeds.Provider
 {
     public class HotelBedsSearchProvider : IHotelSearchProvider
     {
+        public HotelRateProviderRes RetrieveHotelRateDetails(HotelRateProviderReq request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<HotelRateProviderRes> RetrieveHotelRates(HotelPropertyProviderReq request)
+        {
+            List<HotelRateProviderRes> abccc = new List<HotelRateProviderRes>();
+            var response = new HotelBedsDetailsHandler().Execute(request);
+            return abccc;
+        }
+
+
         public HotelAvailabilityProviderRes Search(HotelAvailabilityProviderReq request)
         {
             var response = new HotelBedsAvailabilityHandler().Execute(request);

@@ -189,15 +189,15 @@
     </Reference>
     <Reference Include="TE.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Project\TE\Labs\TE\Common\bin\Debug\TE.Common.dll</HintPath>
+      <HintPath>..\..\..\TravelEdge\Labs\TE\Core\bin\Debug\TE.Common.dll</HintPath>
     </Reference>
     <Reference Include="TE.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Project\TE\Labs\TE\Core\bin\Debug\TE.Core.dll</HintPath>
+      <HintPath>..\..\..\TravelEdge\Labs\TE\Core\bin\Debug\TE.Core.dll</HintPath>
     </Reference>
     <Reference Include="TE.DataAccessLayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Project\TE\Labs\TE\DataAccessLayer\bin\Debug\TE.DataAccessLayer.dll</HintPath>
+      <HintPath>..\..\..\TravelEdge\Labs\TE\Core\bin\Debug\TE.DataAccessLayer.dll</HintPath>
     </Reference>
     <Reference Include="TE.ThirdPartyProviders.Tourico, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -219,17 +219,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BBHotelDetailsController.cs" />
-    <Compile Include="Controllers\BedBankBookController.cs" />
-    <Compile Include="Controllers\BedBankController.cs" />
-    <Compile Include="Controllers\BookTouricoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\HotelBookController.cs" />
     <Compile Include="Controllers\HotelDetailsController.cs" />
-    <Compile Include="Controllers\HotelRoomsController.cs" />
-    <Compile Include="Controllers\ModifyBookingController.cs" />
     <Compile Include="Controllers\MultipleButtonAttribute.cs" />
-    <Compile Include="Controllers\PriceBreakupController.cs" />
     <Compile Include="Controllers\XMLSerializer.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -360,7 +352,6 @@
     <Content Include="Views\Account\LogOut.cshtml" />
     <Content Include="Views\ModifyBooking\Index.cshtml" />
     <Content Include="Views\BedBank\Index.cshtml" />
-    <Content Include="Views\BedBank\SearchHotel.cshtml" />
     <Content Include="Views\BedBankBook\Index.cshtml" />
     <Content Include="Views\HotelRooms\Index.cshtml" />
     <Content Include="Views\BBHotelDetails\Index.cshtml" />
@@ -384,9 +375,13 @@
       <Project>{e81aeedb-6619-406c-8207-b8c529854dce}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HotelBeds\HotelBeds.csproj">
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{d09f9d68-24a6-48d9-9b86-ef3ba31dd176}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HotelBeds\TE.HotelBeds.csproj">
       <Project>{6284df74-fb25-4205-a344-234f345a2c6a}</Project>
-      <Name>HotelBeds</Name>
+      <Name>TE.HotelBeds</Name>
     </ProjectReference>
     <ProjectReference Include="..\Manager\Manager.csproj">
       <Project>{dc212e93-efc9-4bb9-a881-75f37169b51c}</Project>

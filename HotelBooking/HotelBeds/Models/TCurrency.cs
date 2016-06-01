@@ -1,11 +1,12 @@
-﻿using HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
+﻿//using TE.HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TE.DataAccessLayer.Models;
 
-namespace HotelBeds.Models
+namespace TE.HotelBeds.Models
 {
     [Serializable]
     public struct TCurrency

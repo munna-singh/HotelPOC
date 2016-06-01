@@ -1,4 +1,4 @@
-﻿using Common.Logging;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using TE.Common.Logging;
+//using TE.Common.Logging;
 
 namespace Common.Configuration
 {
@@ -44,7 +44,7 @@ namespace Common.Configuration
                     if (val == null)
                     {
                         LoadedWithoutErrors = false;
-                        Logger.Instance.Warn(this.GetType().Name, "Init", "Missing config value " + key);
+                        //Logger.Instance.Warn(this.GetType().Name, "Init", "Missing config value " + key);
                     }
                     else
                     {
@@ -81,14 +81,14 @@ namespace Common.Configuration
                 }
                 catch (Exception ex)
                 {
-                    Logger.Instance.Warn(this.GetType().Name, "Init", ex);
+                    //Logger.Instance.Warn(this.GetType().Name, "Init", ex);
                     LoadedWithoutErrors = false;
                 }
             }
 
             foreach (var p in this.GetType().GetProperties(BindingFlags.Public).Where(t => t.GetValue(this) == null))
             {
-                Logger.Instance.Warn(this.GetType().Name, "Init", "Missing configuration value " + ns + "." + p.Name);
+                //Logger.Instance.Warn(this.GetType().Name, "Init", "Missing configuration value " + ns + "." + p.Name);
                 LoadedWithoutErrors = false;
             }
         }

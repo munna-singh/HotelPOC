@@ -37,6 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
@@ -62,18 +63,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Hotel\Dtos\AvailabilityCriterionDtoBase.cs" />
-    <Compile Include="Hotel\Dtos\Controller\HotelDestinationDto.cs" />
-    <Compile Include="Hotel\Dtos\Controller\HotelSearchRequestDto.cs" />
-    <Compile Include="Hotel\Dtos\Controller\HotelSearchResponseDto.cs" />
-    <Compile Include="Hotel\Enums\HotelOptionTypes.cs" />
     <Compile Include="Hotel\Handlers\TouricoHandlerBase.cs" />
     <Compile Include="Hotel\Handlers\TouricoHotelAvailabilityHandler.cs" />
+    <Compile Include="Hotel\Helper\TouricoMessage.cs" />
     <Compile Include="Hotel\Helper\TouricoMessageHelper.cs" />
+    <Compile Include="Hotel\Helper\TouricoMessagingHelper.cs" />
+    <Compile Include="Hotel\Pipeline\TouricoPipelineManager.cs" />
     <Compile Include="Hotel\Provider\HotelProviderBroker.cs" />
     <Compile Include="Hotel\Handlers\TouricoRetrieveHotelPropertyHandler.cs" />
-    <Compile Include="Hotel\ServiceCatlog\IHotelDetailsProvider.cs" />
-    <Compile Include="Hotel\ServiceCatlog\IHotelSearchProvider.cs" />
     <Compile Include="Hotel\Provider\TouricoHotelSearchProvider.cs" />
     <Compile Include="Hotel\Worker\TouricoWorker.cs" />
     <Compile Include="Hotel\Worker\TouriWorker.cs" />
@@ -87,7 +84,15 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Hotel\Pipeline\" />
+    <Folder Include="Hotel\Dtos\Controller\" />
+    <Folder Include="Hotel\Enums\" />
+    <Folder Include="Hotel\ServiceCatlog\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{e81aeedb-6619-406c-8207-b8c529854dce}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

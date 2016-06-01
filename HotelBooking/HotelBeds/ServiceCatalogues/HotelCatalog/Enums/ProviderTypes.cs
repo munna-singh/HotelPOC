@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelBeds.ServiceCatalogues.HotelCatalog.Enums
+namespace TE.HotelBeds.ServiceCatalogues.HotelCatalog.Enums
 {
     public enum ProviderTypes
     {

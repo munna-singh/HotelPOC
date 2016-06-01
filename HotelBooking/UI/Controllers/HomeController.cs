@@ -1,24 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Common;
-using Common.Sabre.Hotels.Search;
 using Manager;
 using Repository;
 using System.Runtime.Caching;
 using TE.Core.ServiceCatalogues.HotelCatalog.Dtos.Controller;
 using TE.Core.ServiceCatalogues.HotelCatalog.Dtos;
 using TE.Core.ServiceCatalogues.HotelCatalog;
-
 using TE.Core.ServiceCatalogues.HotelCatalog.Provider;
-
-
-
 using TE.Tourico.Hotel;
 using TE.DataAccessLayer.Models;
-
+using TE.HotelBeds.Provider;
 
 namespace UI.Controllers
 {
@@ -35,13 +27,15 @@ namespace UI.Controllers
         }
 
 
-
         [Authorize]
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "bedbank")]
         public ActionResult searchBedbank(FormCollection collection)
         {
             HotelSearchDto searchCriteria = new HotelSearchDto();
+
+            searchCriteria.Provider = collection["ddlProvider"];
+
             searchCriteria.Address = collection["add"];
             if (collection["lat"] != "")
                 searchCriteria.Latitude = double.Parse(collection["lat"]);
@@ -52,11 +46,21 @@ namespace UI.Controllers
             searchCriteria.TotalGuest = collection["ddlTotalGuest"];
             searchCriteria.TotalRoom = collection["ddlNoOfRooms"];
             searchCriteria.Provider = collection["ddlProvider"];
-            if (collection["hotelcodes"] != "")
-                searchCriteria.HotelCodes = collection["hotelcodes"];
+
+            ViewBag.StartDate = searchCriteria.StartDate;
+            ViewBag.EndDate = searchCriteria.EndDate;
+            ViewBag.TotalTravellers = searchCriteria.TotalGuest;
+            ViewBag.LatOrg = searchCriteria.Latitude;
+            ViewBag.LanOrg = searchCriteria.Longitude;
             TempData["HotelSearchDto"] = searchCriteria;
+              
+            searchCriteria.HotelCodes = GetHotels(collection);
+
             //Call manager class and there make a call to provider based on selected ddl value(Provider)
-            return RedirectToAction("SearchHotel", "BedBank");
+            var provider = HotelProviderBroker.GetHotelSearchProvider((HotelSearchProviderTypes)int.Parse(searchCriteria.Provider));
+            var searchResponse = provider.Search(ConvertToProviderRequest(searchCriteria));
+            return View("SearchHotel", searchResponse);
+
         }
 
         [Authorize]
@@ -76,9 +80,9 @@ namespace UI.Controllers
             //Check in cache
             var key = searchCriteria.Latitude.ToString() + searchCriteria.Longitude.ToString() + searchCriteria.StartDate.ToString() + searchCriteria.EndDate.ToString();
             var result = GetFromCache(key);
-                       
+
             if (result == null)
-            {              
+            {
                 SearchHotel mgr = new SearchHotel();
                 result = mgr.Search(searchCriteria);
                 AddToCache(result, key);
@@ -88,7 +92,7 @@ namespace UI.Controllers
             ViewBag.TotalTravellers = searchCriteria.TotalGuest;
             ViewBag.Lat = searchCriteria.Latitude;
             ViewBag.Lan = searchCriteria.Longitude;
-            return View("SearchHotel",result);
+            return View("SearchHotel", result);
 
         }
 
@@ -111,69 +115,34 @@ namespace UI.Controllers
         [Authorize]
         [HttpPost]
         //[MultipleButton(Name = "action", Argument = "Tourico")]
-        public ActionResult SearchTourico(FormCollection collection)
+        public List<string> GetHotels(FormCollection collection)
         {
-            //TempData["col"] = collection;
-            // return RedirectToAction("SearchTourico", "BookTourico", collection); //musanka comment
-
             GeoLocation gloc = new GeoLocation();
             gloc.Latitude = Convert.ToDecimal(collection["lat"]);
             gloc.Longitude = Convert.ToDecimal(collection["lan"]);
 
             HotelSearchRequestDto searchCriteria = new HotelSearchRequestDto();
-          
-           // searchCriteria.Address = collection["add"];           
-            searchCriteria.Location = gloc;
-            searchCriteria.CheckInDate = Convert.ToDateTime(collection["checkIn"]);
-            searchCriteria.CheckOutDate = Convert.ToDateTime(collection["checkOut"]);
-            searchCriteria.NumberOfAdults = Convert.ToInt16(collection["ddlTotalGuest"]);
-            searchCriteria.NumberOfRooms = Convert.ToInt16(collection["ddlNoOfRooms"]);
-           
-            //Check in cache
-            var key = gloc.Latitude.ToString() + gloc.Longitude.ToString() + searchCriteria.CheckInDate.ToString() + searchCriteria.CheckInDate.ToString();
-            var result = GetFromCache(key);
 
             //holds list of hotel ids to search
             var hotelIds = new List<string>();
 
-            if (result == null)
+            //Retrieve from catalog the list of hotel ids, that will be passed to the provider, if the coordinates are specified in the request
+            var catalogRequest = new HotelCatalogRequest
             {
-                //check here which provider is selected in UI
-                //ProviderType = "Tourico";
+                GeoLocation = gloc, 
+                MinRating = HotelBedsConstants.MinRating, 
+                MaxRating = HotelBedsConstants.MaxRating, 
+            };
 
-               //Retrieve from catalog the list of hotel ids, that will be passed to the provider, if the coordinates are specified in the request
-                var catalogRequest = new HotelCatalogRequest
-                {
-                    GeoLocation = gloc, //request.Location,
-                    MinRating = 1, //request.MinRating,
-                    MaxRating = 5 //request.MaxRating
-                };
-
-                //HotelSearhManager call to get the provider and search
-
-                //If "Skip Local Cache" is false, then call the catalog manager for local search -- (!request.SkipLocalCache)
-                if (true)
-                {
-                    var hotelCatalogManager = new HotelCatalogManager();
-                    hotelIds = hotelCatalogManager.RetrieveHotelsByLatLongCatalog(catalogRequest);
-                }                
-
-                var provider = HotelProviderBroker.GetHotelSearchProvider(HotelSearchProviderTypes.Tourico);
-
-                var providerRes = provider.Search(ConvertToHotelSearchReq(searchCriteria, hotelIds));
-
-                result = providerRes; // ConvertFromHotelSearchResp(providerRes);
-
-            
-              AddToCache(result, key);
+            //HotelSearchManager call to get the provider and search
+            //If "Skip Local Cache" is false, then call the catalog manager for local search -- (!request.SkipLocalCache)
+            if (true)
+            {
+                var hotelCatalogManager = new HotelCatalogManager();
+                hotelIds = hotelCatalogManager.RetrieveHotelsByLatLongCatalog(catalogRequest);
             }
-            ViewBag.StartDate = searchCriteria.CheckInDate;
-            ViewBag.EndDate = searchCriteria.CheckOutDate;
-            ViewBag.TotalTravellers = searchCriteria.NumberOfAdults;
-            ViewBag.Lat = gloc.Latitude;
-            ViewBag.Lan = gloc.Longitude;          
-            return View("SearchHotelTourico", result);
 
+            return hotelIds;
         }
 
         private HotelSearchResponseDto ConvertFromHotelSearchResp(HotelAvailabilityProviderRes response)
@@ -188,12 +157,8 @@ namespace UI.Controllers
                 {
                     providerHotel.HotelInfo.HeroImageUrl = staticData.ImageUrl;
                     providerHotel.HotelInfo.HomepageUrl = staticData.HomepageUrl;
-                   // providerHotel.HotelInfo.Thumbnails = staticData.Thumbnails;
                     providerHotel.HotelInfo.Email = staticData.Email;
                 }
-               // else //msanka change
-                  //  providerHotel.HotelInfo.HeroImageUrl = LeonardoConfigSettings.Instance().ImageUrl;
-
                 results.Hotels.Add(providerHotel);
             }
             return results;
@@ -208,6 +173,56 @@ namespace UI.Controllers
         {
             var item = _cache.Get(key);
             return item;
+        }
+
+        private HotelAvailabilityProviderReq ConvertToProviderRequest(HotelSearchDto hotelDto)
+        {
+            //HotelBedsSearchProvider provider = new HotelBedsSearchProvider();
+            HotelAvailabilityProviderReq providerReq = new HotelAvailabilityProviderReq();
+            if (hotelDto != null)
+            {
+                providerReq.CheckInDate = Convert.ToDateTime(hotelDto.StartDate);
+                providerReq.CheckOutDate = Convert.ToDateTime(hotelDto.EndDate);
+                providerReq.MaxRating = hotelDto.MaxRating;
+                providerReq.MinRating = hotelDto.MinRating;
+
+                //Hotel code should come from search manager class
+                if (hotelDto.HotelCodes != null)
+                {
+                    providerReq.HotelCodes = hotelDto.HotelCodes;
+                }
+                else if (hotelDto.Latitude.ToString().Length > 0)
+                {
+                    providerReq.GeoLocation = new GeoLocation()
+                    {
+                        Latitude = Convert.ToDecimal(hotelDto.Latitude),
+                        Longitude = Convert.ToDecimal(hotelDto.Longitude)
+                    };
+                }
+
+                providerReq.TotalAdults = Convert.ToInt16(hotelDto.TotalGuest);
+
+            }
+            return providerReq;
+        }
+    }
+    public class HotelProviderBroker
+    {
+        public static IHotelSearchProvider GetHotelSearchProvider(HotelSearchProviderTypes searchProviderType)
+        {
+            if (searchProviderType == HotelSearchProviderTypes.Sabre)
+            {
+                //return new SabreHotelSearchProvider();
+            }
+            if (searchProviderType == HotelSearchProviderTypes.Tourico)
+            {
+                return new TouricoHotelSearchProvider();
+            }
+            if (searchProviderType == HotelSearchProviderTypes.HotelBeds)
+            {
+                return new HotelBedsSearchProvider();
+            }
+            throw new ApplicationException("Unexpected search provider type.");
         }
     }
 }

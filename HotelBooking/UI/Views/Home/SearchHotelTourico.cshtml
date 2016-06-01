@@ -1,4 +1,4 @@
-﻿@model TE.Core.Tourico.Hotel.Dtos.HotelAvailabilityProviderRes
+﻿@model TE.Core.ServiceCatalogues.HotelCatalog.Provider.HotelAvailabilityProviderRes
 @using System.Web.Script.Serialization;
 
 @{
@@ -119,16 +119,17 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        @{var hotelAddress = string.Empty;}
-                                       @* @foreach (var address in details.HotelInfo.Address)*@
-                                        @{
-                                            hotelAddress += details.HotelInfo.Address.Address1 + " ";
-                                            hotelAddress += details.HotelInfo.Address.City + " ";
-                                            hotelAddress += details.HotelInfo.Address.Country + " ";
+                                        @if (details.HotelInfo.Address != null)
+                                        {
+                                            var hotelAddress = string.Empty;
+                                           
+                                                hotelAddress += details.HotelInfo.Address.Address1 + " ";
+                                                hotelAddress += details.HotelInfo.Address.City + " ";
+                                                hotelAddress += details.HotelInfo.Address.Country + " ";
+                                            
+                                            <p>hotelAddress </p>                                      
+                                            <p>details.HotelInfo.Description</p>
                                         }
-
-                                        <p>@hotelAddress </p>                                      
-                                        <p>@details.HotelInfo.Description</p>
                                     </td>
                                 </tr>
                                 <tr>
