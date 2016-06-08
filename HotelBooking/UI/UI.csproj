@@ -49,6 +49,22 @@
       <HintPath>..\packages\hotel-api-sdk-net.0.5\lib\net452\com.hotelbeds.distribution.hotel_api_sdk.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Project\TE\Labs\TE\DataAccessLayer\bin\Debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net.ElasticSearch, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Project\TE\Labs\TE\DataAccessLayer\bin\Debug\log4net.ElasticSearch.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -57,7 +73,6 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\hotel-api-sdk-net.0.5\lib\net452\System.Net.Http.Formatting.dll</HintPath>
@@ -80,9 +95,6 @@
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -175,6 +187,22 @@
       <Private>True</Private>
       <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
+    <Reference Include="TE.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\TravelEdge\Labs\TE\Core\bin\Debug\TE.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TE.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\TravelEdge\Labs\TE\Core\bin\Debug\TE.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="TE.DataAccessLayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\TravelEdge\Labs\TE\Core\bin\Debug\TE.DataAccessLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="TE.ThirdPartyProviders.Tourico, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Project\Labs-ThirdPartyProviders\TE\ThirdPartyProviders\TE.ThirdPartyProviders.Tourico\bin\Debug\TE.ThirdPartyProviders.Tourico.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
@@ -191,17 +219,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BBHotelDetailsController.cs" />
-    <Compile Include="Controllers\BedBankBookController.cs" />
-    <Compile Include="Controllers\BedBankController.cs" />
-    <Compile Include="Controllers\BookTouricoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\HotelBookController.cs" />
     <Compile Include="Controllers\HotelDetailsController.cs" />
-    <Compile Include="Controllers\HotelRoomsController.cs" />
-    <Compile Include="Controllers\ModifyBookingController.cs" />
     <Compile Include="Controllers\MultipleButtonAttribute.cs" />
-    <Compile Include="Controllers\PriceBreakupController.cs" />
     <Compile Include="Controllers\XMLSerializer.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -332,18 +352,17 @@
     <Content Include="Views\Account\LogOut.cshtml" />
     <Content Include="Views\ModifyBooking\Index.cshtml" />
     <Content Include="Views\BedBank\Index.cshtml" />
-    <Content Include="Views\BedBank\SearchHotel.cshtml" />
     <Content Include="Views\BedBankBook\Index.cshtml" />
     <Content Include="Views\HotelRooms\Index.cshtml" />
     <Content Include="Views\BBHotelDetails\Index.cshtml" />
     <Content Include="Views\BookTourico\Available.cshtml" />
     <Content Include="Views\BookTourico\Confirmation.cshtml" />
-    <Content Include="Views\BookTourico\HotelDisplay.cshtml" />
     <Content Include="Views\BookTourico\HotelInfo.cshtml" />
-    <Content Include="Views\BookTourico\popupRoomInfo.cshtml" />
     <Content Include="Views\BookTourico\PriceChange.cshtml" />
     <Content Include="Views\BookTourico\SearchHotel.cshtml" />
-    <Content Include="Views\BookTourico\Tourico.cshtml" />
+    <Content Include="Views\BookTourico\partialpoc.cshtml" />
+    <Content Include="Views\Home\SearchHotelTourico.cshtml" />
+    <Content Include="Views\HotelDetails\TouricoHotelDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -356,9 +375,13 @@
       <Project>{e81aeedb-6619-406c-8207-b8c529854dce}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HotelBeds\HotelBeds.csproj">
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{d09f9d68-24a6-48d9-9b86-ef3ba31dd176}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HotelBeds\TE.HotelBeds.csproj">
       <Project>{6284df74-fb25-4205-a344-234f345a2c6a}</Project>
-      <Name>HotelBeds</Name>
+      <Name>TE.HotelBeds</Name>
     </ProjectReference>
     <ProjectReference Include="..\Manager\Manager.csproj">
       <Project>{dc212e93-efc9-4bb9-a881-75f37169b51c}</Project>
@@ -367,6 +390,10 @@
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{e5b0c93d-72e5-4db9-b315-b861cc3bc504}</Project>
       <Name>Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TE.Tourico\TE.Tourico.csproj">
+      <Project>{ecc85f48-3fcf-4162-bc4d-f6c31d77d413}</Project>
+      <Name>TE.Tourico</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

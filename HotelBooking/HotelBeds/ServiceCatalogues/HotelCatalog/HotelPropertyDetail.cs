@@ -1,12 +1,14 @@
-﻿using HotelBeds.ServiceCatalogues.HotelCatalog.Dtos;
-using HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
+﻿//using TE.HotelBeds.ServiceCatalogues.HotelCatalog.Dtos;
+//using TE.HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TE.Core.ServiceCatalogues.HotelCatalog.Dtos;
+using TE.Core.ServiceCatalogues.HotelCatalog.Provider.Enums;
 
-namespace HotelBeds.ServiceCatalogues.HotelCatalog
+namespace TE.HotelBeds.ServiceCatalogues.HotelCatalog
 {
     public class HotelPropertyDetail
     {

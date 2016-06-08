@@ -23,7 +23,7 @@ namespace UI
 
             if (status != null && status.error == null)
             {
-                List<Tuple<string, string>> param;
+                //List<Tuple<string, string>> param;
 
                 Availability avail = new Availability();
                 avail.checkIn = searchCriteria.StartDate;

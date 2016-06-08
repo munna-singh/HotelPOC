@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Common.hotelflowSvc;
+using Common.hotelDestSvc;
 using System.Text.RegularExpressions;
 using System.Globalization;
 
@@ -57,6 +58,42 @@ namespace UI.Controllers
 
             return View("SearchHotel", sreq.HotelList);
         }
+
+        //public ActionResult SearchDestination()
+        //{
+        //    //Auth Header
+        //    Common.hotelDestSvc.LoginHeader loginHdr = new Common.hotelDestSvc.LoginHeader();
+        //    loginHdr.username = "Tra105";
+        //    loginHdr.password = "111111";
+        //    loginHdr.culture = Common.hotelDestSvc.Culture.en_US;
+        //    loginHdr.version = "7.123";
+
+        //              //DestinationRequest drq = new DestinationRequest();
+        //    //drq.LoginHeader = loginHdr;
+        //    //drq.Destination = new Destination() { Continent = "North America" };
+
+        //    //Search Destination Request
+        //    DestinationContractsClient dclient = new DestinationContractsClient();
+
+        //    Destination dst = new Destination();
+        //    dst.Continent = "North America";
+        //    dst.Country = "United States";
+        //    dst.State = "New York";
+        //    dst.City = "New York City";
+
+        //    try
+        //    {      
+        //                DestinationResult destResult = dclient.GetDestination(loginHdr, dst);
+        //                dclient.Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+              
+
+        //    }
+
+        //    return View();
+        //}
 
         //NOTE: skipped using this method in POC - GetHotelDetailsV3 could be combined with CheckAvailabilityAndPrices to show more details
         public ActionResult GetHotelInfo(FormCollection collection)
