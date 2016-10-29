@@ -1,4 +1,4 @@
-﻿@model TE.Core.Tourico.Hotel.Dtos.HotelAvailabilityProviderRes
+﻿@model TE.Core.ServiceCatalogues.HotelCatalog.Provider.HotelAvailabilityProviderRes
 @using System.Web.Script.Serialization;
 
 @{
@@ -96,7 +96,7 @@
 
         @foreach (var details in Model.Hotels)
         {
-            using (Html.BeginForm("TouricoHotelDetails", "HotelDetails"))
+            using (Html.BeginForm("GetHotelInfo", "HotelDetail"))
             {
                 <table width="100%" class="rcorners" id="@details.HotelInfo.HotelCode">
                     <tr>

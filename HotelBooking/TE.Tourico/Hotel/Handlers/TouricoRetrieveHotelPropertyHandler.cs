@@ -3,12 +3,12 @@ using TE.Common;
 using TE.Core.ServiceCatalogues.HotelCatalog.Dtos;
 using TE.Core.ServiceCatalogues.HotelCatalog.Provider;
 using TE.Core.Tourico.Hotel;
-using TE.ThirdPartyProviders.Tourico.TouricoHotelSvc;
-
+using TE.ThirdPartyProviders.Tourico.TouricoIHotelFlowSvc;
+using System.Linq;
 
 namespace TE.Tourico.Hotel
 {
-    public class TouricoRetrieveHotelPropertyHandler: HandlerBase<HotelPropertyProviderReq, HotelPropertyProviderRes>
+    public class TouricoRetrieveHotelPropertyHandler: HandlerBase<HotelPropertyProviderReq, HotelPropertyProviderRes> 
     {
         public TouricoRetrieveHotelPropertyHandler()
         {
@@ -16,43 +16,46 @@ namespace TE.Tourico.Hotel
 
         public override HotelPropertyProviderRes Execute(HotelPropertyProviderReq request)
         {
-            using (var touricoWorker = new TouriWorker())
+            using (var touricoWorker = new TouricoWorker())
             {
                 return GetRates(touricoWorker, request);
-            }
-           
+            }           
         }
 
-        private HotelPropertyProviderRes GetRates(TouriWorker touricoWorker, HotelPropertyProviderReq request)
+        private HotelPropertyProviderRes GetRates(TouricoWorker touricoWorker, HotelPropertyProviderReq request)
         {
             //Create Request
-            var hotelDescriptionReq = this.TransformHotelPropertyDescriptionRequest(request);
+            var hotelV3Request = this.TransformHotelPropertyDescriptionRequest(request);
 
-            //Call the API
-            //var hotelDescrptionRes = touricoWorker
-            //    .Execute<HotelPropertyDescriptionRQ, HotelPropertyDescriptionRS>(hotelDescriptionReq);
+            //Call the API    - Get the Detailed Information based on HotelCode
+            var hotelDescriptionRes = touricoWorker.Execute<GetHotelDetailsV3Request, GetHotelDetailsV3Response>(hotelV3Request);       
 
-            TouriWorker tw = new TouriWorker();
-            var hotelDescrptionRes = tw.Execute(hotelDescriptionReq);
 
             //Tranform Response
             return this.TransformHotelPropertyDescriptionResponse(
-                hotelDescrptionRes,
+                hotelDescriptionRes,
                 request.CheckInDate,
                 request.CheckOutDate);
         }
 
-        private HotelID[] TransformHotelPropertyDescriptionRequest(HotelPropertyProviderReq request)
+        private GetHotelDetailsV3Request TransformHotelPropertyDescriptionRequest(HotelPropertyProviderReq request)
         {
-            return new HotelID[] { new HotelID { id = Convert.ToInt32(request.HotelCode) } };
+            var hotelV3Request = new GetHotelDetailsV3Request();
+
+            //Set Auth Header
+            hotelV3Request.AuthenticationHeader = Helper.GetTouricoAuthHeader();
+            //Set HotelCode
+            hotelV3Request.HotelIds= new HotelID[] { new HotelID { id = Convert.ToInt32(request.HotelCode) } };
+
+            return hotelV3Request;
         }
 
-        private HotelPropertyProviderRes TransformHotelPropertyDescriptionResponse(TWS_HotelDetailsV3 response, DateTime checkInDate, DateTime checkOutDate)
+        private HotelPropertyProviderRes TransformHotelPropertyDescriptionResponse(GetHotelDetailsV3Response response, DateTime checkInDate, DateTime checkOutDate)
         {
             var hotelPropertyProviderRes = new HotelPropertyProviderRes();
 
-            hotelPropertyProviderRes.HotelDetails = TransformHotelPropertyDetails(response);
-            hotelPropertyProviderRes.HotelInfo = TransformHotelPropertyInfo(response);
+            hotelPropertyProviderRes.HotelDetails = TransformHotelPropertyDetails(response.GetHotelDetailsV3Result);
+            hotelPropertyProviderRes.HotelInfo = TransformHotelPropertyInfo(response.GetHotelDetailsV3Result);
 
             return hotelPropertyProviderRes;
         }
@@ -61,8 +64,9 @@ namespace TE.Tourico.Hotel
         {
             var hotelDetail = new HotelDetail();             
 
+            
             //Basic Property Information
-            var basicPropertyInfo = response.Location[0];      
+            var basicPropertyInfo = response.Location.FirstOrDefault();      
            
                 hotelDetail.Latitude = basicPropertyInfo.latitude;
                 hotelDetail.Longitude = basicPropertyInfo.longitude;
@@ -85,16 +89,13 @@ namespace TE.Tourico.Hotel
           
             //Hotel Property Option   -- Aminities from Tourico
             foreach (var aminity in basicPropertyInfo.HotelRow.GetAmenitiesRows())
-            {
-                foreach (var am in aminity.GetAmenityRows())
-                {
-                    hotelDetail.MiscellaneousServices.Add(am.name);
-                }                
+            {          
+               hotelDetail.HotelOptions = Helper.GetAvailablePropertyOptions(aminity.GetAmenityRows());
             }
-                
-            //hotelDetail.HotelOptions 
 
             //Hotel Property Types
+            //var propertyType = basicPropertyInfo.HotelRow.GetHomeRows();
+            
           
             //Hotel Attractions              
 
@@ -157,8 +158,6 @@ namespace TE.Tourico.Hotel
             return hotelDetail;
         }
 
-
-        
         private TE.Core.ServiceCatalogues.HotelCatalog.Dtos.HotelInfo TransformHotelPropertyInfo(TWS_HotelDetailsV3 response)
         {
             var hotelInfo = new TE.Core.ServiceCatalogues.HotelCatalog.Dtos.HotelInfo();
@@ -171,17 +170,14 @@ namespace TE.Tourico.Hotel
             //Hotel Name
             hotelInfo.HotelName = basicPropertyInfo.name;
 
-            //Chain Code      
-#pragma warning disable CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
-            //if (!(basicPropertyInfo.brandId == null))
-#pragma warning restore CS0472 // The result of the expression is always the same since a value of this type is never equal to 'null'
-            hotelInfo.HotelChainCode = "";// basicPropertyInfo.brandId.ToString();
+            //Chain Code                
+            hotelInfo.HotelChainCode = (!basicPropertyInfo.IsbrandIdNull()) ? basicPropertyInfo.brandId.ToString() : "";
             
             //description
             hotelInfo.Description = basicPropertyInfo.GetDescriptionsRows()[0].GetLongDescriptionRows()[0].FreeTextLongDescription;
 
             //image url
-            hotelInfo.HeroImageUrl = basicPropertyInfo.thumb;
+            hotelInfo.HeroImageUrl = (!basicPropertyInfo.IsthumbNull()) ? basicPropertyInfo.thumb : "";
                        
             //City Code
             hotelInfo.CityCode = basicPropertyInfo.GetLocationRows()[0].destinationCode;
@@ -193,8 +189,7 @@ namespace TE.Tourico.Hotel
             //Hotel Contact Information
             hotelInfo.PhoneNumber = basicPropertyInfo.hotelPhone;
 
-            //Address
-                     
+            //Address                     
             var hotelAddress = new Core.Shared.Dtos.AddressDto()
             {
                 Address1 = response.Location[0].address,
@@ -211,8 +206,9 @@ namespace TE.Tourico.Hotel
             {
                 Latitude = response.Location[0].latitude,
                 Longitude = response.Location[0].longitude
-                };
-            
+            };
+
+
             return hotelInfo;
         }
 

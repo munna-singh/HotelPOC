@@ -2,15 +2,15 @@
 using com.hotelbeds.distribution.hotel_api_model.auto.model;
 using com.hotelbeds.distribution.hotel_api_sdk.helpers;
 using Common.Exceptions;
-using HotelBeds.Dtos;
+using HotelBeds.Provider;
 using HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
-using HotelBeds.ServiceCatalogues.HotelCatalog.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TE.Common.Logging;
+using TE.Core.ServiceCatalogues.HotelCatalog.Provider;
 
 namespace HotelBeds.Handlers
 {
@@ -81,13 +81,13 @@ namespace HotelBeds.Handlers
             hotelBedsAvailabilityRQ.occupancies.Add(new Occupancy
             {
                 adults = request.TotalAdults,
-                rooms = request.TotalRooms,
+                rooms = HotelBedsConstants.TotalRooms,
                 children = 0,
                 paxes = new List<Pax>()
                     {
                         new Pax
                         {
-                             age = 30,
+                             age = HotelBedsConstants.AdultAge,
                              type = com.hotelbeds.distribution.hotel_api_model.auto.common.SimpleTypes.HotelbedsCustomerType.AD
                         }
                     }

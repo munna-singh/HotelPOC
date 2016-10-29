@@ -18,12 +18,17 @@ namespace TE.Tourico.Hotel
 
         //msanka change - Added enum 
         [Description("Tourico")]
-        Tourico = 2
+        Tourico = 2,
+
+        //msanka change - Added enum 
+        [Description("HotelBeds")]
+        HotelBeds = 3
+
     }
 
     public class HotelProviderBroker
     {
-        public static TE.Core.Tourico.Hotel.ServiceCatlog.IHotelSearchProvider GetHotelSearchProvider(HotelSearchProviderTypes searchProviderType)
+        public static IHotelSearchProvider GetHotelSearchProvider(HotelSearchProviderTypes searchProviderType)
         {
             if (searchProviderType == HotelSearchProviderTypes.Sabre)
             {
@@ -31,6 +36,13 @@ namespace TE.Tourico.Hotel
             }
 
             //msanka change 
+            if (searchProviderType == HotelSearchProviderTypes.Tourico)
+            {
+                return new TouricoHotelSearchProvider();
+                
+            }
+
+             //msanka change 
             if (searchProviderType == HotelSearchProviderTypes.Tourico)
             {
                 return new TouricoHotelSearchProvider();

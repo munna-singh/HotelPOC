@@ -17,5 +17,6 @@ namespace HotelBeds.Provider
         public static int AdultAge = 30;
 
         public static char SpaceSeperator = ' ';
+        public static int TotalRooms = 2;
     }
 }

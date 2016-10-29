@@ -1,24 +1,34 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using TE.Core.Tourico.Hotel.Dtos;
 using TE.Core.ServiceCatalogues.HotelCatalog.Enums;
-using TE.ThirdPartyProviders.Tourico.TouricoHotelSvc;
 using TE.Core.ServiceCatalogues.HotelCatalog.Dtos.Controller;
 using TE.DataAccessLayer.Models;
 using TE.Core.ServiceCatalogues.HotelCatalog.Dtos;
 using TE.Core.ServiceCatalogues.HotelCatalog.Provider;
+using TE.ThirdPartyProviders.Tourico.TouricoIHotelFlowSvc;
+using TE.Core.Hotel.Messaging;
+using TE.Core.Hotel.Tourico.Exceptions;
+using TE.Common.Exceptions;
+using TE.DataAccessLayer.Enums;
 
 
 namespace TE.Core.Tourico.Hotel.Handler
 {
     public class TouricoHotelAvailabilityHandler : TouricoHandlerBase<HotelAvailabilityProviderReq, HotelAvailabilityProviderRes>
     {
+
+        public TouricoHotelAvailabilityHandler(TouricoPipelineManager pipelineManager=null) 
+             : base(pipelineManager)
+        {
+
+        }
+
         public override HotelAvailabilityProviderRes Execute(HotelAvailabilityProviderReq request)
         {
-            if (request.LocationType == LocationTypes.Unknown)
+            if (request.LocationType == ServiceCatalogues.HotelCatalog.Enums.LocationTypes.Unknown)
             {
-                throw new ArgumentNullException(nameof(request.LocationType));
+                //throw new ArgumentNullException(nameof(request.LocationType));
             }
             if (request.CheckInDate <= DateTime.Today)
             {
@@ -33,26 +43,45 @@ namespace TE.Core.Tourico.Hotel.Handler
                 throw new ArgumentOutOfRangeException(nameof(request.TotalAdults));
             }
 
-            //convert request dto to Tourico search request
-            SearchHotelsByIdRequest TouricoHotelRequest = ConvertToTouricoHotelSearchRequest(request);
+            using (
+                    var touricoWorker = new TouricoWorker(pipelineManager: PipelineManager)
+                  )
+            {
 
-            HotelAvailabilityProviderRes hotelSearchResults;
+                //convert request dto to Tourico search request
+                SearchHotelsByIdRequest1 TouricoHotelRequest = ConvertToTouricoHotelSearchRequest(request);
+                
+                HotelAvailabilityProviderRes hotelSearchResults;
 
-            //Call worker here:
-            TouriWorker tworker = new TouriWorker();
-            SearchResult resp = tworker.Execute(TouricoHotelRequest);
+                try
+                {
+                    var touricoRespone = touricoWorker.Execute<SearchHotelsByIdRequest1, SearchHotelsByIdResponse>(TouricoHotelRequest);
 
-            //convert response to HotelAvailabilityProviderRes
-            hotelSearchResults = this.ConvertToProviderResponse(resp, request);
+                    if(touricoRespone == null)
+                    {
+                        throw new ProviderUnavailableException(ProviderTypes.Tourico.ToString(), $"No response to {nameof(SearchHotelsByIdRequest1)}.", null);
 
-            return hotelSearchResults;
+                    }
+
+                    //convert response to HotelAvailabilityProviderRes
+                    hotelSearchResults = this.ConvertToProviderResponse(touricoRespone, request);
+
+                }
+                catch (TouricoProviderException e)
+                {
+
+                    throw e;
+                }
+                
+                return hotelSearchResults;
+            }
         }
 
-        private HotelAvailabilityProviderRes ConvertToProviderResponse(SearchResult response, HotelAvailabilityProviderReq request)
+        private HotelAvailabilityProviderRes ConvertToProviderResponse(SearchHotelsByIdResponse response, HotelAvailabilityProviderReq request)
         {
 
             HotelAvailabilityProviderRes providerResp;
-            if (response.HotelList.Length == 0)
+            if (response.SearchHotelsByIdResult.HotelList.Length == 0)
             {
                 throw new ApplicationException("AvailabilityOptions is null.");
             }
@@ -60,7 +89,7 @@ namespace TE.Core.Tourico.Hotel.Handler
             providerResp = new HotelAvailabilityProviderRes();
             
             var hotels = new List<HotelSearchResultItem>();
-            foreach (var hotel in response.HotelList)
+            foreach (var hotel in response.SearchHotelsByIdResult.HotelList)
             {
                 var hotelResult = new HotelSearchResultItem();
                 hotelResult.HotelInfo = new TE.Core.ServiceCatalogues.HotelCatalog.Dtos.HotelInfo();
@@ -79,12 +108,15 @@ namespace TE.Core.Tourico.Hotel.Handler
                 hotelResult.HotelInfo.HotelName = hotel.name;
                 hotelResult.HotelInfo.CityCode = hotel.Location.searchingCity; //? city code
                 hotelResult.HotelInfo.Thumbnails = hotel.thumb;
-                if (hotel.minAverPublishPrice > 0) //? issue with currency CAD
+                
+                //Currency and Currency Code
+                if (hotel.minAverPublishPrice > 0)
                 {
                     hotelResult.Price = new TMoney
                     {
-                        Amount = hotel.minAverPublishPrice
-                        //,CurrencyCode= hotel.currency
+                        Amount = hotel.minAverPublishPrice,
+                        Currency = new TCurrency
+                                                { CurrencyCode = hotel.currency }
                     };
                 }
 
@@ -93,7 +125,7 @@ namespace TE.Core.Tourico.Hotel.Handler
                 hotelResult.HotelInfo.Provider = DataAccessLayer.Enums.ProviderTypes.Tourico;         
                              
                 //lat and long
-                    hotelResult.HotelInfo.Location = new GeoLocation
+                 hotelResult.HotelInfo.Location = new GeoLocation
                     {
                         Latitude = hotel.Location.latitude,
                         Longitude = hotel.Location.longitude
@@ -101,11 +133,10 @@ namespace TE.Core.Tourico.Hotel.Handler
                
 
                 hotelResult.HotelInfo.SpecialOffers = null;
+                hotelResult.HotelInfo.Amenities = null; // Available only in GetHotelDetailsV3 
 
-                hotelResult.HotelInfo.Amenities = null;
-                
                 //Room Type info
-                hotelResult.HotelInfo.SpecialOffers = hotel.RoomTypes.ToString();
+                hotelResult.HotelInfo.SpecialOffers = hotel.RoomTypes.ToString(); // musanka : remove assigning to SpecialOffers property
 
                 hotels.Add(hotelResult);
                 
@@ -116,10 +147,11 @@ namespace TE.Core.Tourico.Hotel.Handler
             return providerResp;
         }
 
-        private SearchHotelsByIdRequest ConvertToTouricoHotelSearchRequest(HotelAvailabilityProviderReq request)
-        {
-            SearchHotelsByIdRequest sRequest = new SearchHotelsByIdRequest();
+        private SearchHotelsByIdRequest1 ConvertToTouricoHotelSearchRequest(HotelAvailabilityProviderReq request)
+        {                                   
 
+            SearchHotelsByIdRequest sRequest = new SearchHotelsByIdRequest();
+                        
             sRequest.CheckIn = request.CheckInDate;
             sRequest.CheckOut = request.CheckOutDate;
             sRequest.RoomsInformation = new RoomInfo[] { new RoomInfo {  AdultNum = request.TotalAdults,
@@ -136,8 +168,11 @@ namespace TE.Core.Tourico.Hotel.Handler
 
             sRequest.HotelIdsInfo = hIdInfo;
 
+            SearchHotelsByIdRequest1 returnRequest = new SearchHotelsByIdRequest1();          
+            returnRequest.AuthenticationHeader = Helper.GetTouricoAuthHeader();
+            returnRequest.request = sRequest;
 
-            return sRequest;
+            return returnRequest;
 
         }
     }

@@ -1,21 +1,23 @@
-﻿using AutoMapper;
+﻿//using AutoMapper;
 using com.hotelbeds.distribution.hotel_api_model.auto.messages;
 using com.hotelbeds.distribution.hotel_api_sdk.helpers;
 using com.hotelbeds.distribution.hotel_api_model.auto.model;
-using HotelBeds.ServiceCatalogues.HotelCatalog.Provider;
 using HotelBeds.ServiceCatalogues.HotelCatalog.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HotelBeds.Dtos;
 using TE.Common.Logging;
 using Common.Exceptions;
 using HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
 using HotelBeds.Provider.Exceptions;
 using HotelBeds.Models;
 using HotelBeds.Provider;
+using TE.Core.ServiceCatalogues.HotelCatalog.Provider;
+using TE.Core.ServiceCatalogues.HotelCatalog.Dtos.Controller;
+using TE.Core.ServiceCatalogues.HotelCatalog.Dtos;
+
 
 namespace HotelBeds.Handlers
 {
@@ -23,7 +25,7 @@ namespace HotelBeds.Handlers
     {
         public HotelAvailabilityProviderRes Execute(HotelAvailabilityProviderReq request)
         {
-            Logger.Instance.LogFunctionEntry(this.GetType().Name, "Execute");
+            //Logger.Instance.LogFunctionEntry(this.GetType().Name, "Execute");
             Availability avail = new Availability();
             List<Hotel> hotels = new List<Hotel>();
 
@@ -68,9 +70,7 @@ namespace HotelBeds.Handlers
                 {
                     if (e.HasKnownError(HotelBedsProviderException.HotelKnownError.NoListings))
                     {
-                        hotelSearchResults = new HotelAvailabilityProviderRes()
-                        { Hotels = new List<HotelSearchResultItem>() };
-
+                        hotelSearchResults = new HotelAvailabilityProviderRes();                       
                     }
                     else
                     {
@@ -78,7 +78,7 @@ namespace HotelBeds.Handlers
                     }
                 }
             }
-            Logger.Instance.LogFunctionExit(this.GetType().Name, "Execute");
+            //Logger.Instance.LogFunctionExit(this.GetType().Name, "Execute");
             return hotelSearchResults;
         }
 
@@ -97,8 +97,8 @@ namespace HotelBeds.Handlers
             {
                 hotelBedsAvailabilityRQ.geolocation = new com.hotelbeds.distribution.hotel_api_model.auto.model.GeoLocation
                 {
-                    latitude = Convert.ToDouble(request.GeoLocation.Latitude),
-                    longitude = Convert.ToDouble(request.GeoLocation.Longitude),
+                    latitude = Convert.ToDouble(40.71),
+                    longitude = Convert.ToDouble(74.00),
                     radius = HotelBedsConstants.RadiusLimit,
                     unit = com.hotelbeds.distribution.hotel_api_model.util.UnitMeasure.UnitMeasureType.km
                 };
@@ -116,7 +116,7 @@ namespace HotelBeds.Handlers
             hotelBedsAvailabilityRQ.occupancies.Add(new Occupancy
             {
                 adults = request.TotalAdults,
-                rooms = request.TotalRooms,
+                rooms = HotelBedsConstants.TotalRooms,
                 children = 0,
                 paxes = new List<Pax>()
                     {
@@ -148,22 +148,23 @@ namespace HotelBeds.Handlers
                             HotelCode = htl.code.ToString(),
                             Description = htl.zoneCode + ", " + htl.zoneName,
                             Rating = Convert.ToInt16(htl.categoryName.Split(HotelBedsConstants.SpaceSeperator)[0]),
-
-                            Location = new ServiceCatalogues.HotelCatalog.Dtos.GeoLocation()
+                            PropertyInformation = new HotelPropertyDetail()
                             {
                                 Latitude = Convert.ToDecimal(htl.latitude),
                                 Longitude = Convert.ToDecimal(htl.longitude)
-                            }
+                            },  
+                                                   
+                           
                         },
-                        Price = new Models.TMoney()
+                        Price = new TE.DataAccessLayer.Models.TMoney()
                         {
                             Amount = htl.minRate,
-                            Currency = new TCurrency()
+                            Currency = new TE.DataAccessLayer.Models.TCurrency()
                             {
                                 CurrencyCode = htl.currency
                             }
-                        }
-
+                        }                        
+                        
                     };
                     hotels.Add(searchResult);
                 }

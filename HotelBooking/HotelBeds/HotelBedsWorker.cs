@@ -2,7 +2,7 @@
 using com.hotelbeds.distribution.hotel_api_sdk;
 using com.hotelbeds.distribution.hotel_api_sdk.helpers;
 using com.hotelbeds.distribution.hotel_api_model;
-using HotelBeds.ServiceCatalogues.HotelCatalog.Provider;
+using HotelBeds.ServiceCatalogues.HotelCatalog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using com.hotelbeds.distribution.hotel_api_model.auto.model;
 using System.Configuration;
-using Common.Logging;
+//using Common.Logging;
 using TE.Common.Logging;
 using HotelBeds.Provider.Messaging;
 //using DataAccessLayer.Repositories;
@@ -27,7 +27,7 @@ namespace HotelBeds
 
         public void Close()
         {
-            Logger.Instance.LogFunctionEntry(this.GetType().Name, "Close");
+            //Logger.Instance.LogFunctionEntry(this.GetType().Name, "Close");
 
             if (this.Session == null)
             {
@@ -36,7 +36,7 @@ namespace HotelBeds
 
             this.Session = null;
 
-            Logger.Instance.LogFunctionExit(this.GetType().Name, "Close");
+            //Logger.Instance.LogFunctionExit(this.GetType().Name, "Close");
         }
 
         public void Dispose()
@@ -49,7 +49,7 @@ namespace HotelBeds
 
         private void Init()
         {
-            Logger.Instance.LogFunctionEntry(this.GetType().Name, "Init");
+            //Logger.Instance.LogFunctionEntry(this.GetType().Name, "Init");
 
             if (this.Session != null)
             {
@@ -61,12 +61,12 @@ namespace HotelBeds
                 throw new ApplicationException("Could not open session.");
             }
 
-            Logger.Instance.LogFunctionExit(this.GetType().Name, "Init");
+            //Logger.Instance.LogFunctionExit(this.GetType().Name, "Init");
         }
 
         public AvailabilityRS GetAvailability<TReq, TRes>(AvailabilityRQ request)
         {
-            Logger.Instance.LogFunctionEntry(this.GetType().Name, "GetAvailability");
+            //Logger.Instance.LogFunctionEntry(this.GetType().Name, "GetAvailability");
             List<Hotel> hotels = new List<Hotel>();
             HotelApiClient client = new HotelApiClient();
             StatusRS status = client.status();
@@ -84,13 +84,13 @@ namespace HotelBeds
                 throw;
             }
 
-            Logger.Instance.LogFunctionExit(this.GetType().Name, "GetAvailability");
+            //Logger.Instance.LogFunctionExit(this.GetType().Name, "GetAvailability");
             return responseAvail;
         }
 
         public AvailabilityRS GetHotelDetails(AvailabilityRQ request)
         {
-            Logger.Instance.LogFunctionEntry(this.GetType().Name, "GetHotelDetails");
+            //Logger.Instance.LogFunctionEntry(this.GetType().Name, "GetHotelDetails");
             AvailabilityRS responseHotelDetail = new AvailabilityRS();
             List<Hotel> hotels = new List<Hotel>();
             HotelApiClient client = new HotelApiClient();
@@ -131,7 +131,7 @@ namespace HotelBeds
                 throw;
             }
 
-            Logger.Instance.LogFunctionExit(this.GetType().Name, "GetHotelDetails");
+            //Logger.Instance.LogFunctionExit(this.GetType().Name, "GetHotelDetails");
             return responseHotelDetail;
         }
     }
