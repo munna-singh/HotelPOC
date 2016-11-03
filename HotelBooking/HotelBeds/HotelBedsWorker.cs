@@ -2,7 +2,7 @@
 using com.hotelbeds.distribution.hotel_api_sdk;
 using com.hotelbeds.distribution.hotel_api_sdk.helpers;
 using com.hotelbeds.distribution.hotel_api_model;
-using TE.HotelBeds.ServiceCatalogues.HotelCatalog;
+using HotelBeds.ServiceCatalogues.HotelCatalog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +10,13 @@ using System.Text;
 using System.Threading.Tasks;
 using com.hotelbeds.distribution.hotel_api_model.auto.model;
 using System.Configuration;
+//using Common.Logging;
 using TE.Common.Logging;
-using TE.HotelBeds.Provider.Messaging;
-using System.Xml.Serialization;
-using System.IO;
-using System.Xml;
-using TE.Common.Helpers;
-using TE.Common.Communication;
+using HotelBeds.Provider.Messaging;
+//using DataAccessLayer.Repositories;
+//using DataAccessLayer.Models;
 
-namespace TE.HotelBeds
+namespace HotelBeds
 {
     public class HotelBedsWorker : IDisposable
     {
@@ -68,7 +66,7 @@ namespace TE.HotelBeds
 
         public AvailabilityRS GetAvailability<TReq, TRes>(AvailabilityRQ request)
         {
-            Logger.Instance.LogFunctionEntry(this.GetType().Name, "GetAvailability");
+            //Logger.Instance.LogFunctionEntry(this.GetType().Name, "GetAvailability");
             List<Hotel> hotels = new List<Hotel>();
             HotelApiClient client = new HotelApiClient();
             StatusRS status = client.status();
@@ -86,13 +84,13 @@ namespace TE.HotelBeds
                 throw;
             }
 
-            Logger.Instance.LogFunctionExit(this.GetType().Name, "GetAvailability");
+            //Logger.Instance.LogFunctionExit(this.GetType().Name, "GetAvailability");
             return responseAvail;
         }
 
         public AvailabilityRS GetHotelDetails(AvailabilityRQ request)
         {
-            Logger.Instance.LogFunctionEntry(this.GetType().Name, "GetHotelDetails");
+            //Logger.Instance.LogFunctionEntry(this.GetType().Name, "GetHotelDetails");
             AvailabilityRS responseHotelDetail = new AvailabilityRS();
             List<Hotel> hotels = new List<Hotel>();
             HotelApiClient client = new HotelApiClient();
@@ -133,28 +131,8 @@ namespace TE.HotelBeds
                 throw;
             }
 
-            Logger.Instance.LogFunctionExit(this.GetType().Name, "GetHotelDetails");
+            //Logger.Instance.LogFunctionExit(this.GetType().Name, "GetHotelDetails");
             return responseHotelDetail;
         }
-
-        //public static void SendRequest(SoapMessage message)
-        //{
-        //    var sabreMessage = message as HotelBedsMessage;
-        //    if (sabreMessage == null)
-        //    {
-        //        throw new InvalidCastException("Expected SabreMessage");
-        //    }
-
-        //    // With Sabre we will log using the action to identify steps rather than request object names
-        //    SoapMessagingHelper.SendRequest(
-        //        message,
-        //        PrepareRequest(sabreMessage),
-        //        "Sabre",
-        //        LogProviderNameDirectory);
-        //}
-
-
-
-
     }
 }

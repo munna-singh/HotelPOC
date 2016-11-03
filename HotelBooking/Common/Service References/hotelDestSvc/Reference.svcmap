@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="991642f3-e0e3-4cfb-a339-db28bdeee7c8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://destservices.touricoholidays.com/DestinationsService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="WSDestinationService.wsdl" MetadataType="Wsdl" ID="c427454b-3dc3-42b1-bab7-da5e396bd450" SourceId="1" SourceUrl="http://destservices.touricoholidays.com/DestinationsService.svc?wsdl" />
+    <MetadataFile FileName="DestinationsService.xsd" MetadataType="Schema" ID="496d59ab-097c-4676-8660-76506b66a59a" SourceId="1" SourceUrl="http://destservices.touricoholidays.com/DestinationsService.svc?xsd=xsd0" />
+    <MetadataFile FileName="DestinationsService.wsdl" MetadataType="Wsdl" ID="57367c44-a031-45c0-9f5b-ed7e8ad4aad2" SourceId="1" SourceUrl="http://destservices.touricoholidays.com/DestinationsService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="DestinationsService1.xsd" MetadataType="Schema" ID="8e38177d-eeed-41bc-87e5-5539f5ef891e" SourceId="1" SourceUrl="http://destservices.touricoholidays.com/DestinationsService.svc?xsd=xsd1" />
+    <MetadataFile FileName="DestinationsService.disco" MetadataType="Disco" ID="21aac569-7820-4b16-89fc-ee6eaad1505f" SourceId="1" SourceUrl="http://destservices.touricoholidays.com/DestinationsService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

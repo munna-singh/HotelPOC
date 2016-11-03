@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common;
-using TE.HotelBeds.Handlers;
+using HotelBeds.Handlers;
 using TE.Core.ServiceCatalogues.HotelCatalog;
 using TE.Core.ServiceCatalogues.HotelCatalog.Provider; 
-namespace TE.HotelBeds.Provider
+namespace HotelBeds.Provider
 {
     public class HotelBedsSearchProvider : IHotelSearchProvider
     {
@@ -15,9 +15,7 @@ namespace TE.HotelBeds.Provider
 
         public IEnumerable<HotelRateProviderRes> RetrieveHotelRates(HotelPropertyProviderReq request)
         {
-            List<HotelRateProviderRes> abccc = new List<HotelRateProviderRes>();
-            var response = new HotelBedsDetailsHandler().Execute(request);
-            return abccc;
+            throw new NotImplementedException();
         }
 
 

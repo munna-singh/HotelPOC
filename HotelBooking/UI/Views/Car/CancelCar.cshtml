@@ -1,0 +1,26 @@
+﻿@model UI.Models.CarCancelModel
+@{
+    ViewBag.Title = "CancelCar";
+}
+
+<h1>Cancel Car</h1>
+
+<table width="100%" style="padding: 0px 0px 0px 0px">
+    <tr>
+        <td style="width: 25%">
+            <h1>Car Cancel Status</h1>
+        </td>
+        <td style="width: 75%">
+            <table width="100%">
+                <tr>
+                    <td style="font-size: 10px">
+                        @{ var carCancelStatus = Model.CancellationStatus ? "Car booking cancelled successfully" : "Car cancellation failed";}
+                        <h3>
+                            @carCancelStatus
+                        </h3>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

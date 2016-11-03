@@ -1,6 +1,6 @@
 ﻿@model TE.Core.ServiceCatalogues.HotelCatalog.Provider.HotelAvailabilityProviderRes
 @{
-    ViewBag.Title = "Hotel Search Result";
+    ViewBag.Title = "Bed Bank Hotel Search Result";
     var counter = 1;
 }
 
@@ -16,7 +16,7 @@
     }
 </style>
 
-<h1>Hotel Search Result</h1>
+<h1>Bed Bank Hotel Search Result</h1>
 
 
 @if ((Model.Hotels != null) && (Model.Hotels.Count > 0))
@@ -52,7 +52,7 @@
 
         @foreach (var details in Model.Hotels)
         {
-            using (Html.BeginForm("Index", "HotelDetails"))
+            using (Html.BeginForm("Index", "BBHotelDetails"))
             {
                 <table width="100%" class="rcorners" id="@details.HotelInfo">
                     <tr>
@@ -127,22 +127,10 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        @{
-                                            switch ((int) @details.HotelInfo.Provider)
-                                            {
-                                                case 9: 
-                                                        <p><b>Latitude:</b> @details.HotelInfo.Location.Latitude</p>
-                                                        <p><b>Longitude:</b> @details.HotelInfo.Location.Longitude</p>
-                                                    break;
-                                                case 0:
-                                                    <p><b>Latitude:</b> @details.HotelInfo.PropertyInformation.Latitude</p>
-                                                        <p><b>Longitude:</b> @details.HotelInfo.PropertyInformation.Longitude</p>
-                                                    break;
-                                            }
 
-                                        }
 
-                                        
+                                        <p><b>Latitude:</b> @details.HotelInfo.Location.Latitude</p>
+                                        <p><b>Longitude:</b> @details.HotelInfo.Location.Longitude</p>
 
 
                                     </td>
@@ -161,9 +149,9 @@
                             @*<p><b>Phone: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Phone  <b>Fax: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Fax</p>*@
                         </td>
                         <td>
-                            <b>Start Date: @ViewBag.StartDate</b>  <b>End Date: @ViewBag.EndDate</b>
-                            <input type="hidden" name="checkIn" value="@ViewBag.StartDate" />
-                            <input type="hidden" name="checkOut" value="@ViewBag.EndDate" />
+                            <b>Start Date:</b>  <b>End Date:</b>
+                            <input type="hidden" name="checkIn" value="@ViewBag.checkIn" />
+                            <input type="hidden" name="checkOut" value="@ViewBag.checkOut" />
                             <input type="hidden" name="totalTravellers" value="@ViewBag.TotalTravellers" />
                             <input type="hidden" name="hotelCode" value="@details.HotelInfo.HotelCode" />
                             <input type="hidden" name="LatOrg" value="@ViewBag.LatOrg" />
@@ -175,7 +163,7 @@
                             @*<input type="text" name="totalGuests" value="@ViewBag.totalTravellers" />*@
                         </td>
                         <td>
-                            <button type="submit" id="@details.HotelInfo.HotelCode" class="btn btn-warning" style="width:150px;">Select</button>
+                            <button type="submit" class="btn btn-warning" style="width:150px;">Select</button>
                         </td>
                     </tr>
                 </table>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://touricoholidays.com/WSDestinations/2008/08/Contracts" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://touricoholidays.com/WSDestinations/2008/08/Contracts" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://touricoholidays.com/WSDestinations/2008/08/Contracts/Imports">
+      <xsd:import schemaLocation="http://destservices.touricoholidays.com/DestinationsService.svc?xsd=xsd0" namespace="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" />
+      <xsd:import schemaLocation="http://destservices.touricoholidays.com/DestinationsService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="DestinationRequest">
+    <wsdl:part xmlns:q1="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" name="parameters" element="q1:GetDestination" />
+  </wsdl:message>
+  <wsdl:message name="DestinationRequest_Headers">
+    <wsdl:part xmlns:q2="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" name="LoginHeader" element="q2:LoginHeader" />
+  </wsdl:message>
+  <wsdl:message name="DestinationResultContainer">
+    <wsdl:part xmlns:q3="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" name="parameters" element="q3:DestinationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDestinationContracts_GetDestination_CustomExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" name="detail" element="q4:CustomExpMsg" />
+  </wsdl:message>
+  <wsdl:message name="HotelDestinationRequest">
+    <wsdl:part xmlns:q5="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" name="parameters" element="q5:GetHotelsByDestination" />
+  </wsdl:message>
+  <wsdl:message name="HotelDestinationRequest_Headers">
+    <wsdl:part xmlns:q6="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" name="LoginHeader" element="q6:LoginHeader" />
+  </wsdl:message>
+  <wsdl:message name="HotelDestinationResultContainer">
+    <wsdl:part xmlns:q7="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" name="parameters" element="q7:HotelsByDestinationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDestinationContracts_GetHotelsByDestination_CustomExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" name="detail" element="q8:CustomExpMsg" />
+  </wsdl:message>
+  <wsdl:message name="ActivityDestinationRequest">
+    <wsdl:part xmlns:q9="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" name="parameters" element="q9:GetActivitiesByDestination" />
+  </wsdl:message>
+  <wsdl:message name="ActivityDestinationRequest_Headers">
+    <wsdl:part xmlns:q10="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" name="LoginHeader" element="q10:LoginHeader" />
+  </wsdl:message>
+  <wsdl:message name="ActivityDestinationResultContainer">
+    <wsdl:part xmlns:q11="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" name="parameters" element="q11:ActivitiesByDestinationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDestinationContracts_GetActivitiesByDestination_CustomExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" name="detail" element="q12:CustomExpMsg" />
+  </wsdl:message>
+  <wsdl:portType name="IDestinationContracts">
+    <wsdl:operation name="GetDestination">
+      <wsdl:input wsaw:Action="http://touricoholidays.com/WSDestinations/2008/08/Contracts/IDestinationContracts/GetDestination" name="DestinationRequest" message="tns:DestinationRequest" />
+      <wsdl:output wsaw:Action="http://touricoholidays.com/WSDestinations/2008/08/Contracts/IDestinationContracts/GetDestinationResponse" name="DestinationResultContainer" message="tns:DestinationResultContainer" />
+      <wsdl:fault wsaw:Action="http://touricoholidays.com/WSDestinations/2008/08/Contracts/IDestinationContracts/GetDestinationCustomExceptionMessageFault" name="CustomExceptionMessageFault" message="tns:IDestinationContracts_GetDestination_CustomExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHotelsByDestination">
+      <wsdl:input wsaw:Action="http://touricoholidays.com/WSDestinations/2008/08/Contracts/IDestinationContracts/GetHotelsByDestination" name="HotelDestinationRequest" message="tns:HotelDestinationRequest" />
+      <wsdl:output wsaw:Action="http://touricoholidays.com/WSDestinations/2008/08/Contracts/IDestinationContracts/GetHotelsByDestinationResponse" name="HotelDestinationResultContainer" message="tns:HotelDestinationResultContainer" />
+      <wsdl:fault wsaw:Action="http://touricoholidays.com/WSDestinations/2008/08/Contracts/IDestinationContracts/GetHotelsByDestinationCustomExceptionMessageFault" name="CustomExceptionMessageFault" message="tns:IDestinationContracts_GetHotelsByDestination_CustomExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivitiesByDestination">
+      <wsdl:input wsaw:Action="http://touricoholidays.com/WSDestinations/2008/08/Contracts/IDestinationContracts/GetActivitiesByDestination" name="ActivityDestinationRequest" message="tns:ActivityDestinationRequest" />
+      <wsdl:output wsaw:Action="http://touricoholidays.com/WSDestinations/2008/08/Contracts/IDestinationContracts/GetActivitiesByDestinationResponse" name="ActivityDestinationResultContainer" message="tns:ActivityDestinationResultContainer" />
+      <wsdl:fault wsaw:Action="http://touricoholidays.com/WSDestinations/2008/08/Contracts/IDestinationContracts/GetActivitiesByDestinationCustomExceptionMessageFault" name="CustomExceptionMessageFault" message="tns:IDestinationContracts_GetActivitiesByDestination_CustomExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

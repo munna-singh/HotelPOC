@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" elementFormDefault="qualified" targetNamespace="http://touricoholidays.com/WSDestinations/2008/08/DataContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="GetDestination">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="Destination" type="tns:Destination" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Destination">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Continent" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Country" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="State" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="City" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Providers" type="tns:Providers" />
+      <xs:element minOccurs="1" maxOccurs="1" name="StatusDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Providers">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProviderType" type="tns:Provider" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Provider">
+    <xs:simpleContent>
+      <xs:extension base="xs:string" />
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="LoginHeader" type="tns:LoginHeader" />
+  <xs:complexType name="LoginHeader">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="username" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="password" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="culture" type="tns:Culture" />
+      <xs:element minOccurs="0" maxOccurs="1" name="version" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Culture">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="en_US" />
+      <xs:enumeration value="he_IL" />
+      <xs:enumeration value="es_ES" />
+      <xs:enumeration value="pt_PT" />
+      <xs:enumeration value="ru_RU" />
+      <xs:enumeration value="fr_FR" />
+      <xs:enumeration value="de_DE" />
+      <xs:enumeration value="ja_JP" />
+      <xs:enumeration value="it_IT" />
+      <xs:enumeration value="zh_CN" />
+      <xs:enumeration value="ko_KR" />
+      <xs:enumeration value="pl_PL" />
+      <xs:enumeration value="zh_TW" />
+      <xs:enumeration value="nl_NL" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="DestinationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="DestinationResult" type="tns:DestinationResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="DestinationResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Continent" type="tns:Continent" />
+    </xs:sequence>
+    <xs:attribute name="Version" type="xs:string" />
+    <xs:attribute name="Culture" type="xs:string" />
+    <xs:attribute name="ResultNum" type="xs:int" use="required" />
+    <xs:attribute name="ServerTime" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="Continent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseNode">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Country" type="tns:Country" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BaseNode">
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="elementType" type="xs:int" use="required" />
+    <xs:attribute name="destinationId" type="xs:int" use="required" />
+    <xs:attribute name="provider" type="xs:string" />
+    <xs:attribute name="status" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="CityLocation">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseNode">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Hotels" type="tns:Hotels" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Activities" type="tns:Activities" />
+        </xs:sequence>
+        <xs:attribute name="location" type="xs:string" />
+        <xs:attribute name="destinationCode" type="xs:string" />
+        <xs:attribute name="city" type="xs:string" />
+        <xs:attribute name="cityDestinationId" type="xs:int" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Hotels">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Hotel" type="tns:Hotel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Hotel">
+    <xs:attribute name="hotelId" type="xs:int" use="required" />
+    <xs:attribute name="hotelName" type="xs:string" />
+    <xs:attribute name="destinationId" type="xs:int" use="required" />
+    <xs:attribute name="hotelLatitude" type="xs:string" />
+    <xs:attribute name="hotelLongitude" type="xs:string" />
+    <xs:attribute name="address" type="xs:string" />
+    <xs:attribute name="zip" type="xs:string" />
+    <xs:attribute name="city" type="xs:string" />
+    <xs:attribute name="location" type="xs:string" />
+    <xs:attribute name="state" type="xs:string" />
+    <xs:attribute name="stateCode" type="xs:string" />
+    <xs:attribute name="countryCode" type="xs:string" />
+    <xs:attribute name="destinationCode" type="xs:string" />
+    <xs:attribute name="stars" type="xs:double" use="required" />
+    <xs:attribute name="status" type="xs:string" />
+    <xs:attribute name="bestVal" type="xs:unsignedByte" use="required" />
+    <xs:attribute name="providerId" type="xs:int" use="required" />
+    <xs:attribute name="uploaded" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="Activities">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Activity" type="tns:Activity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Activity">
+    <xs:attribute name="activityId" type="xs:int" use="required" />
+    <xs:attribute name="activityName" type="xs:string" />
+    <xs:attribute name="destinationId" type="xs:int" use="required" />
+    <xs:attribute name="activityLatitude" type="xs:string" />
+    <xs:attribute name="activityLongitude" type="xs:string" />
+    <xs:attribute name="address" type="xs:string" />
+    <xs:attribute name="zip" type="xs:string" />
+    <xs:attribute name="city" type="xs:string" />
+    <xs:attribute name="location" type="xs:string" />
+    <xs:attribute name="state" type="xs:string" />
+    <xs:attribute name="stateCode" type="xs:string" />
+    <xs:attribute name="countryCode" type="xs:string" />
+    <xs:attribute name="destinationCode" type="xs:string" />
+    <xs:attribute name="stars" type="xs:double" use="required" />
+    <xs:attribute name="status" type="xs:string" />
+    <xs:attribute name="bestVal" type="xs:unsignedByte" use="required" />
+    <xs:attribute name="activityCategoryID" type="xs:string" />
+    <xs:attribute name="activityCategory" type="xs:string" />
+    <xs:attribute name="providerId" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="City">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseNode">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CityLocation" type="tns:CityLocation" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Hotels" type="tns:Hotels" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Activities" type="tns:Activities" />
+        </xs:sequence>
+        <xs:attribute name="destinationCode" type="xs:string" />
+        <xs:attribute name="cityLatitude" type="xs:string" />
+        <xs:attribute name="cityLongitude" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="State">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseNode">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="City" type="tns:City" />
+        </xs:sequence>
+        <xs:attribute name="StateShort" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Country">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseNode">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="State" type="tns:State" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CustomExpMsg">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ErrorNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="StackTrace" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CustomExpMsg" nillable="true" type="tns:CustomExpMsg" />
+  <xs:element name="GetHotelsByDestination">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="Destination" type="tns:Destination" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HotelsByDestinationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="DestinationResult" type="tns:DestinationResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetActivitiesByDestination">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="Destination" type="tns:Destination" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActivitiesByDestinationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="DestinationResult" type="tns:DestinationResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

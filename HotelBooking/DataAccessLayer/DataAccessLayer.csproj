@@ -40,6 +40,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TE.Core">
+      <HintPath>..\..\..\..\CarPoc\HotelPOC\HotelBooking\Common\Dlls\TE.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="TE.Platform.Api">
+      <HintPath>..\..\..\..\CarPoc\HotelPOC\HotelBooking\Common\Dlls\TE.Platform.Api.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />

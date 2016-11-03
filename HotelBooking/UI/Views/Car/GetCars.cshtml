@@ -1,0 +1,200 @@
+﻿@model Common.carFlowSvc.SearchCarInfo[]
+
+@{
+    ViewBag.Title = "Car Search Result";
+    var counter = 1;
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<style type="text/css">
+    .hotel-map-label {
+        color: #29abe2;
+        font-weight: bold;
+        border-style: solid;
+        border-color: #ffffff;
+        background-color: #ffffff;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+</style>
+
+<h1>Car Search Result</h1>
+
+
+    @if ((Model.Length > 0))
+    {
+     <div>
+         <script type="text/javascript"
+                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false">
+
+
+        
+         </script>
+         <script type="text/javascript">
+             $(document)
+                 .ready(function() {
+                     var lat = @ViewBag.LatOrg;
+                     var lon = @ViewBag.LanOrg;
+                     var myLatlng = new google.maps
+                         .LatLng(lat, lon) // This is used to center the map to show our markers
+                     var mapOptions = {
+                         center: myLatlng,
+                         zoom: 6,
+                         mapTypeId: google.maps.MapTypeId.ROADMAP,
+                         marker: true
+                     };
+                     var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+                     var marker = new google.maps.Marker({
+                         position: myLatlng
+                     });
+                     marker.setMap(map);
+                 });
+
+         </script>
+     </div>
+
+     <table width="100%" style="padding: 0px 0px 0px 0px">
+         <tr>
+             <td style="width: 25%; vertical-align: top">
+                 <table>
+                     <tr>
+                         <td><b>Filter by company</b></td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <ul>
+                                 @{
+                                     foreach (var company in Model.Select(c => c.carCompanyName).Distinct())
+                                     {
+                                         <p> <input type="checkbox" id="@company"/> @company</p>
+                                     }
+                                 }
+                             </ul>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td><b>Filter by car</b></td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <ul>
+                                 @{
+                                     foreach (var cls in Model.Select(c => c.@class).Distinct())
+                                     {
+                                         <p> <input type="checkbox" id="@cls"/> @cls</p>
+                                     }
+                                 }
+                             </ul>
+                         </td>
+                     </tr>
+                 </table>
+             </td>
+             <td style="width: 75%">
+                 <div style="font-size: 12px;">
+                     
+                     @foreach (var details in Model)
+                     {
+                         //foreach (var item in details.RouteOptions.First().ProgramList.CarProgram)
+                         //{
+                         <table width="100%" style="border: solid; padding: 0px;">
+                             <tr>
+                                 <td style="width: 10%"><img src="@details.carThumb" style="width: 150px; height: 150px;"/></td>
+                                 <td style="width: 5%"></td>
+                                 <td style="width: 75%">
+                                     <table style="text-align: left; border-style: none; border-width: 0px;" width="100%">
+                                         <tr>
+                                             <td colspan="3">
+                                                 <b> @(details.@class): @details.carName</b>
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td>
+                                                 @{
+                                                     string companyLogo = "http://image2.urlforimages.com/CS/$Templates/LMTNew-ref$/@Websites/LastMinuteTravel@/Images/CarCompanies/logo-" + details.carCompanyName + ".gif";
+                                                 }
+                                                 <img src="@companyLogo"/>
+                                             </td>
+                                             <td>
+                                                 @details.transmission , @{ var acAvailability = details.ac ? "Ac" : "Non-Ac"; } @acAvailability
+                                             </td>
+                                             <td style="text-align: right">
+                                                 <table>
+                                                     <tr><td>
+                                                         <p class="glyphicon glyphicon-user" style="color: lightgray; font-size: 20px"></p></td><td>@details.maxPassengers</td></tr>
+                                                     <tr><td>
+                                                         <p class="glyphicon glyphicon-briefcase" style="color: lightgray; font-size: 20px"></p></td><td>@details.luggageLarge</td></tr>
+                                                     <tr><td>
+                                                         <p class="glyphicon glyphicon-briefcase" style="color: lightgray; font-size: 15px"></p></td><td>@details.luggageSmall</td></tr>
+                                                 </table>
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td colspan="3">
+                                                 Status: @details.status
+                                             </td>
+                                         </tr>
+                                     </table>
+                                 </td>
+                                 <td style="width: 10%; padding-right: 0px;">
+                                     <table>
+                                         <tr>
+                                             <td>Minimum Rate</td>
+                                             <td>@details.minPrice</td>
+                                         </tr>
+                                         <tr>
+                                             <td colspan="2">
+                                                 @using (Html.BeginForm("GetCarDetails", "Car"))
+                                                 {
+                                                     <button type="submit" class="btn btn-warning" style="width: 150px">Select</button>
+                                                     <input type="hidden" id="productId" name="productId" value="@details.productId"/>
+                                                    <input type="hidden" id="sessionId" name="sessionId" value="@ViewBag.SessionId" />
+                                                 }
+                                             </td>
+                                         </tr>
+                                     </table>
+                                 </td>
+                             </tr>
+                         </table>
+                         <table>
+                             <tr>
+                                 <td width="5%">&nbsp;</td>
+                                 <td colspan="1">
+                                     @*<p><b>Phone: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Phone  <b>Fax: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Fax</p>*@
+                                 </td>
+                                 <td>
+                                     <input type="hidden" name="checkIn" value="@ViewBag.checkIn"/>
+                                     <input type="hidden" name="checkOut" value="@ViewBag.checkOut"/>
+                                     <input type="hidden" name="totalTravellers" value="@ViewBag.TotalTravellers"/>
+                                     <input type="hidden" name="CarId" value="@details.carID"/>
+                                     <input type="hidden" name="LatOrg" value="@ViewBag.LatOrg"/>
+                                     <input type="hidden" name="LanOrg" value="@ViewBag.LanOrg"/>
+                                     <input type="hidden" name="Lat" value="@ViewBag.Lat"/>
+                                     <input type="hidden" name="Lan" value="@ViewBag.Lan"/>
+                                     <input type="hidden" name="radius" value="@ViewBag.radius"/>
+                                     <input type="hidden" name="totalRooms" value="@ViewBag.TotalRooms"/>
+                                     @*<input type="text" name="totalGuests" value="@ViewBag.totalTravellers" />*@
+                                 </td>
+
+                             </tr>
+                         </table>
+
+
+                     }
+                 </div>
+             </td>
+         </tr>
+
+     </table>
+
+ }
+ else
+ {
+     <p style="color: red; font-size: 15px;">No record found </p>
+ }
+
+<style type="text/css">
+    .rcorners {
+        border-radius: 7px;
+        border: 2px solid #73AD21;
+    }
+</style>

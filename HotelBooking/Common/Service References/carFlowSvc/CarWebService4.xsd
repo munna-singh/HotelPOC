@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.tourico.com/webservices/car" elementFormDefault="qualified" targetNamespace="http://schemas.tourico.com/webservices/car" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Info" type="tns:ResultsInfo" />
+  <xs:complexType name="ResultsInfo">
+    <xs:attribute name="version" type="xs:string" />
+    <xs:attribute name="culture" type="xs:string" />
+    <xs:attribute name="numOfResults" type="xs:int" use="required" />
+    <xs:attribute name="serverTime" type="xs:dateTime" use="required" />
+  </xs:complexType>
+</xs:schema>

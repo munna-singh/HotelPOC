@@ -96,7 +96,7 @@
 
         @foreach (var details in Model.Hotels)
         {
-            using (Html.BeginForm("TouricoHotelDetails", "HotelDetails"))
+            using (Html.BeginForm("GetHotelInfo", "HotelDetail"))
             {
                 <table width="100%" class="rcorners" id="@details.HotelInfo.HotelCode">
                     <tr>

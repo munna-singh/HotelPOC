@@ -30,20 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=3.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="AutoMapper.Net4, Version=3.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="com.hotelbeds.distribution.hotel_api_model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\hotel-api-sdk-net.0.4\lib\net452\com.hotelbeds.distribution.hotel_api_model.dll</HintPath>
+      <HintPath>..\packages\hotel-api-sdk-net.0.5\lib\net452\com.hotelbeds.distribution.hotel_api_model.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="com.hotelbeds.distribution.hotel_api_sdk, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\hotel-api-sdk-net.0.4\lib\net452\com.hotelbeds.distribution.hotel_api_sdk.dll</HintPath>
+      <HintPath>..\packages\hotel-api-sdk-net.0.5\lib\net452\com.hotelbeds.distribution.hotel_api_sdk.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -55,7 +47,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\hotel-api-sdk-net.0.4\lib\net452\System.Net.Http.Formatting.dll</HintPath>
+      <HintPath>..\packages\hotel-api-sdk-net.0.5\lib\net452\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
@@ -65,15 +57,20 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TE.Common">
+      <HintPath>..\..\..\..\Project\TE\Labs\TE\Common\bin\Debug\TE.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TE.Core">
+      <HintPath>..\Common\Dlls\TE.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="TE.Platform.Api">
+      <HintPath>..\Common\Dlls\TE.Platform.Api.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contract\IHotelSearchProvider.cs" />
-    <Compile Include="Dtos\HotelAvailabilityProviderRes.cs" />
-    <Compile Include="Dtos\HotelInfo.cs" />
-    <Compile Include="Dtos\HotelSearchResultItem.cs" />
+    <Compile Include="Handlers\HotelBedsAvailabilityHandler.cs" />
     <Compile Include="Handlers\HotelBedsDetailsHandler.cs" />
     <Compile Include="HotelBedsWorker.cs" />
-    <Compile Include="Handlers\HotelBedsAvailabilityHandler.cs" />
     <Compile Include="Models\TCurrency.cs" />
     <Compile Include="Models\TMoney.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,7 +94,6 @@
     <Compile Include="ServiceCatalogues\HotelCatalog\Enums\RatingTypes.cs" />
     <Compile Include="ServiceCatalogues\HotelCatalog\Enums\SimpleTypes.cs" />
     <Compile Include="ServiceCatalogues\HotelCatalog\HotelPropertyDetail.cs" />
-    <Compile Include="ServiceCatalogues\HotelCatalog\Provider\HotelAvailabilityProviderReq.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll">
@@ -123,7 +119,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Contract\" />
+    <Folder Include="Dtos\" />
     <Folder Include="ServiceCatalogues\HotelCatalog\Dtos\Controller\" />
+    <Folder Include="ServiceCatalogues\HotelCatalog\Provider\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

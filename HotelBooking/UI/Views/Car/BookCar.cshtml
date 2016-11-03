@@ -1,0 +1,148 @@
+﻿@model Common.carFlowSvc.ResGroup
+
+@{
+    ViewBag.Title = "BookCar";
+}
+
+<h1 style="font-size: 22px">Car Booking</h1>
+
+<table width="100%" style="padding: 0px 0px 0px 0px">
+    <tr>
+        <td style="width: 100%">
+            <div style="font-size: 12px;">
+                <table width="100%">
+                    <tr>
+                        <td style="width: 5%"></td>
+                        <td style="width: 65%">
+                            <table style="text-align: left; border-style: none; border-width: 0px;" width="100%">
+                                <tr>
+                                    <td>
+                                        <b> Confirmation No.:</b> @Model.rgid
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <b> Car Program Reservation:</b> from @Model.Reservation.Car.Station.name to @Model.Reservation.Car.DropOffStation.name
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b> Status:</b> @Model.Reservation.status
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b> Amount to be paid:</b> @Model.totalPrice
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 30%">
+                            @using (Html.BeginForm(actionName:"", controllerName:"Car", method:FormMethod.Post))
+                            {
+                                <button type="submit" class="btn btn-warning" name="action:GetBookingDetail" >Show Booking Details</button>
+                                <button type="submit" class="btn btn-warning" name="action:CancelCar">Cancel</button>
+                                <input type="hidden" id="reservationId" name="reservationId" value="@Model.Reservation.reservationID" />
+                                <input type="hidden" id="rgId" name="rgId" value="@Model.rgid" />
+                            }
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%" style="padding: 0px 0px 0px 0px">
+                    <tr>
+                        <td>
+                            <h1>Program Includes: </h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="font-size: 12px;">
+
+                                @foreach (var programInclude in Model.Reservation.Car.Program.ProgramIncludes)
+                                {
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="width: 100%">
+                                                <b> @programInclude.name: </b>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+@*<fieldset>
+        <legend>ResGroup</legend>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.rgid)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.rgid)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.isPackage)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.isPackage)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.totalPrice)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.totalPrice)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.totalTax)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.totalTax)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.currency)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.currency)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.tranNum)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.tranNum)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.rgIdRefNumber)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.rgIdRefNumber)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Reservation.status)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Reservation.status)
+        </div>
+    </fieldset>*@
+
