@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tourico.com/webservices/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tourico.com/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tourico.com/webservices/Imports">
+      <xsd:import schemaLocation="http://demo-carws.touricoholidays.com/CarWebService.svc?xsd=xsd0" namespace="http://tourico.com/webservices/" />
+      <xsd:import schemaLocation="http://demo-carws.touricoholidays.com/CarWebService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/TGS.WebService.Cars.Common.ErrorHandling" />
+      <xsd:import schemaLocation="http://demo-carws.touricoholidays.com/CarWebService.svc?xsd=xsd1" namespace="http://microsoft.com/wsdl/types/" />
+      <xsd:import schemaLocation="http://demo-carws.touricoholidays.com/CarWebService.svc?xsd=xsd2" namespace="http://schemas.tourico.com/webservices/car" />
+      <xsd:import schemaLocation="http://demo-carws.touricoholidays.com/CarWebService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="BookCarRequestMessage">
+    <wsdl:part name="parameters" element="tns:BookRequest" />
+  </wsdl:message>
+  <wsdl:message name="BookCarRequestMessage_Headers">
+    <wsdl:part name="LoginHeader" element="tns:LoginHeader" />
+  </wsdl:message>
+  <wsdl:message name="BookCarReponse">
+    <wsdl:part name="parameters" element="tns:BookCarReponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarService_BookCar_CustomCarExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/TGS.WebService.Cars.Common.ErrorHandling" name="detail" element="q1:CarWebServiceException" />
+  </wsdl:message>
+  <wsdl:message name="CancelCarRequest">
+    <wsdl:part name="parameters" element="tns:CancelCarRequest" />
+  </wsdl:message>
+  <wsdl:message name="CancelCarRequest_Headers">
+    <wsdl:part name="Header" element="tns:LoginHeader" />
+  </wsdl:message>
+  <wsdl:message name="CancelCarResponse">
+    <wsdl:part name="parameters" element="tns:CancelCarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarService_CancelCar_CustomCarExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/TGS.WebService.Cars.Common.ErrorHandling" name="detail" element="q2:CarWebServiceException" />
+  </wsdl:message>
+  <wsdl:message name="GetRulesAndRestrictionsRequest">
+    <wsdl:part name="parameters" element="tns:GetRulesAndRestrictionsRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetRulesAndRestrictionsRequest_Headers">
+    <wsdl:part name="LoginHeader" element="tns:LoginHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetRulesAndRestrictionsResponse">
+    <wsdl:part name="parameters" element="tns:GetRulesAndRestrictionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarService_GetRulesAndRestrictions_CustomCarExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/TGS.WebService.Cars.Common.ErrorHandling" name="detail" element="q3:CarWebServiceException" />
+  </wsdl:message>
+  <wsdl:message name="SearchCarsRequestMessage">
+    <wsdl:part name="parameters" element="tns:SearchCars" />
+  </wsdl:message>
+  <wsdl:message name="SearchCarsRequestMessage_Headers">
+    <wsdl:part name="LoginHeader" element="tns:LoginHeader" />
+  </wsdl:message>
+  <wsdl:message name="SearchCarsResponse">
+    <wsdl:part name="parameters" element="tns:SearchCarsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarService_SearchCars_CustomCarExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/TGS.WebService.Cars.Common.ErrorHandling" name="detail" element="q4:CarWebServiceException" />
+  </wsdl:message>
+  <wsdl:message name="SelectStationsRequestMessage">
+    <wsdl:part name="parameters" element="tns:SelectStation" />
+  </wsdl:message>
+  <wsdl:message name="SelectStationsRequestMessage_Headers">
+    <wsdl:part name="LoginHeader" element="tns:LoginHeader" />
+  </wsdl:message>
+  <wsdl:message name="SelectStationsResponse">
+    <wsdl:part name="parameters" element="tns:SelectStationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarService_SelectStations_CustomCarExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/TGS.WebService.Cars.Common.ErrorHandling" name="detail" element="q5:CarWebServiceException" />
+  </wsdl:message>
+  <wsdl:message name="GetRGInfoMessage">
+    <wsdl:part name="parameters" element="tns:GetRGInfoMessage" />
+  </wsdl:message>
+  <wsdl:message name="GetRGInfoMessage_Headers">
+    <wsdl:part name="Header" element="tns:LoginHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetRGInfoResponse">
+    <wsdl:part name="parameters" element="tns:GetRGInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarService_GetRGInfo_CustomCarExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/TGS.WebService.Cars.Common.ErrorHandling" name="detail" element="q6:CarWebServiceException" />
+  </wsdl:message>
+  <wsdl:message name="SearchCarsByAirportCodeRequestMessage">
+    <wsdl:part name="parameters" element="tns:SearchCarsByAirportCode" />
+  </wsdl:message>
+  <wsdl:message name="SearchCarsByAirportCodeRequestMessage_Headers">
+    <wsdl:part name="LoginHeader" element="tns:LoginHeader" />
+  </wsdl:message>
+  <wsdl:message name="SearchCarsByAirportCodeResponse">
+    <wsdl:part name="parameters" element="tns:SearchCarsByAirportCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICarService_SearchCarsByAirportCode_CustomCarExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/TGS.WebService.Cars.Common.ErrorHandling" name="detail" element="q7:CarWebServiceException" />
+  </wsdl:message>
+  <wsdl:portType name="ICarService">
+    <wsdl:operation name="BookCar">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/ICarService/BookCar" name="BookCarRequestMessage" message="tns:BookCarRequestMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/ICarService/BookCarResponse" name="BookCarReponse" message="tns:BookCarReponse" />
+      <wsdl:fault wsaw:Action="http://tourico.com/webservices/ICarService/BookCarCustomCarExceptionFault" name="CustomCarExceptionFault" message="tns:ICarService_BookCar_CustomCarExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelCar">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/ICarService/CancelCar" name="CancelCarRequest" message="tns:CancelCarRequest" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/ICarService/CancelCarResponse" name="CancelCarResponse" message="tns:CancelCarResponse" />
+      <wsdl:fault wsaw:Action="http://tourico.com/webservices/ICarService/CancelCarCustomCarExceptionFault" name="CustomCarExceptionFault" message="tns:ICarService_CancelCar_CustomCarExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRulesAndRestrictions">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/ICarService/GetRulesAndRestrictions" name="GetRulesAndRestrictionsRequest" message="tns:GetRulesAndRestrictionsRequest" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/ICarService/GetRulesAndRestrictionsResponse" name="GetRulesAndRestrictionsResponse" message="tns:GetRulesAndRestrictionsResponse" />
+      <wsdl:fault wsaw:Action="http://tourico.com/webservices/ICarService/GetRulesAndRestrictionsCustomCarExceptionFault" name="CustomCarExceptionFault" message="tns:ICarService_GetRulesAndRestrictions_CustomCarExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchCars">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/ICarService/SearchCars" name="SearchCarsRequestMessage" message="tns:SearchCarsRequestMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/ICarService/SearchCarsResponse" name="SearchCarsResponse" message="tns:SearchCarsResponse" />
+      <wsdl:fault wsaw:Action="http://tourico.com/webservices/ICarService/SearchCarsCustomCarExceptionFault" name="CustomCarExceptionFault" message="tns:ICarService_SearchCars_CustomCarExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectStations">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/ICarService/SelectStations" name="SelectStationsRequestMessage" message="tns:SelectStationsRequestMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/ICarService/SelectStationsResponse" name="SelectStationsResponse" message="tns:SelectStationsResponse" />
+      <wsdl:fault wsaw:Action="http://tourico.com/webservices/ICarService/SelectStationsCustomCarExceptionFault" name="CustomCarExceptionFault" message="tns:ICarService_SelectStations_CustomCarExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRGInfo">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/ICarService/GetRGInfo" name="GetRGInfoMessage" message="tns:GetRGInfoMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/ICarService/GetRGInfoResponse" name="GetRGInfoResponse" message="tns:GetRGInfoResponse" />
+      <wsdl:fault wsaw:Action="http://tourico.com/webservices/ICarService/GetRGInfoCustomCarExceptionFault" name="CustomCarExceptionFault" message="tns:ICarService_GetRGInfo_CustomCarExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchCarsByAirportCode">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/ICarService/SearchCarsByAirportCode" name="SearchCarsByAirportCodeRequestMessage" message="tns:SearchCarsByAirportCodeRequestMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/ICarService/SearchCarsByAirportCodeResponse" name="SearchCarsByAirportCodeResponse" message="tns:SearchCarsByAirportCodeResponse" />
+      <wsdl:fault wsaw:Action="http://tourico.com/webservices/ICarService/SearchCarsByAirportCodeCustomCarExceptionFault" name="CustomCarExceptionFault" message="tns:ICarService_SearchCarsByAirportCode_CustomCarExceptionFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

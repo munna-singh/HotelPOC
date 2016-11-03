@@ -1,0 +1,119 @@
+﻿@model Common.carFlowSvc.ResGroupDetails
+
+@{
+    ViewBag.Title = "GetBookingDetail";
+}
+
+<h1>Car Booking Information</h1>
+
+<table width="100%" style="padding: 0px 0px 0px 0px">
+    <tr>
+        <td style="width: 5%">
+            <img src="@Model.Reservations.First().Car.carThumb" style="width: 150px; height: 150px;" />
+        </td>
+        @{
+            var booking = Model.Reservations.First();
+        }
+        <td style="width: 65%">
+            <table width="100%">
+                <tr>
+                    <td style="font-size: 10px">
+                        <b>Pickup Location:</b> @booking.Car.Station.name
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 10px">
+                        <b>Drop Location:</b> @booking.Car.DropOffStation.name
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Phone:</b> @booking.Car.DropOffStation.phone
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Car Company Name: </b>@booking.Car.carCompanyName
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Class: </b>@(booking.Car.@class)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Transmission: </b>@booking.Car.transmission
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Vehicle Type: </b>@booking.Car.type
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @{ var acAvailability = booking.Car.ac ? "AC" : "Non-AC";}
+                        <b>AC Type: </b>@acAvailability
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Price: </b>@booking.price
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Status: </b>@booking.status
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 30%"></td>
+    </tr>
+</table>
+<table width="100%" style="padding: 0px 0px 0px 0px">
+    <tr>
+        <td>
+            <h1>Car Program Details: </h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h2>
+                program Name :@booking.Car.Program.name
+            </h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h1>Program Includes: </h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div style="font-size: 12px;">
+
+                @foreach (var include in booking.Car.Program.ProgramIncludes)
+                {
+                    <table width="100%">
+                        <tr>
+                            <td style="width: 100%">
+                                <b>@include.name: </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100%">
+                                @include.desc
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+
+

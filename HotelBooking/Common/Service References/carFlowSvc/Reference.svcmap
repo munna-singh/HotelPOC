@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="76c76f13-1663-4147-803b-fc7027839a14" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://demo-carws.touricoholidays.com/CarWebService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CarWebService.wsdl" MetadataType="Wsdl" ID="813771f0-c6b1-4713-9a97-10f5b3118bf6" SourceId="1" SourceUrl="http://demo-carws.touricoholidays.com/CarWebService.svc?wsdl" />
+    <MetadataFile FileName="CarWebService.xsd" MetadataType="Schema" ID="f498bf7a-e640-441e-888b-914e908c515f" SourceId="1" SourceUrl="http://demo-carws.touricoholidays.com/CarWebService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CarWebService1.wsdl" MetadataType="Wsdl" ID="30af0a8b-1ec8-43dd-b55f-9e5e3a392412" SourceId="1" SourceUrl="http://demo-carws.touricoholidays.com/CarWebService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="CarWebService1.xsd" MetadataType="Schema" ID="799394b5-2140-42de-8d88-33317a7b85fe" SourceId="1" SourceUrl="http://demo-carws.touricoholidays.com/CarWebService.svc?xsd=xsd4" />
+    <MetadataFile FileName="CarWebService2.xsd" MetadataType="Schema" ID="fdf501fe-1bcf-4a9e-91f2-085ae09cbbd6" SourceId="1" SourceUrl="http://demo-carws.touricoholidays.com/CarWebService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CarWebService3.xsd" MetadataType="Schema" ID="d401afa8-cf85-4b95-bc2b-f217c6862313" SourceId="1" SourceUrl="http://demo-carws.touricoholidays.com/CarWebService.svc?xsd=xsd3" />
+    <MetadataFile FileName="CarWebService4.xsd" MetadataType="Schema" ID="c000a11b-1329-474b-a85c-843671e6c4d8" SourceId="1" SourceUrl="http://demo-carws.touricoholidays.com/CarWebService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

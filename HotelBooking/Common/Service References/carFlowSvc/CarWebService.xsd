@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tourico.com/webservices/" elementFormDefault="qualified" targetNamespace="http://tourico.com/webservices/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://demo-carws.touricoholidays.com/CarWebService.svc?xsd=xsd1" namespace="http://microsoft.com/wsdl/types/" />
+  <xs:import schemaLocation="http://demo-carws.touricoholidays.com/CarWebService.svc?xsd=xsd2" namespace="http://schemas.tourico.com/webservices/car" />
+  <xs:element name="BookRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="BookCar" type="tns:BookCarRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BookCarRequest">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="recordLocatorId" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SelectedProgram" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DriverInfo" type="tns:Driver" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SpecialRequest" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PaymentType" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="cci" type="tns:CCDetails" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ConfirmationEmail" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ConfirmationLogo" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RequestedPrice" type="xs:decimal" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DeltaPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Currency" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="agentRefNumber" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="rgIdRefNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Driver">
+    <xs:attribute name="firstName" type="xs:string" />
+    <xs:attribute name="middleName" type="xs:string" />
+    <xs:attribute name="lastName" type="xs:string" />
+    <xs:attribute name="countryCode" type="xs:string" />
+    <xs:attribute name="homePhone" type="xs:string" />
+    <xs:attribute name="mobilePhone" type="xs:string" />
+    <xs:attribute name="age" type="xs:int" use="required" />
+    <xs:attribute name="carCompanyDiscountNumber" type="xs:string" />
+    <xs:attribute name="frequentFlyerProgram" type="xs:string" />
+    <xs:attribute name="frequentFlyerNumber" type="xs:string" />
+    <xs:attribute name="flightInformation" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="CCDetails">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://microsoft.com/wsdl/types/" minOccurs="1" maxOccurs="1" name="CreditCardToken" type="q1:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LoginHeader" type="tns:LoginHeader" />
+  <xs:complexType name="LoginHeader">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="UserName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Password" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Culture" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Version" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BookCarReponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ResGroup" type="tns:ResGroup" />
+        <xs:element xmlns:q2="http://schemas.tourico.com/webservices/car" minOccurs="0" maxOccurs="1" ref="q2:Info" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ResGroup">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseResGroup">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Reservation" type="tns:Reservation" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BaseResGroup">
+    <xs:attribute name="rgid" type="xs:long" use="required" />
+    <xs:attribute name="isPackage" type="xs:boolean" use="required" />
+    <xs:attribute name="totalPrice" type="xs:decimal" use="required" />
+    <xs:attribute name="totalTax" type="xs:decimal" use="required" />
+    <xs:attribute name="currency" type="xs:string" />
+    <xs:attribute name="tranNum" type="xs:long" use="required" />
+    <xs:attribute name="rgIdRefNumber" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="Reservation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Car" type="tns:ReservationCarInfo" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Driver" type="tns:Driver" />
+    </xs:sequence>
+    <xs:attribute name="reservationID" type="xs:long" use="required" />
+    <xs:attribute name="pickUpDate" type="xs:date" use="required" />
+    <xs:attribute name="pickUpTime" type="xs:int" use="required" />
+    <xs:attribute name="toDate" type="xs:date" use="required" />
+    <xs:attribute name="totalTax" type="xs:decimal" use="required" />
+    <xs:attribute name="price" type="xs:decimal" use="required" />
+    <xs:attribute name="currency" type="xs:string" />
+    <xs:attribute name="status" type="xs:string" />
+    <xs:attribute name="specialRequest" type="xs:string" />
+    <xs:attribute name="pnr" type="xs:string" />
+    <xs:attribute name="tranNum" type="xs:unsignedLong" use="required" />
+    <xs:attribute name="agentRefNumber" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ReservationCarInfo">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseCarInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Station" type="tns:BaseCarStation" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DropOffStation" type="tns:BaseCarStation" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Program" type="tns:BaseCarProgram" />
+          <xs:element minOccurs="0" maxOccurs="1" name="RouteStations" type="tns:RouteStations" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ProgramList" type="tns:ArrayOfCarProgram" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BaseCarInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Features" type="tns:ArrayOfFeature" />
+    </xs:sequence>
+    <xs:attribute name="carCompanyId" type="xs:int" use="required" />
+    <xs:attribute name="carCompanyName" type="xs:string" />
+    <xs:attribute name="carName" type="xs:string" />
+    <xs:attribute name="carID" type="xs:string" />
+    <xs:attribute name="adaptorCode" type="xs:string" />
+    <xs:attribute name="carThumb" type="xs:string" />
+    <xs:attribute name="class" type="xs:string" />
+    <xs:attribute name="transmission" type="xs:string" />
+    <xs:attribute name="ac" type="xs:boolean" use="required" />
+    <xs:attribute name="type" type="xs:string" />
+    <xs:attribute name="maxPassengers" type="xs:int" use="required" />
+    <xs:attribute name="doors" type="xs:int" use="required" />
+    <xs:attribute name="luggageLarge" type="xs:int" use="required" />
+    <xs:attribute name="luggageSmall" type="xs:int" use="required" />
+    <xs:attribute name="currency" type="xs:string" />
+    <xs:attribute name="status" type="xs:string" />
+    <xs:attribute name="productId" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfFeature">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Feature" nillable="true" type="tns:Feature" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Feature">
+    <xs:attribute name="id" type="xs:int" use="required" />
+    <xs:attribute name="name" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="BaseCarStation">
+    <xs:attribute name="id" type="xs:int" use="required" />
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="address" type="xs:string" />
+    <xs:attribute name="phone" type="xs:string" />
+    <xs:attribute name="longitude" type="xs:string" />
+    <xs:attribute name="latitude" type="xs:string" />
+    <xs:attribute name="operationHoursPickUp" type="xs:string" />
+    <xs:attribute name="operationHoursDropOff" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="CarStation">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseCarStation">
+        <xs:attribute name="minPrice" type="xs:double" use="required" />
+        <xs:attribute name="tax" type="xs:double" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BaseCarProgram">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ProgramIncludes" type="tns:ArrayOfComponent" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MandatoryFeesDueAtPickup" type="tns:PriceDetails" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="id" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfComponent">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Component" nillable="true" type="tns:Component" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Component">
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="id" type="xs:string" />
+    <xs:attribute name="desc" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="PriceDetails">
+    <xs:attribute name="price" type="xs:decimal" use="required" />
+    <xs:attribute name="currency" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="CarProgram">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseCarProgram">
+        <xs:attribute name="price" type="xs:double" use="required" />
+        <xs:attribute name="currency" type="xs:string" />
+        <xs:attribute name="tax" type="xs:double" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RouteStations">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Stations" type="tns:ArrayOfCarStation" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DropOffStations" type="tns:ArrayOfCarStation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfCarStation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CarStation" nillable="true" type="tns:CarStation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfCarProgram">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CarProgram" nillable="true" type="tns:CarProgram" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CancelCarRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="ResId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelCarResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="CarCancellationResult" type="xs:boolean" />
+        <xs:element xmlns:q3="http://schemas.tourico.com/webservices/car" minOccurs="0" maxOccurs="1" ref="q3:Info" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRulesAndRestrictionsRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="CarCompanyId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRulesAndRestrictionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="Rules" type="tns:CompanyRules" />
+        <xs:element xmlns:q4="http://schemas.tourico.com/webservices/car" minOccurs="0" maxOccurs="1" ref="q4:Info" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="CompanyRules">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Rule" type="tns:Rule" />
+    </xs:sequence>
+    <xs:attribute name="carCompanyId" type="xs:int" use="required" />
+    <xs:attribute name="carCompanyName" type="xs:string" />
+    <xs:attribute name="carCompanyLogoUrl" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="Rule">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="id" type="xs:int" use="required" />
+        <xs:attribute name="title" type="xs:string" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="SearchCars">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SearchCarsObj" type="tns:SearchCarsRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SearchCarsRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Route" type="tns:Route" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PickUpDate" type="xs:date" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DropOffDate" type="xs:date" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PickUpHour" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DropOffHour" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="VehicleType" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CarCompany" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="TotalPax" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DriverCountryCode" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DriverAge" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Route">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="PickUp" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DropOff" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SearchCarsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SearchParameters" type="tns:SearchParameters" />
+        <xs:element minOccurs="0" maxOccurs="1" name="CarResults" type="tns:ArrayOfCar" />
+        <xs:element xmlns:q5="http://schemas.tourico.com/webservices/car" minOccurs="0" maxOccurs="1" ref="q5:Info" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SearchParameters">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="PickUp" type="tns:PickUp" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DropOff" type="tns:DropOff" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PickUp">
+    <xs:attribute name="id" type="xs:string" />
+    <xs:attribute name="date" type="xs:date" use="required" />
+    <xs:attribute name="hour" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="DropOff">
+    <xs:attribute name="id" type="xs:string" />
+    <xs:attribute name="date" type="xs:date" use="required" />
+    <xs:attribute name="hour" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfCar">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Car" nillable="true" type="tns:Car" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Car">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ReservationCarInfo">
+        <xs:attribute name="minAvgPrice" type="xs:double" use="required" />
+        <xs:attribute name="minPrice" type="xs:double" use="required" />
+        <xs:attribute name="tax" type="xs:double" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SelectStation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SelectStationObj" type="tns:SelectStationsRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SelectStationsRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ProductId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Stations" type="tns:StationsPair" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StationsPair">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="StationId" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DropOffStationId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SelectStationsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SearchParameters" type="tns:SearchParameters" />
+        <xs:element minOccurs="0" maxOccurs="1" name="Car" type="tns:Car" />
+        <xs:element xmlns:q6="http://schemas.tourico.com/webservices/car" minOccurs="0" maxOccurs="1" ref="q6:Info" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRGInfoMessage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="RGInfoRequest" type="tns:GetRGInfoRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="GetRGInfoRequest">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="nRGID" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Notifications" type="tns:Notifications" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SendDrivingDirections" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Notifications">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Email" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ImageUrl" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetRGInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ResGroup" type="tns:ResGroupDetails" />
+        <xs:element xmlns:q7="http://schemas.tourico.com/webservices/car" minOccurs="0" maxOccurs="1" ref="q7:Info" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ResGroupDetails">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseResGroup">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Reservations" type="tns:ArrayOfReservation" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfReservation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Reservation" nillable="true" type="tns:Reservation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SearchCarsByAirportCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SearchCarsObj" type="tns:SearchCarsRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchCarsByAirportCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="SearchParameters" type="tns:SearchParameters" />
+        <xs:element minOccurs="0" maxOccurs="1" name="CarResults" type="tns:ArrayOfSearchCarInfo" />
+        <xs:element xmlns:q8="http://schemas.tourico.com/webservices/car" minOccurs="0" maxOccurs="1" ref="q8:Info" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfSearchCarInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SearchCarInfo" nillable="true" type="tns:SearchCarInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchCarInfo">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseCarInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="RouteOptions" type="tns:ArrayOfRouteOption" />
+        </xs:sequence>
+        <xs:attribute name="minPrice" type="xs:double" use="required" />
+        <xs:attribute name="tax" type="xs:double" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfRouteOption">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RouteOption" nillable="true" type="tns:RouteOption" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RouteOption">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="RouteStations" type="tns:RouteStationsPair" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ProgramList" type="tns:CarProgramList" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RouteStationsPair">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="PickUpStation" type="tns:BaseCarStation" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DropOffStation" type="tns:BaseCarStation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CarProgramList">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CarProgram" type="tns:CarProgram" />
+    </xs:sequence>
+    <xs:attribute name="minPrice" type="xs:double" use="required" />
+    <xs:attribute name="tax" type="xs:double" use="required" />
+  </xs:complexType>
+</xs:schema>

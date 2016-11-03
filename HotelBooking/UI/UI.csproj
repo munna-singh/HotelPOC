@@ -42,11 +42,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="com.hotelbeds.distribution.hotel_api_model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\hotel-api-sdk-net.0.5\lib\net452\com.hotelbeds.distribution.hotel_api_model.dll</HintPath>
+      <HintPath>..\Common\Dlls\com.hotelbeds.distribution.hotel_api_model.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="com.hotelbeds.distribution.hotel_api_sdk, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\hotel-api-sdk-net.0.5\lib\net452\com.hotelbeds.distribution.hotel_api_sdk.dll</HintPath>
+      <HintPath>..\Common\Dlls\com.hotelbeds.distribution.hotel_api_sdk.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -195,16 +195,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Common\Dlls\TE.Core.dll</HintPath>
     </Reference>
-    <Reference Include="TE.DataAccessLayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Project\TE\Labs\TE\DataAccessLayer\bin\Debug\TE.DataAccessLayer.dll</HintPath>
-    </Reference>
     <Reference Include="TE.Platform.Api">
       <HintPath>..\Common\Dlls\TE.Platform.Api.dll</HintPath>
     </Reference>
     <Reference Include="TE.ThirdPartyProviders.Tourico, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Project\Labs-ThirdPartyProviders\TE\ThirdPartyProviders\TE.ThirdPartyProviders.Tourico\bin\Debug\TE.ThirdPartyProviders.Tourico.dll</HintPath>
+      <HintPath>..\..\..\..\Git\DynamicHotelCode\TravelEdge-DynamicHotel\TE\Libraries\ThirdPartyProviders\TE.ThirdPartyProviders.Tourico.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
