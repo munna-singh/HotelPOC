@@ -1,0 +1,327 @@
+﻿@model UI.Models.CarBookingsModel[]
+@{
+    ViewBag.Title = "Car Search";
+    ViewBag.Token = Guid.NewGuid().ToString();
+}
+
+
+
+@section featured {
+    @using (Html.BeginForm())
+    {
+        <section class="featured" style="font-size:12px;">
+
+            <div class="content-wrapper">
+
+                <table style="width:100%" style="padding: 0px 0px 0px 0px">
+                    <tr>
+                        <td>
+                            <hgroup style="font-size:20px;">
+                                <h2>Book a Cab </h2>
+                            </hgroup>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                Find best deals across best cars across globe
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%">
+
+                            <label for="place-input">PickUp</label>
+                            <input id="place-input" class="form-control" name="pickUpLocation" type="text" placeholder="Type a location" style="height: 25px; font-size: 10px; width: 200px;">
+
+
+                        </td>
+                        <td style="width: 50%; align-self: left">
+                            <div>
+                                <label for="place-input">DropOff</label>
+                                <input id="place2-input" class="form-control" name="dropLocation" type="text" placeholder="Type a location" style="height: 25px; font-size: 10px; width: 200px;">
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label for="datetimepickerCheckIn">PickUp Date </label>
+                                <input class="form-control" type="date" value="@DateTime.Now.AddDays(0).ToShortDateString()" id="checkIn" name="pickUpDate" style="height: 25px; font-size: 12px; width: 200px;">
+
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <label for="datetimepickerCheckOut">DropOff Date</label>
+                                <input class="form-control" type="date" id="checkOut" name="dropDate" value="@DateTime.Now.AddDays(5)" style="height: 25px; font-size: 12px; width: 200px;">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label for="ddlTotalGuest">Vehicle Type</label>
+                                <select id="ddlTotalGuest" class="form-control" name="ddlVehicleType" style="height: 25px; font-size: 10px; width: 200px;">
+                                    <option value="0">ALL</option>
+                                    <option value="15">4-Wheel Drive</option>
+                                    <option value="1">Car</option>
+                                    <option value="4">Convertible</option>
+                                    <option value="12">Limo</option>
+                                    <option value="7">Pickup</option>
+                                    <option value="9">Recreational</option>
+                                    <option value="11">Special</option>
+                                    <option value="10">Sport</option>
+                                    <option value="6">Station Wagon</option>
+                                    <option value="3">SUV</option>
+                                    <option value="2">Van</option>
+                                </select>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="form-group">
+                                <label for="ddlNoOfRooms">Car Company</label>
+                                <select id="ddlNoOfRooms" class="form-control" name="ddlCarCompany" style="height: 25px; font-size: 10px; width: 200px;">
+                                    <option value="0">ALL</option>
+                                    <option value="-1">Undercover</option>
+                                    <option value="1">Budget</option>
+                                    <option value="2">Hertz</option>
+                                    <option value="4">Enterprise</option>
+                                    <option value="5">National</option>
+                                    <option value="7">Alamo</option>
+                                    <option value="13">Sixt</option>
+                                    <option value="15">Avis</option>
+                                    <option value="50">Payless</option>
+                                    <option value="3">Thrifty</option>
+                                    <option value="8">Advantage</option>
+                                    <option value="9">Fox</option>
+                                    <option value="10">GreenMotion</option>
+                                    <option value="11">Dollar</option>
+                                    <option value="12">Hertz Mexico</option>
+                                    <option value="14">Island Car Rentals</option>
+                                    <option value="26">Thrifty Panama</option>
+                                    <option value="27">Dollar UAE</option>
+                                    <option value="28">Thrifty Costa Rica</option>
+                                    <option value="29">Hertz USBC</option>
+                                    <option value="30">Dollar Morocco</option>
+                                    <option value="31">Hertz South Africa</option>
+                                    <option value="32">Thrifty Brazil</option>
+                                    <option value="33">Thai Rent A Car</option>
+                                    <option value="34">Thrifty Jordan</option>
+                                    <option value="35">Sado Rent A Car</option>
+                                    <option value="36">Thrifty Oman</option>
+                                    <option value="37">Dollar Jordan</option>
+                                    <option value="38">THRIFTY and DOLLAR KUWAIT</option>
+                                    <option value="39">Thrifty Seychelles</option>
+                                    <option value="40">Coconut Car Rentals</option>
+                                    <option value="41">U-Save Car And Truck Rental</option>
+                                    <option value="42">Buchbinder Rent A Car</option>
+                                    <option value="43">Budget Car Rental Romania</option>
+                                    <option value="44">AVRO Rent A Car</option>
+                                    <option value="45">Insularcar Rent a Car</option>
+                                    <option value="46">ThriftyUAE</option>
+                                    <option value="47">America Car Rental</option>
+                                    <option value="48">RENT plus</option>
+                                    <option value="49">WindyCar</option>
+                                    <option value="51">Hawk Rent A Car</option>
+                                    <option value="52">Rent Max</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label for="ddlTotalGuest">PickUp Hour</label>
+                                <select id="ddlPickUpHour" class="form-control" name="ddlPickUpHour" style="height: 25px; font-size: 10px; width: 200px;">
+                                    <option value="1">0</option>
+                                    <option value="2">1</option>
+                                    <option value="3">2</option>
+                                    <option value="4">3</option>
+                                    <option value="5">4</option>
+                                    <option value="6">5</option>
+                                    <option value="7">6</option>
+                                    <option value="8">7</option>
+                                    <option value="9">8</option>
+                                    <option value="10">9</option>
+                                    <option value="11">10</option>
+                                    <option value="12">11</option>
+                                    <option value="13">12</option>
+                                    <option value="14">13</option>
+                                    <option value="15">14</option>
+                                    <option value="16">15</option>
+                                    <option value="17">16</option>
+                                    <option value="18">17</option>
+                                    <option value="19">18</option>
+                                    <option value="20">19</option>
+                                    <option value="21">20</option>
+                                    <option value="22">21</option>
+                                    <option value="23">22</option>
+                                    <option value="24">23</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <label for="ddlTotalGuest">DropOff Hour</label>
+                                <select id="ddlDropHour" class="form-control" name="ddlDropHour" style="height: 25px; font-size: 10px; width: 200px;">
+                                    <option value="1">0</option>
+                                    <option value="2">1</option>
+                                    <option value="3">2</option>
+                                    <option value="4">3</option>
+                                    <option value="5">4</option>
+                                    <option value="6">5</option>
+                                    <option value="7">6</option>
+                                    <option value="8">7</option>
+                                    <option value="9">8</option>
+                                    <option value="10">9</option>
+                                    <option value="11">10</option>
+                                    <option value="12">11</option>
+                                    <option value="13">12</option>
+                                    <option value="14">13</option>
+                                    <option value="15">14</option>
+                                    <option value="16">15</option>
+                                    <option value="17">16</option>
+                                    <option value="18">17</option>
+                                    <option value="19">18</option>
+                                    <option value="20">19</option>
+                                    <option value="21">20</option>
+                                    <option value="22">21</option>
+                                    <option value="23">22</option>
+                                    <option value="24">23</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label for="ddlTotalGuest">Total Pax</label>
+                                <select id="ddlTotalGuest" class="form-control" name="ddlTotalPax" style="height: 25px; font-size: 10px; width: 200px;">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-warning" name="action:GetCars">Search</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="content-wrapper">
+                <table style="width: 100%" style="padding: 0px 0px 0px 0px">
+                    <tr>
+                        <td>
+                            <hgroup style="font-size:20px;">
+                                <h2>Booking History </h2>
+                            </hgroup>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="font-size: 12px;">
+                                <table width="100%">
+                                    <tr>
+                                        <td style="width: 25%">
+                                            <h3>Confirmation No.</h3>
+                                        </td>
+                                        <td style="width: 25%">
+                                            <h3>Pickup Date</h3>
+                                        </td>
+                                        <td style="width: 25%">
+                                            <h3>Drop Off Date</h3>
+                                        </td>
+                                        <td style="width: 25%">
+                                            <h3>Status</h3>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="font-size: 12px;">
+
+                                @foreach (var booking in Model)
+                                {
+                                    <table width="100%" style="border-bottom: 1px gray solid">
+                                        <tr>
+                                            <td style="width: 25%">
+                                                <button type="submit" class="btn btn-link" name="action:GetBookingDetail">@booking.ConfirmationNo</button>
+                                                <input type="hidden" id="rgId" name="rgId" value="@booking.ConfirmationNo"/>
+                                            </td>
+                                            <td style="width: 25%">
+                                                <b>@booking.StartDate</b>
+                                            </td>
+                                            <td style="width: 25%">
+                                                <b>@booking.EndDate</b>
+                                            </td>
+                                            <td style="width: 25%">
+                                                <b>@booking.status</b>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    }
+}
+
+<script src="http://maps.google.com/maps/api/js?libraries=places"></script>
+<script type="text/javascript">
+    var input = $('#place-input');
+    var input1 = $('#place2-input');
+    var autocomplete = new google.maps.places.Autocomplete(input[0]);
+    var autocomplete1 = new google.maps.places.Autocomplete(input1[0]);
+    autocomplete.addListener('place_changed', function () {
+        var place = autocomplete.getPlace();
+        console.log(place);
+        if (!place.geometry) {
+            window.alert("Information not returned by google.");
+            return;
+        }
+        else {
+            $('#lat').val(place.geometry.location.lat());
+            $('#lan').val(place.geometry.location.lng());
+            //$('#add').val(place.formatted_address);
+        }
+        return false;
+    }
+);
+    autocomplete1.addListener('place_changed',
+        function () {
+            var place = autocomplete.getPlace();
+            console.log(place);
+            if (!place.geometry) {
+                window.alert("Information not returned by google.");
+                return;
+            } else {
+                $('#lat').val(place.geometry.location.lat());
+                $('#lan').val(place.geometry.location.lng());
+                //$('#add').val(place.formatted_address);
+            }
+            return false;
+        }
+    );
+    $('#place-input').keypress(function (e) {
+        if (e.keyCode == 13) {
+            return false;
+        }
+    });
+
+
+
+</script>
