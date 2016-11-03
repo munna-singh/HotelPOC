@@ -2,8 +2,8 @@
 using com.hotelbeds.distribution.hotel_api_model.auto.model;
 using com.hotelbeds.distribution.hotel_api_sdk.helpers;
 using Common.Exceptions;
-using TE.HotelBeds.Provider;
-//using TE.HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
+using HotelBeds.Provider;
+using HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 using TE.Common.Logging;
 using TE.Core.ServiceCatalogues.HotelCatalog.Provider;
 
-namespace TE.HotelBeds.Handlers
+namespace HotelBeds.Handlers
 {
     public class HotelBedsDetailsHandler
     {
 
-        public HotelRateProviderRes Execute(HotelPropertyProviderReq request)
+        public HotelAvailabilityProviderRes Execute(HotelAvailabilityProviderReq request)
         {
             Logger.Instance.LogFunctionEntry(this.GetType().Name, "Execute");
             Availability avail = new Availability();
@@ -31,12 +31,13 @@ namespace TE.HotelBeds.Handlers
             {
                 throw new ArgumentOutOfRangeException(nameof(request.CheckOutDate));
             }
-            if (request.NoOfGuest < 1)
+            if (request.TotalAdults < 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(request.NoOfGuest));
+                throw new ArgumentOutOfRangeException(nameof(request.TotalAdults));
             }
 
-            HotelRateProviderRes hotelSearchResults = null;
+
+            HotelAvailabilityProviderRes hotelSearchResults;
             using (var hotelBedsworker = new HotelBedsWorker())
             {
                 //convert the request dto to the Hot Beds search api payload
@@ -45,12 +46,12 @@ namespace TE.HotelBeds.Handlers
                 {
                     var hotelBedsHotels = hotelBedsworker.GetHotelDetails(hotelBedsSearchRq);
 
-                    //hotelSearchResults = ConvertToProviderResponse(hotelBedsHotels);
+                    hotelSearchResults = ConvertToProviderResponse(hotelBedsHotels);
 
-                    //if (hotelSearchResults == null)
-                    //{
-                    //    throw new ProviderUnavailableException(ProviderTypes.HotelBeds.ToString(), $"No response to {nameof(AvailabilityRQ)}.", null);
-                    //}
+                    if (hotelSearchResults == null)
+                    {
+                        throw new ProviderUnavailableException(ProviderTypes.HotelBeds.ToString(), $"No response to {nameof(AvailabilityRQ)}.", null);
+                    }
                 }
                 catch (Exception)
                 {
@@ -61,19 +62,16 @@ namespace TE.HotelBeds.Handlers
             return hotelSearchResults;
         }
 
-        private AvailabilityRQ ConvertToHotelBedsSearchRequest(HotelPropertyProviderReq request)
+        private AvailabilityRQ ConvertToHotelBedsSearchRequest(HotelAvailabilityProviderReq request)
         {
             Logger.Instance.LogFunctionEntry(this.GetType().Name, "ConvertToHotelBedsSearchRequest");
             AvailabilityRQ hotelBedsAvailabilityRQ = new AvailabilityRQ();
 
-            if (request.HotelCode != null && request.HotelCode.Any())
+            if (request.HotelCodes != null && request.HotelCodes.Any())
             {
-                var selectedHotel = request.HotelCode.Split(new char[] { ' ' }).ToList();
-                List<int> intHotelList = selectedHotel.ConvertAll(s => Int32.Parse(s));
-
                 hotelBedsAvailabilityRQ.hotels = new HotelsFilter()
                 {
-                    hotel = intHotelList
+                    hotel = request.HotelCodes.Select(int.Parse).ToList()
                 };
             }
 
@@ -82,7 +80,7 @@ namespace TE.HotelBeds.Handlers
             hotelBedsAvailabilityRQ.occupancies = new List<Occupancy>();
             hotelBedsAvailabilityRQ.occupancies.Add(new Occupancy
             {
-                adults = request.NoOfGuest,
+                adults = request.TotalAdults,
                 rooms = HotelBedsConstants.TotalRooms,
                 children = 0,
                 paxes = new List<Pax>()
@@ -98,10 +96,10 @@ namespace TE.HotelBeds.Handlers
             return hotelBedsAvailabilityRQ;
         }
 
-        private HotelRateProviderRes ConvertToProviderResponse(AvailabilityRS request)
+        private HotelAvailabilityProviderRes ConvertToProviderResponse(AvailabilityRS request)
         {
             Logger.Instance.LogFunctionEntry(this.GetType().Name, "ConvertToProviderResponse");
-            HotelRateProviderRes hotelResultRS = new HotelRateProviderRes();
+            HotelAvailabilityProviderRes hotelResultRS = new HotelAvailabilityProviderRes();
             //if (request.hotels != null)
             //    hotelResultRS.Hotels = request.hotels.hotels;
             //else

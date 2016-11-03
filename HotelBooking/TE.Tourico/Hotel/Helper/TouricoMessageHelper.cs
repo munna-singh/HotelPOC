@@ -14,6 +14,8 @@ using System.ServiceModel.Description;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.IO;
+using TE.ThirdPartyProviders.Tourico.TouricoIHotelFlowSvc;
+using TE.Core.Hotel.Tourico.Exceptions;
 
 namespace TE.Core.Hotel.Messaging
 {
@@ -132,6 +134,7 @@ namespace TE.Core.Hotel.Messaging
             if (bodyNode != null)
             {
 
+                //Try catch here to know if body is actual response or Fault 
                 XmlReader bodyReader = XmlReader.Create(new StringReader(bodyNode.InnerXml));
                 Message msg = Message.CreateMessage(MessageVersion.Soap11, null, bodyReader);
                 var converter = TypedMessageConverter.Create(typeof(TRes), null, new XmlSerializerFormatAttribute());
@@ -142,13 +145,13 @@ namespace TE.Core.Hotel.Messaging
                 
                 if (touricoMessage.ResponseBodyPayload == null)
                 {
-                    //var fault = XmlSerializerUtil<Fault>.Deserialize(sabreMessage.ResponseBodyText);
-                    //if (fault != null)
-                    //{
-                    //    throw new SabreProviderException(fault);
-                    //}
+                    var fault = XmlSerializerUtil<WSFault>.Deserialize(touricoMessage.ResponseBodyText);
+                    if (fault != null)
+                    {
+                        throw new TouricoProviderException(fault);
+                    }
 
-                    throw new Exception("ResponseBodyPayload is null."); //musanka: temp throw exception - throw TouricoProviderException(fault) instead
+                    throw new Exception("ResponseBodyPayload is null."); 
                 }
 
             }

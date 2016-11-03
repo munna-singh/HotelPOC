@@ -2,7 +2,7 @@
 using com.hotelbeds.distribution.hotel_api_model.auto.messages;
 using com.hotelbeds.distribution.hotel_api_sdk.helpers;
 using com.hotelbeds.distribution.hotel_api_model.auto.model;
-//using TE.HotelBeds.ServiceCatalogues.HotelCatalog.Dtos;
+using HotelBeds.ServiceCatalogues.HotelCatalog.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,23 +10,22 @@ using System.Text;
 using System.Threading.Tasks;
 using TE.Common.Logging;
 using Common.Exceptions;
-//using TE.HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
-using TE.HotelBeds.Provider.Exceptions;
-using TE.HotelBeds.Models;
-using TE.HotelBeds.Provider;
+using HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
+using HotelBeds.Provider.Exceptions;
+using HotelBeds.Models;
+using HotelBeds.Provider;
 using TE.Core.ServiceCatalogues.HotelCatalog.Provider;
 using TE.Core.ServiceCatalogues.HotelCatalog.Dtos.Controller;
 using TE.Core.ServiceCatalogues.HotelCatalog.Dtos;
-using TE.HotelBeds.Provider.Messaging;
-using TE.HotelBeds.ServiceCatalogues.HotelCatalog.Enums;
 
-namespace TE.HotelBeds.Handlers
+
+namespace HotelBeds.Handlers
 {
     public class HotelBedsAvailabilityHandler
     {
         public HotelAvailabilityProviderRes Execute(HotelAvailabilityProviderReq request)
         {
-            Logger.Instance.LogFunctionEntry(this.GetType().Name, "Execute");
+            //Logger.Instance.LogFunctionEntry(this.GetType().Name, "Execute");
             Availability avail = new Availability();
             List<Hotel> hotels = new List<Hotel>();
 
@@ -58,27 +57,14 @@ namespace TE.HotelBeds.Handlers
 
                 try
                 {
-                    var xmlRequest = HotelBedsSerialize.Serialize<HotelAvailabilityProviderReq>(request);
-                    var provider = "HotelBeds";
-                    using (var apiCallLogger = new ApiCallLogger(provider, xmlRequest, true, "xml"))
-                    {
-                        apiCallLogger.LogRequest(
-                            () => xmlRequest);
-                    }
-                        var hotelBedsHotels = hotelBedsworker.GetAvailability<AvailabilityRQ, AvailabilityRS>(hotelBedsSearchRq);
+                    var hotelBedsHotels = hotelBedsworker.GetAvailability<AvailabilityRQ, AvailabilityRS>(hotelBedsSearchRq);
                     //Check if we need to check .hotels == null
-                    if (hotelBedsHotels.hotels.hotels == null)
+                    if (hotelBedsHotels.hotels == null)
                     {
                         //throw new ProviderUnavailableException(ProviderTypes.HotelBeds.ToString(), $"No response to {nameof(AvailabilityRQ)}.", null);
                         throw new ProviderUnavailableException(ProviderTypes.HotelBeds.ToString(), hotelBedsHotels.error.message.ToString(), null);
                     }
                     hotelSearchResults = ConvertToProviderResponse(hotelBedsHotels);
-                    var xmlResponse = HotelBedsSerialize.Serialize<HotelAvailabilityProviderRes>(hotelSearchResults);
-                    using (var apiCallLogger = new ApiCallLogger(provider, xmlResponse, true, "xml"))
-                    {
-                        apiCallLogger.LogResponse(
-                            () => xmlResponse);
-                    }
                 }
                 catch (HotelBedsProviderException e)
                 {
@@ -92,7 +78,7 @@ namespace TE.HotelBeds.Handlers
                     }
                 }
             }
-            Logger.Instance.LogFunctionExit(this.GetType().Name, "Execute");
+            //Logger.Instance.LogFunctionExit(this.GetType().Name, "Execute");
             return hotelSearchResults;
         }
 
@@ -109,11 +95,10 @@ namespace TE.HotelBeds.Handlers
             }
             else
             {
-                var gLocation = request.GeoLocation;
                 hotelBedsAvailabilityRQ.geolocation = new com.hotelbeds.distribution.hotel_api_model.auto.model.GeoLocation
                 {
-                    latitude = gLocation.HasValue ? Convert.ToDouble(gLocation.Value.Latitude) : 0,
-                    longitude = gLocation.HasValue ? Convert.ToDouble(gLocation.Value.Longitude) : 0,
+                    latitude = Convert.ToDouble(40.71),
+                    longitude = Convert.ToDouble(74.00),
                     radius = HotelBedsConstants.RadiusLimit,
                     unit = com.hotelbeds.distribution.hotel_api_model.util.UnitMeasure.UnitMeasureType.km
                 };
@@ -121,8 +106,8 @@ namespace TE.HotelBeds.Handlers
 
             hotelBedsAvailabilityRQ.filter = new Filter
             {
-                minCategory = HotelBedsConstants.MinRating, //request.MinRating,
-                maxCategory = HotelBedsConstants.MaxRating //request.MaxRating
+                minCategory = request.MinRating,
+                maxCategory = request.MaxRating
             };
 
             hotelBedsAvailabilityRQ.stay = new Stay(request.CheckInDate, request.CheckOutDate, 0, true);

@@ -233,11 +233,6 @@
       <xs:enumeration value="AtProperty" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="PerRoomSupplement">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Supplement" />
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="PerPersonSupplement">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Supplement">
@@ -257,6 +252,11 @@
     <xs:attribute name="suppTo" type="xs:int" use="required" />
     <xs:attribute name="suppQuantity" type="xs:int" use="required" />
     <xs:attribute name="suppPrice" type="xs:decimal" use="required" />
+  </xs:complexType>
+  <xs:complexType name="PerRoomSupplement">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Supplement" />
+    </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="ArrayOfBoardbase">
     <xs:sequence>

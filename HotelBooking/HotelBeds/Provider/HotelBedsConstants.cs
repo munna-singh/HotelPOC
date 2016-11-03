@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TE.HotelBeds.Provider
+namespace HotelBeds.Provider
 {
     public class HotelBedsConstants
     {
@@ -17,13 +17,6 @@ namespace TE.HotelBeds.Provider
         public static int AdultAge = 30;
 
         public static char SpaceSeperator = ' ';
-
         public static int TotalRooms = 2;
-
-        public static int MinRating = 0;
-
-        public static int MaxRating = 5;
-
-        public static string ZuluTimestampFormat = "yyyy-MM-ddTHH:mm:ssZ";
     }
 }

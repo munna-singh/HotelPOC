@@ -26,7 +26,7 @@ namespace UI.Controllers
                 if (userName.ToUpper() == "TRAVELEDGE" && password == "Pass1234")
                 {
                     FormsAuthentication.SetAuthCookie(userName, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Car");
                 }
                 else
                 {

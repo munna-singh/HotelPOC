@@ -189,15 +189,18 @@
     </Reference>
     <Reference Include="TE.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\TravelEdge\Labs\TE\Core\bin\Debug\TE.Common.dll</HintPath>
+      <HintPath>..\..\..\..\Project\TE\Labs\TE\Common\bin\Debug\TE.Common.dll</HintPath>
     </Reference>
     <Reference Include="TE.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\TravelEdge\Labs\TE\Core\bin\Debug\TE.Core.dll</HintPath>
+      <HintPath>..\Common\Dlls\TE.Core.dll</HintPath>
     </Reference>
     <Reference Include="TE.DataAccessLayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\TravelEdge\Labs\TE\Core\bin\Debug\TE.DataAccessLayer.dll</HintPath>
+      <HintPath>..\..\..\..\Project\TE\Labs\TE\DataAccessLayer\bin\Debug\TE.DataAccessLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="TE.Platform.Api">
+      <HintPath>..\Common\Dlls\TE.Platform.Api.dll</HintPath>
     </Reference>
     <Reference Include="TE.ThirdPartyProviders.Tourico, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -219,9 +222,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\HotelDetailsController.cs" />
+    <Compile Include="Controllers\HotelDetailController.cs" />
     <Compile Include="Controllers\MultipleButtonAttribute.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\XMLSerializer.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -229,6 +234,9 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BedBankHotelAvail.cs" />
+    <Compile Include="Models\CarBookingsModel.cs" />
+    <Compile Include="Models\CarCancelModel.cs" />
+    <Compile Include="Models\CarSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIManager\SearchBBHotel.cs" />
   </ItemGroup>
@@ -298,6 +306,10 @@
     <Content Include="Images\2.jpg" />
     <Content Include="Images\3.jpg" />
     <Content Include="Images\4.jpg" />
+    <Content Include="Images\Cars\1.jpg" />
+    <Content Include="Images\Cars\2.jpg" />
+    <Content Include="Images\Cars\3.jpg" />
+    <Content Include="Images\Cars\4.jpg" />
     <Content Include="Images\travel-edge-adx-small.png" />
     <Content Include="Newtonsoft.Json.xml" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -345,7 +357,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\SearchHotel.cshtml" />
-    <Content Include="Views\HotelDetails\Index.cshtml" />
+    <Content Include="Views\HotelDetail\Index.cshtml" />
     <Content Include="Views\HotelBook\Index.cshtml" />
     <Content Include="Views\PriceBreakup\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -362,10 +374,18 @@
     <Content Include="Views\BookTourico\SearchHotel.cshtml" />
     <Content Include="Views\BookTourico\partialpoc.cshtml" />
     <Content Include="Views\Home\SearchHotelTourico.cshtml" />
-    <Content Include="Views\HotelDetails\TouricoHotelDetails.cshtml" />
+    <Content Include="Views\HotelDetail\HotelDetail.cshtml" />
+    <Content Include="Views\Car\Index.cshtml" />
+    <Content Include="Views\Car\SearchCarTourico.cshtml" />
+    <Content Include="Views\Car\GetCars.cshtml" />
+    <Content Include="Views\Car\GetCarDetails.cshtml" />
+    <Content Include="Views\Car\BookCar.cshtml" />
+    <Content Include="Views\Car\GetBookingDetail.cshtml" />
+    <Content Include="Views\Car\CancelCar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BookingHistoryFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -379,10 +399,6 @@
       <Project>{d09f9d68-24a6-48d9-9b86-ef3ba31dd176}</Project>
       <Name>DataAccessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HotelBeds\TE.HotelBeds.csproj">
-      <Project>{6284df74-fb25-4205-a344-234f345a2c6a}</Project>
-      <Name>TE.HotelBeds</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Manager\Manager.csproj">
       <Project>{dc212e93-efc9-4bb9-a881-75f37169b51c}</Project>
       <Name>Manager</Name>
@@ -390,10 +406,6 @@
     <ProjectReference Include="..\Repository\Repository.csproj">
       <Project>{e5b0c93d-72e5-4db9-b315-b861cc3bc504}</Project>
       <Name>Repository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TE.Tourico\TE.Tourico.csproj">
-      <Project>{ecc85f48-3fcf-4162-bc4d-f6c31d77d413}</Project>
-      <Name>TE.Tourico</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

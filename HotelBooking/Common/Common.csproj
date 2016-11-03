@@ -75,6 +75,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="SabreSessionManager.cs" />
+    <Compile Include="Service References\carFlowSvc\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\hotelDestSvc\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -141,6 +146,65 @@
     <Content Include="Dlls\TE.Core.dll" />
     <Content Include="Dlls\TE.ThirdPartyProviders.Sabre.dll" />
     <None Include="packages.config" />
+    <None Include="Service References\carFlowSvc\CarWebService.wsdl" />
+    <None Include="Service References\carFlowSvc\CarWebService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\carFlowSvc\CarWebService1.wsdl" />
+    <None Include="Service References\carFlowSvc\CarWebService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\carFlowSvc\CarWebService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\carFlowSvc\CarWebService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\carFlowSvc\CarWebService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.BookCarReponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.CancelCarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.Car.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.CompanyRules.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.GetRGInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.GetRulesAndRestrictionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.ResGroup.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.ResGroupDetails.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.ResultsInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.SearchCarInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.SearchCarsByAirportCodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.SearchCarsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.SearchParameters.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\carFlowSvc\Common.carFlowSvc.SelectStationsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\hotelDestSvc\Common.hotelDestSvc.ActivityDestinationResultContainer.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -228,6 +292,12 @@
     <None Include="Service References\hotelDestSvc\configuration91.svcinfo" />
     <None Include="Service References\hotelDestSvc\configuration.svcinfo" />
     <None Include="Service References\hotelDestSvc\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\carFlowSvc\configuration91.svcinfo" />
+    <None Include="Service References\carFlowSvc\configuration.svcinfo" />
+    <None Include="Service References\carFlowSvc\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -807,6 +877,7 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\carFlowSvc\" />
     <WCFMetadataStorage Include="Service References\hotelDestSvc\" />
     <WCFMetadataStorage Include="Service References\hotelflowSvc\" />
   </ItemGroup>

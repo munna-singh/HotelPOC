@@ -8,6 +8,9 @@ using TE.Core.ServiceCatalogues.HotelCatalog.Dtos;
 using TE.Core.ServiceCatalogues.HotelCatalog.Provider;
 using TE.ThirdPartyProviders.Tourico.TouricoIHotelFlowSvc;
 using TE.Core.Hotel.Messaging;
+using TE.Core.Hotel.Tourico.Exceptions;
+using TE.Common.Exceptions;
+using TE.DataAccessLayer.Enums;
 
 
 namespace TE.Core.Tourico.Hotel.Handler
@@ -23,7 +26,7 @@ namespace TE.Core.Tourico.Hotel.Handler
 
         public override HotelAvailabilityProviderRes Execute(HotelAvailabilityProviderReq request)
         {
-            if (request.LocationType == LocationTypes.Unknown)
+            if (request.LocationType == ServiceCatalogues.HotelCatalog.Enums.LocationTypes.Unknown)
             {
                 //throw new ArgumentNullException(nameof(request.LocationType));
             }
@@ -54,14 +57,20 @@ namespace TE.Core.Tourico.Hotel.Handler
                 {
                     var touricoRespone = touricoWorker.Execute<SearchHotelsByIdRequest1, SearchHotelsByIdResponse>(TouricoHotelRequest);
 
+                    if(touricoRespone == null)
+                    {
+                        throw new ProviderUnavailableException(ProviderTypes.Tourico.ToString(), $"No response to {nameof(SearchHotelsByIdRequest1)}.", null);
+
+                    }
+
                     //convert response to HotelAvailabilityProviderRes
                     hotelSearchResults = this.ConvertToProviderResponse(touricoRespone, request);
 
                 }
-                catch (Exception ex)
+                catch (TouricoProviderException e)
                 {
 
-                    throw ex;
+                    throw e;
                 }
                 
                 return hotelSearchResults;
@@ -99,12 +108,15 @@ namespace TE.Core.Tourico.Hotel.Handler
                 hotelResult.HotelInfo.HotelName = hotel.name;
                 hotelResult.HotelInfo.CityCode = hotel.Location.searchingCity; //? city code
                 hotelResult.HotelInfo.Thumbnails = hotel.thumb;
-                if (hotel.minAverPublishPrice > 0) //? issue with currency CAD
+                
+                //Currency and Currency Code
+                if (hotel.minAverPublishPrice > 0)
                 {
                     hotelResult.Price = new TMoney
                     {
-                        Amount = hotel.minAverPublishPrice
-                        //,CurrencyCode= hotel.currency
+                        Amount = hotel.minAverPublishPrice,
+                        Currency = new TCurrency
+                                                { CurrencyCode = hotel.currency }
                     };
                 }
 
@@ -113,7 +125,7 @@ namespace TE.Core.Tourico.Hotel.Handler
                 hotelResult.HotelInfo.Provider = DataAccessLayer.Enums.ProviderTypes.Tourico;         
                              
                 //lat and long
-                    hotelResult.HotelInfo.Location = new GeoLocation
+                 hotelResult.HotelInfo.Location = new GeoLocation
                     {
                         Latitude = hotel.Location.latitude,
                         Longitude = hotel.Location.longitude
@@ -121,11 +133,10 @@ namespace TE.Core.Tourico.Hotel.Handler
                
 
                 hotelResult.HotelInfo.SpecialOffers = null;
+                hotelResult.HotelInfo.Amenities = null; // Available only in GetHotelDetailsV3 
 
-                hotelResult.HotelInfo.Amenities = null;
-                
                 //Room Type info
-                hotelResult.HotelInfo.SpecialOffers = hotel.RoomTypes.ToString();
+                hotelResult.HotelInfo.SpecialOffers = hotel.RoomTypes.ToString(); // musanka : remove assigning to SpecialOffers property
 
                 hotels.Add(hotelResult);
                 
@@ -157,17 +168,9 @@ namespace TE.Core.Tourico.Hotel.Handler
 
             sRequest.HotelIdsInfo = hIdInfo;
 
-            SearchHotelsByIdRequest1 returnRequest = new SearchHotelsByIdRequest1();
+            SearchHotelsByIdRequest1 returnRequest = new SearchHotelsByIdRequest1();          
+            returnRequest.AuthenticationHeader = Helper.GetTouricoAuthHeader();
             returnRequest.request = sRequest;
-
-            //Temp Add Auth Header to Test: musanka
-            var authHeader = new AuthenticationHeader();
-
-            //TODO: Move to config setting 
-            authHeader.LoginName = "Tra105";
-            authHeader.Password = "111111";
-
-            returnRequest.AuthenticationHeader = authHeader;
 
             return returnRequest;
 
