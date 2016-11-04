@@ -143,6 +143,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Dlls\com.hotelbeds.distribution.hotel_api_model.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dlls\com.hotelbeds.distribution.hotel_api_sdk.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Dlls\TE.Core.dll" />
     <Content Include="Dlls\TE.ThirdPartyProviders.Sabre.dll" />
     <None Include="packages.config" />

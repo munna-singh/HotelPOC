@@ -9,93 +9,93 @@
 @section featured {
     @using (Html.BeginForm())
     {
-        <section >
+        <section>
 
-        <div>
-            <fieldset>
-                <legend>Personalia:</legend>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label for="place-input">PickUp</label>
-                        <input id="place-input" class="form-control" name="pickUpLocation" type="text" placeholder="Type a location" style="height: 25px; font-size: 10px; width: 200px;">
+            <div>
+                <fieldset>
+                    <legend>Personalia:</legend>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="place-input">PickUp</label>
+                            <input id="place-input" class="form-control" name="pickUpLocation" type="text" placeholder="Type a location" style="height: 25px; font-size: 10px; width: 200px;">
 
-                    </div>
-                    <div class="col-md-3">
-                        <label for="place-input">DropOff</label>
-                        <input id="place2-input" class="form-control" name="dropLocation" type="text" placeholder="Type a location" style="height: 25px; font-size: 10px; width: 200px;">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="place-input">DropOff</label>
+                            <input id="place2-input" class="form-control" name="dropLocation" type="text" placeholder="Type a location" style="height: 25px; font-size: 10px; width: 200px;">
 
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="ddlTotalGuest">Vehicle Type</label>
-                            <select id="ddlTotalGuest" class="form-control" name="ddlVehicleType" style="height: 25px; font-size: 10px; width: 200px;">
-                                <option value="0">ALL</option>
-                                <option value="15">4-Wheel Drive</option>
-                                <option value="1">Car</option>
-                                <option value="4">Convertible</option>
-                                <option value="12">Limo</option>
-                                <option value="7">Pickup</option>
-                                <option value="9">Recreational</option>
-                                <option value="11">Special</option>
-                                <option value="10">Sport</option>
-                                <option value="6">Station Wagon</option>
-                                <option value="3">SUV</option>
-                                <option value="2">Van</option>
-                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ddlTotalGuest">Vehicle Type</label>
+                                <select id="ddlTotalGuest" class="form-control" name="ddlVehicleType" style="height: 25px; font-size: 10px; width: 200px;">
+                                    <option value="0">ALL</option>
+                                    <option value="15">4-Wheel Drive</option>
+                                    <option value="1">Car</option>
+                                    <option value="4">Convertible</option>
+                                    <option value="12">Limo</option>
+                                    <option value="7">Pickup</option>
+                                    <option value="9">Recreational</option>
+                                    <option value="11">Special</option>
+                                    <option value="10">Sport</option>
+                                    <option value="6">Station Wagon</option>
+                                    <option value="3">SUV</option>
+                                    <option value="2">Van</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ddlNoOfRooms">Car Company</label>
+                                <select id="ddlNoOfRooms" class="form-control" name="ddlCarCompany" style="height: 25px; font-size: 10px; width: 200px;">
+                                    <option value="0">ALL</option>
+                                    <option value="-1">Undercover</option>
+                                    <option value="1">Budget</option>
+                                    <option value="2">Hertz</option>
+                                    <option value="4">Enterprise</option>
+                                    <option value="5">National</option>
+                                    <option value="7">Alamo</option>
+                                    <option value="13">Sixt</option>
+                                    <option value="15">Avis</option>
+                                    <option value="50">Payless</option>
+                                    <option value="3">Thrifty</option>
+                                    <option value="8">Advantage</option>
+                                    <option value="9">Fox</option>
+                                    <option value="10">GreenMotion</option>
+                                    <option value="11">Dollar</option>
+                                    <option value="12">Hertz Mexico</option>
+                                    <option value="14">Island Car Rentals</option>
+                                    <option value="26">Thrifty Panama</option>
+                                    <option value="27">Dollar UAE</option>
+                                    <option value="28">Thrifty Costa Rica</option>
+                                    <option value="29">Hertz USBC</option>
+                                    <option value="30">Dollar Morocco</option>
+                                    <option value="31">Hertz South Africa</option>
+                                    <option value="32">Thrifty Brazil</option>
+                                    <option value="33">Thai Rent A Car</option>
+                                    <option value="34">Thrifty Jordan</option>
+                                    <option value="35">Sado Rent A Car</option>
+                                    <option value="36">Thrifty Oman</option>
+                                    <option value="37">Dollar Jordan</option>
+                                    <option value="38">THRIFTY and DOLLAR KUWAIT</option>
+                                    <option value="39">Thrifty Seychelles</option>
+                                    <option value="40">Coconut Car Rentals</option>
+                                    <option value="41">U-Save Car And Truck Rental</option>
+                                    <option value="42">Buchbinder Rent A Car</option>
+                                    <option value="43">Budget Car Rental Romania</option>
+                                    <option value="44">AVRO Rent A Car</option>
+                                    <option value="45">Insularcar Rent a Car</option>
+                                    <option value="46">ThriftyUAE</option>
+                                    <option value="47">America Car Rental</option>
+                                    <option value="48">RENT plus</option>
+                                    <option value="49">WindyCar</option>
+                                    <option value="51">Hawk Rent A Car</option>
+                                    <option value="52">Rent Max</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="ddlNoOfRooms">Car Company</label>
-                            <select id="ddlNoOfRooms" class="form-control" name="ddlCarCompany" style="height: 25px; font-size: 10px; width: 200px;">
-                                <option value="0">ALL</option>
-                                <option value="-1">Undercover</option>
-                                <option value="1">Budget</option>
-                                <option value="2">Hertz</option>
-                                <option value="4">Enterprise</option>
-                                <option value="5">National</option>
-                                <option value="7">Alamo</option>
-                                <option value="13">Sixt</option>
-                                <option value="15">Avis</option>
-                                <option value="50">Payless</option>
-                                <option value="3">Thrifty</option>
-                                <option value="8">Advantage</option>
-                                <option value="9">Fox</option>
-                                <option value="10">GreenMotion</option>
-                                <option value="11">Dollar</option>
-                                <option value="12">Hertz Mexico</option>
-                                <option value="14">Island Car Rentals</option>
-                                <option value="26">Thrifty Panama</option>
-                                <option value="27">Dollar UAE</option>
-                                <option value="28">Thrifty Costa Rica</option>
-                                <option value="29">Hertz USBC</option>
-                                <option value="30">Dollar Morocco</option>
-                                <option value="31">Hertz South Africa</option>
-                                <option value="32">Thrifty Brazil</option>
-                                <option value="33">Thai Rent A Car</option>
-                                <option value="34">Thrifty Jordan</option>
-                                <option value="35">Sado Rent A Car</option>
-                                <option value="36">Thrifty Oman</option>
-                                <option value="37">Dollar Jordan</option>
-                                <option value="38">THRIFTY and DOLLAR KUWAIT</option>
-                                <option value="39">Thrifty Seychelles</option>
-                                <option value="40">Coconut Car Rentals</option>
-                                <option value="41">U-Save Car And Truck Rental</option>
-                                <option value="42">Buchbinder Rent A Car</option>
-                                <option value="43">Budget Car Rental Romania</option>
-                                <option value="44">AVRO Rent A Car</option>
-                                <option value="45">Insularcar Rent a Car</option>
-                                <option value="46">ThriftyUAE</option>
-                                <option value="47">America Car Rental</option>
-                                <option value="48">RENT plus</option>
-                                <option value="49">WindyCar</option>
-                                <option value="51">Hawk Rent A Car</option>
-                                <option value="52">Rent Max</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
+                </fieldset>
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
@@ -107,7 +107,7 @@
                     <div class="col-md-1">
                         <div class="form-group">
                             <label for="ddlTotalGuest">Hour</label>
-                            <select id="ddlPickUpHour" class="form-control" name="ddlPickUpHour" style="height: 25px; font-size: 10px; width: 65px;">
+                            <select id="ddlPickUpHour" class="form-control" name="ddlPickUpHour" style="height: 25px; font-size: 10px; width: 65px; ">
                                 <option value="1">0</option>
                                 <option value="2">1</option>
                                 <option value="3">2</option>
@@ -118,7 +118,7 @@
                                 <option value="8">7</option>
                                 <option value="9">8</option>
                                 <option value="10">9</option>
-                                <option value="11">10</option>
+                                <option value="11" selected="selected">10</option>
                                 <option value="12">11</option>
                                 <option value="13">12</option>
                                 <option value="14">13</option>
@@ -158,7 +158,7 @@
                                 <option value="10">9</option>
                                 <option value="11">10</option>
                                 <option value="12">11</option>
-                                <option value="13">12</option>
+                                <option value="13" selected="selected">12</option>
                                 <option value="14">13</option>
                                 <option value="15">14</option>
                                 <option value="16">15</option>
@@ -189,9 +189,9 @@
                         <button type="submit" class="btn btn-warning" name="action:GetCars">Search</button>
                     </div>
                 </div>
-               
 
-</div>
+
+            </div>
             <div class="content-wrapper">
                 <table style="width: 100%" style="padding: 0px 0px 0px 0px">
                     <tr>
