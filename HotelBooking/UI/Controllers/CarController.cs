@@ -23,7 +23,7 @@ namespace UI.Controllers
         public ActionResult Index()
         {
 
-           string fileLoc = @"C:\Windows\Temp\BookingHistory.txt";
+           string fileLoc = @"C:\Temp\BookingHistory.txt";
             string bookingData = string.Empty;
             if (System.IO.File.Exists(fileLoc))
             {
@@ -164,13 +164,10 @@ namespace UI.Controllers
             var bookRespone =
                 carSvc.BookCar(new LoginHeader { UserName = "Tra105", Password = "111111", Culture = "en-US", Version = "1" }, bookCarRequest, out resultsInfo);
 
-            string fileLoc = @"C:\Windows\Temp\BookingHistory.txt";
-
-            if (!System.IO.File.Exists(fileLoc))
-                System.IO.File.Create(fileLoc);
-            StreamWriter sw = System.IO.File.AppendText(fileLoc);
-            sw.WriteLine(bookRespone.rgid + "," + bookRespone.Reservation.pickUpDate + "," + bookRespone.Reservation.toDate + "," + bookRespone.Reservation.status + ";");
-            sw.Close();
+            string fileLoc = @"C:\Temp\BookingHistory.txt";
+            
+            System.IO.File.AppendAllText(fileLoc, (bookRespone.rgid + "," + bookRespone.Reservation.pickUpDate + "," + bookRespone.Reservation.toDate + "," + bookRespone.Reservation.status + ";"));
+           
             return View(bookRespone);
 
         }

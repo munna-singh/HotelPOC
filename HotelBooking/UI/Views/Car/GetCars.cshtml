@@ -66,7 +66,7 @@
                                  @{
                                      foreach (var company in Model.Select(c => c.carCompanyName).Distinct())
                                      {
-                                         <p> <input type="checkbox" id="@company"/> @company</p>
+                                         <p> <input onchange="GetFilteredCars(this,'Company')" type="checkbox" value="@company" id="@company"/> @company</p>
                                      }
                                  }
                              </ul>
@@ -81,7 +81,7 @@
                                  @{
                                      foreach (var cls in Model.Select(c => c.@class).Distinct())
                                      {
-                                         <p> <input type="checkbox" id="@cls"/> @cls</p>
+                                         <p> <input onchange="GetFilteredCars(this,'Car')" value="@cls" type="checkbox" id="@cls"/> @cls</p>
                                      }
                                  }
                              </ul>
@@ -89,16 +89,14 @@
                      </tr>
                  </table>
              </td>
-             <td style="width: 75%">
+             <td style="width: 75%;vertical-align: top">
                  <div style="font-size: 12px;">
-                     
-                     @foreach (var details in Model)
-                     {
-                         //foreach (var item in details.RouteOptions.First().ProgramList.CarProgram)
-                         //{
-                         <table width="100%" style="border: solid; padding: 0px;">
-                             <tr>
-                                 <td style="width: 10%"><img src="@details.carThumb" style="width: 150px; height: 150px;"/></td>
+
+                     <table width="100%">
+                         @foreach (var details in Model)
+                         {
+                             <tr style="border: solid; padding: 0px;" class="iterateCar" data-companyNameKeyword="@details.carCompanyName" data-carTypeKeyword="@(details.@class)">
+                                 <td style="width: 10%"><img src="@details.carThumb" style="width: 150px; height: 150px;" /></td>
                                  <td style="width: 5%"></td>
                                  <td style="width: 75%">
                                      <table style="text-align: left; border-style: none; border-width: 0px;" width="100%">
@@ -111,20 +109,34 @@
                                              <td>
                                                  @{
                                                      string companyLogo = "http://image2.urlforimages.com/CS/$Templates/LMTNew-ref$/@Websites/LastMinuteTravel@/Images/CarCompanies/logo-" + details.carCompanyName + ".gif";
-                                                 }
-                                                 <img src="@companyLogo"/>
+                              
+                                                }
+                                                <img src="@companyLogo"/>
+
                                              </td>
                                              <td>
                                                  @details.transmission , @{ var acAvailability = details.ac ? "Ac" : "Non-Ac"; } @acAvailability
                                              </td>
                                              <td style="text-align: right">
                                                  <table>
-                                                     <tr><td>
-                                                         <p class="glyphicon glyphicon-user" style="color: lightgray; font-size: 20px"></p></td><td>@details.maxPassengers</td></tr>
-                                                     <tr><td>
-                                                         <p class="glyphicon glyphicon-briefcase" style="color: lightgray; font-size: 20px"></p></td><td>@details.luggageLarge</td></tr>
-                                                     <tr><td>
-                                                         <p class="glyphicon glyphicon-briefcase" style="color: lightgray; font-size: 15px"></p></td><td>@details.luggageSmall</td></tr>
+                                                     <tr>
+                                                         <td>
+                                                             <p class="glyphicon glyphicon-user" style="color: lightgray; font-size: 20px"></p>
+                                                         </td>
+                                                         <td>@details.maxPassengers</td>
+                                                     </tr>
+                                                     <tr>
+                                                         <td>
+                                                             <p class="glyphicon glyphicon-briefcase" style="color: lightgray; font-size: 20px"></p>
+                                                         </td>
+                                                         <td>@details.luggageLarge</td>
+                                                     </tr>
+                                                     <tr>
+                                                         <td>
+                                                             <p class="glyphicon glyphicon-briefcase" style="color: lightgray; font-size: 15px"></p>
+                                                         </td>
+                                                         <td>@details.luggageSmall</td>
+                                                     </tr>
                                                  </table>
                                              </td>
                                          </tr>
@@ -146,40 +158,27 @@
                                                  @using (Html.BeginForm("GetCarDetails", "Car"))
                                                  {
                                                      <button type="submit" class="btn btn-warning" style="width: 150px">Select</button>
-                                                     <input type="hidden" id="productId" name="productId" value="@details.productId"/>
-                                                    <input type="hidden" id="sessionId" name="sessionId" value="@ViewBag.SessionId" />
+                                                     <input type="hidden" id="productId" name="productId" value="@details.productId" />
+                                                     <input type="hidden" id="sessionId" name="sessionId" value="@ViewBag.SessionId" />
                                                  }
                                              </td>
                                          </tr>
                                      </table>
                                  </td>
+
+                                 <input type="hidden" name="checkIn" value="@ViewBag.checkIn" />
+                                 <input type="hidden" name="checkOut" value="@ViewBag.checkOut" />
+                                 <input type="hidden" name="totalTravellers" value="@ViewBag.TotalTravellers" />
+                                 <input type="hidden" name="CarId" value="@details.carID" />
+                                 <input type="hidden" name="LatOrg" value="@ViewBag.LatOrg" />
+                                 <input type="hidden" name="LanOrg" value="@ViewBag.LanOrg" />
+                                 <input type="hidden" name="Lat" value="@ViewBag.Lat" />
+                                 <input type="hidden" name="Lan" value="@ViewBag.Lan" />
+                                 <input type="hidden" name="radius" value="@ViewBag.radius" />
+                                 <input type="hidden" name="totalRooms" value="@ViewBag.TotalRooms" />
                              </tr>
-                         </table>
-                         <table>
-                             <tr>
-                                 <td width="5%">&nbsp;</td>
-                                 <td colspan="1">
-                                     @*<p><b>Phone: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Phone  <b>Fax: </b>@details.BasicPropertyInfo.ContactNumbers.ContactNumber.Fax</p>*@
-                                 </td>
-                                 <td>
-                                     <input type="hidden" name="checkIn" value="@ViewBag.checkIn"/>
-                                     <input type="hidden" name="checkOut" value="@ViewBag.checkOut"/>
-                                     <input type="hidden" name="totalTravellers" value="@ViewBag.TotalTravellers"/>
-                                     <input type="hidden" name="CarId" value="@details.carID"/>
-                                     <input type="hidden" name="LatOrg" value="@ViewBag.LatOrg"/>
-                                     <input type="hidden" name="LanOrg" value="@ViewBag.LanOrg"/>
-                                     <input type="hidden" name="Lat" value="@ViewBag.Lat"/>
-                                     <input type="hidden" name="Lan" value="@ViewBag.Lan"/>
-                                     <input type="hidden" name="radius" value="@ViewBag.radius"/>
-                                     <input type="hidden" name="totalRooms" value="@ViewBag.TotalRooms"/>
-                                     @*<input type="text" name="totalGuests" value="@ViewBag.totalTravellers" />*@
-                                 </td>
-
-                             </tr>
-                         </table>
-
-
-                     }
+                        }
+                     </table>
                  </div>
              </td>
          </tr>
@@ -198,3 +197,78 @@
         border: 2px solid #73AD21;
     }
 </style>
+
+
+<script>
+    var filterList = [];
+
+    function GetFilteredCars(e, type) {
+
+        var isExist,
+            index;
+
+        // identity whether it is there already in our filter 
+        // array of not
+        isExist = $.grep(filterList,
+            function(filter) {
+                return filter.Value === e.value && filter.Type === type;
+            });
+
+        // if it is checked then push it to the filter array
+        // else remove it from the filter
+        if (e.checked) {
+            if (!isExist || isExist.length === 0) {
+                filterList.push({ 'Type': type, "Value": e.value });
+            }
+        } else {
+            if (isExist || isExist.length > 0) {
+                // find the index of an item and  
+                // remove it from the array
+                index = filterList.indexOf(isExist[0]);
+                filterList.splice(index, 1);
+            }
+        }
+        // start apply filter
+        applyFilter();
+    }
+
+    function applyFilter() {
+        var filterValues;
+        //identitfy we have a filter inputs
+        if (filterList.length > 0) {
+            var companiesList = [],
+                carsList = [];
+
+            companiesList = $.map($.grep(filterList,
+                    function(filter) {
+                        return filter.Type === "Company";
+                    }),
+                function(val) { return val.Value; });
+
+            carsList = $.map($.grep(filterList,
+                    function(filter) {
+                        return filter.Type === "Car";
+                    }),
+                function(val) { return val.Value; });
+
+            $.each($('.iterateCar'),
+                function(index, tr) {
+
+                    // check both company name and car type is matching
+                    if (((companiesList && companiesList.length > 0)
+                        ? companiesList.indexOf($(tr).attr('data-companyNameKeyword')) > -1
+                        : true) &&
+                        ((carsList && carsList.length > 0)
+                        ? carsList.indexOf($(tr).attr('data-carTypeKeyword')) > -1
+                        : true)) {
+                        $(tr).show();
+                    } else {
+                        $(tr).hide();
+                    }
+                });
+        } else {
+            // if no filter got applied show everything
+            $('.iterateCar').show();
+        }
+    }
+</script>

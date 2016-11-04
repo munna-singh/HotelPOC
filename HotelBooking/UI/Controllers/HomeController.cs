@@ -13,7 +13,7 @@ using TE.Core.ServiceCatalogues.HotelCatalog.Dtos;
 using TE.Core.ServiceCatalogues.HotelCatalog;
 using TE.Core.Providers.Tourico.Hotel.Provider;
 using TE.Core.ServiceCatalogues.HotelCatalog.Provider;
-using TE.DataAccessLayer.Models;
+
 using TE.Core.Providers;
 using TE.Core.Providers.HotelBeds.Provider;
 using TE.Platform.Api.TravelServices.Hotel.Dtos;
