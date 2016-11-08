@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="60196c96-be69-44b8-a29b-fcb4a58ed4eb" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ActivityBookFlow.xsd" MetadataType="Schema" ID="385a0cd5-ec25-439d-920d-29de29d08f1b" SourceId="1" SourceUrl="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?xsd=xsd1" />
+    <MetadataFile FileName="ActivityBookFlow1.xsd" MetadataType="Schema" ID="fa27969b-3521-40fe-a82f-7fb361a34db3" SourceId="1" SourceUrl="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?xsd=xsd3" />
+    <MetadataFile FileName="ActivityBookFlow2.xsd" MetadataType="Schema" ID="28db2eef-f0df-4bfb-9ba0-527a21357218" SourceId="1" SourceUrl="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?xsd=xsd0" />
+    <MetadataFile FileName="ActivityBookFlow.wsdl" MetadataType="Wsdl" ID="799c1581-903a-48ea-9c7f-8e774d2e6232" SourceId="1" SourceUrl="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?wsdl" />
+    <MetadataFile FileName="ActivityBookFlow1.wsdl" MetadataType="Wsdl" ID="19a79355-48e1-46a4-a1bb-c2dd5dd60425" SourceId="1" SourceUrl="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="ActivityBookFlow3.xsd" MetadataType="Schema" ID="db8779cf-3ab9-4209-a069-ef67a2c8a58d" SourceId="1" SourceUrl="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

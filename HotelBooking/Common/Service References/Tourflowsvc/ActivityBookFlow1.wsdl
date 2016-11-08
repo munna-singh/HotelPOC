@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tourico.com/webservices/activity" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:sh="http://schemas.tourico.com/webservices/authentication" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tourico.com/webservices/activity" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tourico.com/webservices/activity/Imports">
+      <xsd:import schemaLocation="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?xsd=xsd0" namespace="http://tourico.com/webservices/activity" />
+      <xsd:import schemaLocation="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?xsd=xsd2" namespace="http://schemas.tourico.com/webservices/faults" />
+      <xsd:import schemaLocation="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?xsd=xsd1" namespace="http://schemas.tourico.com/webservices/activity" />
+      <xsd:import schemaLocation="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?xsd=xsd3" namespace="http://microsoft.com/wsdl/types/" />
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://schemas.tourico.com/webservices/authentication" elementFormDefault="qualified" targetNamespace="http://schemas.tourico.com/webservices/authentication">
+      <xsd:complexType name="AuthenticationHeader">
+        <xsd:sequence>
+          <xsd:element name="LoginName" nillable="true" type="xsd:string" />
+          <xsd:element name="Password" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="Culture" type="tns:Culture" />
+          <xsd:element minOccurs="0" name="Version" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AuthenticationHeader" nillable="true" type="tns:AuthenticationHeader" />
+      <xsd:simpleType name="Culture">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="None" />
+          <xsd:enumeration value="en_US" />
+          <xsd:enumeration value="zh_CN" />
+          <xsd:enumeration value="it_IT" />
+          <xsd:enumeration value="ja_JP" />
+          <xsd:enumeration value="de_DE" />
+          <xsd:enumeration value="fr_FR" />
+          <xsd:enumeration value="ru_RU" />
+          <xsd:enumeration value="pt_PT" />
+          <xsd:enumeration value="es_AR" />
+          <xsd:enumeration value="he_IL" />
+          <xsd:enumeration value="ko_KR" />
+          <xsd:enumeration value="pl_PL" />
+          <xsd:enumeration value="zh_TW" />
+          <xsd:enumeration value="nl_NL" />
+          <xsd:enumeration value="da_DK" />
+          <xsd:enumeration value="en_GB" />
+          <xsd:enumeration value="es_ES" />
+          <xsd:enumeration value="sv_SE" />
+          <xsd:enumeration value="pt_BR" />
+          <xsd:enumeration value="ar_SA" />
+          <xsd:enumeration value="el_GR" />
+          <xsd:enumeration value="cs_CZ" />
+          <xsd:enumeration value="bg_BG" />
+          <xsd:enumeration value="ro_RO" />
+          <xsd:enumeration value="tr_TR" />
+          <xsd:enumeration value="fi_FI" />
+          <xsd:enumeration value="nb_NO" />
+          <xsd:enumeration value="ar_EG" />
+          <xsd:enumeration value="es_MX" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="Culture" nillable="true" type="tns:Culture" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IActivityBookFlow_SearchActivityByActivityIds_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchActivityByActivityIds" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_SearchActivityByActivityIds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchActivityByActivityIdsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_SearchActivityByActivityIds_WSFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.tourico.com/webservices/faults" name="detail" element="q1:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_SearchActivityByDestinationIds_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchActivityByDestinationIds" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_SearchActivityByDestinationIds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchActivityByDestinationIdsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_SearchActivityByDestinationIds_WSFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.tourico.com/webservices/faults" name="detail" element="q2:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_SearchActivityByAirPortCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchActivityByAirPortCode" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_SearchActivityByAirPortCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchActivityByAirPortCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_SearchActivityByAirPortCode_WSFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.tourico.com/webservices/faults" name="detail" element="q3:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_ActivityPreBook_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActivityPreBook" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_ActivityPreBook_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActivityPreBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_ActivityPreBook_WSFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.tourico.com/webservices/faults" name="detail" element="q4:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_BookActivity_InputMessage">
+    <wsdl:part name="parameters" element="tns:BookActivity" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_BookActivity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BookActivityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_BookActivity_WSFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.tourico.com/webservices/faults" name="detail" element="q5:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_GetRGInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRGInfo" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_GetRGInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRGInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_GetRGInfo_WSFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.tourico.com/webservices/faults" name="detail" element="q6:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_GetActivityDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivityDetails" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_GetActivityDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivityDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IActivityBookFlow_GetActivityDetails_WSFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.tourico.com/webservices/faults" name="detail" element="q7:WSFault" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticationHeader">
+    <wsdl:part name="Header" element="sh:AuthenticationHeader" />
+  </wsdl:message>
+  <wsdl:portType name="IActivityBookFlow">
+    <wsdl:operation name="SearchActivityByActivityIds">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/SearchActivityByActivityIds" message="tns:IActivityBookFlow_SearchActivityByActivityIds_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/SearchActivityByActivityIdsResponse" message="tns:IActivityBookFlow_SearchActivityByActivityIds_OutputMessage" />
+      <wsdl:fault wsaw:Action="SearchActivityByActivityIds" name="WSFault" message="tns:IActivityBookFlow_SearchActivityByActivityIds_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchActivityByDestinationIds">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/SearchActivityByDestinationIds" message="tns:IActivityBookFlow_SearchActivityByDestinationIds_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/SearchActivityByDestinationIdsResponse" message="tns:IActivityBookFlow_SearchActivityByDestinationIds_OutputMessage" />
+      <wsdl:fault wsaw:Action="SearchActivityByDestinationIds" name="WSFault" message="tns:IActivityBookFlow_SearchActivityByDestinationIds_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchActivityByAirPortCode">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/SearchActivityByAirPortCode" message="tns:IActivityBookFlow_SearchActivityByAirPortCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/SearchActivityByAirPortCodeResponse" message="tns:IActivityBookFlow_SearchActivityByAirPortCode_OutputMessage" />
+      <wsdl:fault wsaw:Action="SearchActivityByAirPortCode" name="WSFault" message="tns:IActivityBookFlow_SearchActivityByAirPortCode_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActivityPreBook">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/ActivityPreBook" message="tns:IActivityBookFlow_ActivityPreBook_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/ActivityPreBookResponse" message="tns:IActivityBookFlow_ActivityPreBook_OutputMessage" />
+      <wsdl:fault wsaw:Action="ActivityPreBook" name="WSFault" message="tns:IActivityBookFlow_ActivityPreBook_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BookActivity">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/BookActivity" message="tns:IActivityBookFlow_BookActivity_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/BookActivityResponse" message="tns:IActivityBookFlow_BookActivity_OutputMessage" />
+      <wsdl:fault wsaw:Action="BookActivity" name="WSFault" message="tns:IActivityBookFlow_BookActivity_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRGInfo">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/GetRGInfo" message="tns:IActivityBookFlow_GetRGInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/GetRGInfoResponse" message="tns:IActivityBookFlow_GetRGInfo_OutputMessage" />
+      <wsdl:fault wsaw:Action="GetRGInfo" name="WSFault" message="tns:IActivityBookFlow_GetRGInfo_WSFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityDetails">
+      <wsdl:input wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/GetActivityDetails" message="tns:IActivityBookFlow_GetActivityDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tourico.com/webservices/activity/IActivityBookFlow/GetActivityDetailsResponse" message="tns:IActivityBookFlow_GetActivityDetails_OutputMessage" />
+      <wsdl:fault wsaw:Action="GetActivityDetails" name="WSFault" message="tns:IActivityBookFlow_GetActivityDetails_WSFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>
