@@ -73,6 +73,7 @@
     <Reference Include="System.Runtime.Caching">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -179,6 +180,9 @@
       <Private>True</Private>
       <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
+    <Reference Include="TE.Common">
+      <HintPath>..\..\..\..\TravelEdge-DynamicHotel\HotelBooking\Common\Dlls\TE.Common.dll</HintPath>
+    </Reference>
     <Reference Include="TE.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Common\Dlls\TE.Core.dll</HintPath>
@@ -210,6 +214,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelDetailController.cs" />
     <Compile Include="Controllers\MultipleButtonAttribute.cs" />
+    <Compile Include="Controllers\TourController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\XMLSerializer.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -221,7 +226,14 @@
     <Compile Include="Models\CarBookingsModel.cs" />
     <Compile Include="Models\CarCancelModel.cs" />
     <Compile Include="Models\CarSearchModel.cs" />
+    <Compile Include="Models\TourBookingModel.cs" />
+    <Compile Include="Models\TourSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\TourReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css" />
@@ -283,16 +295,13 @@
     <Content Include="Global.asax" />
     <Content Include="com.hotelbeds.distribution.hotel_api_sdk.dll.config" />
     <None Include="Properties\PublishProfiles\DemoServer.pubxml" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\Localhost.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\1.jpg" />
     <Content Include="Images\2.jpg" />
     <Content Include="Images\3.jpg" />
     <Content Include="Images\4.jpg" />
-    <Content Include="Images\Cars\1.jpg" />
-    <Content Include="Images\Cars\2.jpg" />
-    <Content Include="Images\Cars\3.jpg" />
-    <Content Include="Images\Cars\4.jpg" />
     <Content Include="Images\photo_not_available.png" />
     <Content Include="Images\travel-edge-adx-small.png" />
     <Content Include="Newtonsoft.Json.xml" />
@@ -310,6 +319,12 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <None Include="Service References\TourReference\configuration91.svcinfo" />
+    <None Include="Service References\TourReference\configuration.svcinfo" />
+    <None Include="Service References\TourReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="System.Net.Http.Formatting.xml" />
     <Content Include="Views\Web.config" />
     <Content Include="Web.config">
@@ -341,7 +356,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\SearchHotel.cshtml" />
-    <Content Include="Views\HotelDetail\Index.cshtml" />
     <Content Include="Views\HotelBook\Index.cshtml" />
     <Content Include="Views\PriceBreakup\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -358,7 +372,6 @@
     <Content Include="Views\BookTourico\SearchHotel.cshtml" />
     <Content Include="Views\BookTourico\partialpoc.cshtml" />
     <Content Include="Views\Home\SearchHotelTourico.cshtml" />
-    <Content Include="Views\HotelDetail\HotelDetail.cshtml" />
     <Content Include="Views\Car\Index.cshtml" />
     <Content Include="Views\Car\SearchCarTourico.cshtml" />
     <Content Include="Views\Car\GetCars.cshtml" />
@@ -366,11 +379,65 @@
     <Content Include="Views\Car\BookCar.cshtml" />
     <Content Include="Views\Car\GetBookingDetail.cshtml" />
     <Content Include="Views\Car\CancelCar.cshtml" />
+    <Content Include="Views\Tour\index.cshtml" />
+    <None Include="Service References\TourReference\ActivityBookFlow.wsdl" />
+    <None Include="Service References\TourReference\ActivityBookFlow.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TourReference\ActivityBookFlow1.wsdl" />
+    <None Include="Service References\TourReference\ActivityBookFlow1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TourReference\ActivityBookFlow2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TourReference\ActivityBookFlow3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\TourReference\UI.TourReference.ActivitiesDetailsResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TourReference\UI.TourReference.ActivityPreBookResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TourReference\UI.TourReference.BookActivityResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TourReference\UI.TourReference.BookResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TourReference\UI.TourReference.GetActivityDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TourReference\UI.TourReference.GetRGInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TourReference\UI.TourReference.PreBookResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TourReference\UI.TourReference.RGInfoResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TourReference\UI.TourReference.SearchActivityByActivityIdsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TourReference\UI.TourReference.SearchActivityByAirPortCodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TourReference\UI.TourReference.SearchActivityByDestinationIdsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TourReference\UI.TourReference.SearchResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Views\Tour\GetActivity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BookingHistoryFiles\" />
+    <Folder Include="Images\Cars\" />
     <Folder Include="UIManager\" />
+    <Folder Include="Views\HotelDetail\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -392,6 +459,12 @@
       <Project>{e5b0c93d-72e5-4db9-b315-b861cc3bc504}</Project>
       <Name>Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\TourReference\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
