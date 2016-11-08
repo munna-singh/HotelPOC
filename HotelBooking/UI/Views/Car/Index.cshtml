@@ -262,7 +262,6 @@
     var input = $('#place-input');
     var input1 = $('#place2-input');
     var autocomplete = new google.maps.places.Autocomplete(input[0]);
-    var autocomplete1 = new google.maps.places.Autocomplete(input1[0]);
     autocomplete.addListener('place_changed', function () {
         var place = autocomplete.getPlace();
         console.log(place);
