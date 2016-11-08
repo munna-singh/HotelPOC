@@ -8,7 +8,6 @@ using Route = Common.carFlowSvc.Route;
 using UI.Models;
 using Common.Tourflowsvc;
 using UI.Controllers;
-using UI.TourReference;
 
 
 namespace UI.Controllers
@@ -25,7 +24,7 @@ namespace UI.Controllers
         public ActionResult Index()
         {
 
-            string fileLoc = @"C:\Temp\BookingHistory.txt";
+            string fileLoc = @"C:\Temp\Tour BookingHistory.txt";
             string bookingData = string.Empty;
             if (System.IO.File.Exists(fileLoc))
             {
