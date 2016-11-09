@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using Common.carFlowSvc;
+
 namespace Common.Tourflowsvc {
     
     
@@ -4648,7 +4650,7 @@ namespace Common.Tourflowsvc {
             return base.Channel.GetRGInfo(request);
         }
         
-        public Common.Tourflowsvc.RGInfoResults GetRGInfo(Common.Tourflowsvc.AuthenticationHeader AuthenticationHeader, Common.Tourflowsvc.RGInfoRequest RGInfoRequestMessage) {
+        public Common.Tourflowsvc.RGInfoResults GetRGInfo(Common.Tourflowsvc.AuthenticationHeader AuthenticationHeader, RGInfoRequest RGInfoRequestMessage) {
             Common.Tourflowsvc.GetRGInfoRequest inValue = new Common.Tourflowsvc.GetRGInfoRequest();
             inValue.AuthenticationHeader = AuthenticationHeader;
             inValue.RGInfoRequestMessage = RGInfoRequestMessage;

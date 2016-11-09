@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tourico.com/webservices/activity" elementFormDefault="qualified" targetNamespace="http://tourico.com/webservices/activity" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?xsd=xsd1" namespace="http://schemas.tourico.com/webservices/activity" />
+  <xs:element name="SearchActivityByActivityIds">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="SearchRequest" type="q1:SearchActivityByActivityIdsRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchActivityByActivityIdsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="SearchActivityByActivityIdsResult" type="q2:SearchResults" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchActivityByDestinationIds">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="SearchRequest" type="q3:SearchActivityByDestinationIdsRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchActivityByDestinationIdsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="SearchActivityByDestinationIdsResult" type="q4:SearchResults" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchActivityByAirPortCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="SearchRequest" type="q5:SearchActivityByAirPortCodeRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchActivityByAirPortCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="SearchActivityByAirPortCodeResult" type="q6:SearchResults" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActivityPreBook">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="BookActivityOptions" type="q7:PreBookRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActivityPreBookResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="ActivityPreBookResult" type="q8:PreBookResults" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BookActivity">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="BookActivityOptions" type="q9:BookRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BookActivityResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="BookActivityResult" type="q10:BookResults" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRGInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="RGInfoRequestMessage" type="q11:RGInfoRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRGInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="GetRGInfoResult" type="q12:RGInfoResults" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetActivityDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ActivitiesIds" type="tns:ArrayOfActivityId" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfActivityId">
+    <xs:sequence>
+      <xs:element xmlns:q13="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="unbounded" name="ActivityId" nillable="true" type="q13:ActivityId" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetActivityDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.tourico.com/webservices/activity" minOccurs="0" maxOccurs="1" name="GetActivityDetailsResult" type="q14:ActivitiesDetailsResults" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

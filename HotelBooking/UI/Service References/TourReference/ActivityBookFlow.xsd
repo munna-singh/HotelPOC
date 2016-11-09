@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.tourico.com/webservices/activity" elementFormDefault="qualified" targetNamespace="http://schemas.tourico.com/webservices/activity" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://demo-activityws.touricoholidays.com/ActivityBookFlow.svc?xsd=xsd3" namespace="http://microsoft.com/wsdl/types/" />
+  <xs:complexType name="SearchActivityByActivityIdsRequest">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="FromDate" type="xs:date" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ToDate" type="xs:date" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ActivityIds" type="tns:ArrayOfInt" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Filters" type="tns:ActivityIdsResultsFilters" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfInt">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="int" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActivityIdsResultsFilters">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="MinAdults" type="tns:MinAdultsFilter" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MinChildren" type="tns:MinChildrenFilter" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MinUnits" type="tns:MinUnitsFilter" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MinAdultsFilter">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Value" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MinChildrenFilter">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Value" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MinUnitsFilter">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Value" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchResults">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Info" type="tns:ResultsInfo" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Categories" type="tns:ArrayOfCategory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ResultsInfo">
+    <xs:attribute name="version" type="xs:string" />
+    <xs:attribute name="culture" type="xs:string" />
+    <xs:attribute name="numOfResults" type="xs:int" use="required" />
+    <xs:attribute name="serverTime" type="xs:dateTime" use="required" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfCategory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Category" nillable="true" type="tns:Category" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Category">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Activities" type="tns:ArrayOfActivity" />
+    </xs:sequence>
+    <xs:attribute name="categoryId" type="xs:int" use="required" />
+    <xs:attribute name="categoryName" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfActivity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Activity" nillable="true" type="tns:Activity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Activity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Location" type="tns:ActivityLocation" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ActivityOptions" type="tns:ArrayOfActivityOption" />
+    </xs:sequence>
+    <xs:attribute name="description" type="xs:string" />
+    <xs:attribute name="starsLevel" type="xs:int" use="required" />
+    <xs:attribute name="activityId" type="xs:int" use="required" />
+    <xs:attribute name="currency" type="xs:string" />
+    <xs:attribute name="maxChildAge" type="xs:int" use="required" />
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="provider" type="xs:string" />
+    <xs:attribute name="bestValue" type="xs:boolean" use="required" />
+    <xs:attribute name="minChildAge" type="xs:int" use="required" />
+    <xs:attribute name="thumbURL" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ActivityLocation">
+    <xs:attribute name="countryCode" type="xs:string" />
+    <xs:attribute name="stateCode" type="xs:string" />
+    <xs:attribute name="city" type="xs:string" />
+    <xs:attribute name="searchingState" type="xs:string" />
+    <xs:attribute name="searchingCity" type="xs:string" />
+    <xs:attribute name="location" type="xs:string" />
+    <xs:attribute name="address" type="xs:string" />
+    <xs:attribute name="longitude" type="xs:decimal" use="required" />
+    <xs:attribute name="latitude" type="xs:decimal" use="required" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfActivityOption">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ActivityOption" nillable="true" type="tns:ActivityOption" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActivityOption">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Availabilities" type="tns:ArrayOfAvailability" />
+    </xs:sequence>
+    <xs:attribute name="type" type="xs:string" />
+    <xs:attribute name="typeDescription" type="xs:string" />
+    <xs:attribute name="optionId" type="xs:int" use="required" />
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="adults" type="xs:string" />
+    <xs:attribute name="children" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfAvailability">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Availability" nillable="true" type="tns:Availability" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Availability">
+    <xs:attribute name="fromDate" type="xs:date" use="required" />
+    <xs:attribute name="toDate" type="xs:date" use="required" />
+    <xs:attribute name="maxAdults" type="xs:int" use="required" />
+    <xs:attribute name="maxChildren" type="xs:int" use="required" />
+    <xs:attribute name="maxUnits" type="xs:int" use="required" />
+    <xs:attribute name="adultPrice" type="xs:decimal" use="required" />
+    <xs:attribute name="childPrice" type="xs:decimal" use="required" />
+    <xs:attribute name="unitPrice" type="xs:decimal" use="required" />
+  </xs:complexType>
+  <xs:complexType name="SearchActivityByDestinationIdsRequest">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="fromDate" type="xs:date" />
+      <xs:element minOccurs="1" maxOccurs="1" name="toDate" type="xs:date" />
+      <xs:element minOccurs="0" maxOccurs="1" name="destinationIds" type="tns:ArrayOfInt" />
+      <xs:element minOccurs="0" maxOccurs="1" name="filters" type="tns:DestinationResultsFilters" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DestinationResultsFilters">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="MinAdults" type="tns:MinAdultsFilter" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MinChildren" type="tns:MinChildrenFilter" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MinUnits" type="tns:MinUnitsFilter" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CategoryName" type="tns:CategoryNameFilter" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CategoryId" type="tns:CategoryIdFilter" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ActivityName" type="tns:ActivityNameFilter" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CategoryNameFilter">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CategoryIdFilter">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Value" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActivityNameFilter">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchActivityByAirPortCodeRequest">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="FromDate" type="xs:date" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ToDate" type="xs:date" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Filters" type="tns:DestinationResultsFilters" />
+    </xs:sequence>
+    <xs:attribute name="destination" type="xs:string" />
+    <xs:attribute name="cityName" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="PreBookRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="bookActivityOptions" type="tns:ArrayOfPreBookOption" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfPreBookOption">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PreBookOption" nillable="true" type="tns:PreBookOption" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PreBookOption">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="ActivityId" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Date" type="xs:date" />
+      <xs:element minOccurs="1" maxOccurs="1" name="OptionId" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="NumOfAdults" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="NumOfChildren" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="NumOfUnits" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PreBookResults">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Info" type="tns:BookInfo" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ActivitiesSelectedOptions" type="tns:ActivitiesSelectedOptionsResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BookInfo">
+    <xs:attribute name="version" type="xs:string" />
+    <xs:attribute name="culture" type="xs:string" />
+    <xs:attribute name="serverTime" type="xs:dateTime" use="required" />
+  </xs:complexType>
+  <xs:complexType name="ActivitiesSelectedOptionsResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ActivitiesSelectedOptions">
+        <xs:attribute name="totalPrice" type="xs:decimal" use="required" />
+        <xs:attribute name="totalTax" type="xs:decimal" use="required" />
+        <xs:attribute name="currency" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ActivitiesSelectedOptions">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ActivitiesInfo" type="tns:ArrayOfActivityInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfActivityInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ActivityInfo" nillable="true" type="tns:ActivityInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActivityInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ActivityPricing" type="tns:ActivityPrice" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CancellationPolicy" type="tns:CancellationPolicy" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ActivityAdditions" type="tns:OrderAddition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Passengers" type="tns:ArrayOfPassengerInfo" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SpecialRequests" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="activityId" type="xs:int" use="required" />
+    <xs:attribute name="date" type="xs:dateTime" use="required" />
+    <xs:attribute name="optionId" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="ActivityPrice">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="PriceBreakdown" type="tns:ActivityPriceBreakdown" />
+    </xs:sequence>
+    <xs:attribute name="price" type="xs:decimal" use="required" />
+    <xs:attribute name="currency" type="xs:string" />
+    <xs:attribute name="tax" type="xs:decimal" use="required" />
+  </xs:complexType>
+  <xs:complexType name="ActivityPriceBreakdown">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Adult" type="tns:AdultPriceBreakdown" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Child" type="tns:ChildPriceBreakdown" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Unit" type="tns:UnitPriceBreakdown" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AdultPriceBreakdown">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PriceBreakdown" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PriceBreakdown" abstract="true">
+    <xs:attribute name="numbers" type="xs:int" use="required" />
+    <xs:attribute name="amount" type="xs:decimal" use="required" />
+  </xs:complexType>
+  <xs:complexType name="UnitPriceBreakdown">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PriceBreakdown" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ChildPriceBreakdown">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PriceBreakdown" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CancellationPolicy">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="CancellationPenalties" type="tns:ArrayOfCancellationPenalty" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfCancellationPenalty">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CancellationPenalty" nillable="true" type="tns:CancellationPenalty" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CancellationPenalty">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Deadline" type="tns:ClxDeadline" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Penalty" type="tns:PricePenalty" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClxDeadline">
+    <xs:attribute name="offsetUnit" type="tns:OffsetType" use="required" />
+    <xs:attribute name="unitsFromCheckIn" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="OffsetType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Days" />
+      <xs:enumeration value="Hours" />
+      <xs:enumeration value="Always" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PricePenalty">
+    <xs:attribute name="basisType" type="tns:BasisType" use="required" />
+    <xs:attribute name="value" type="xs:decimal" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="BasisType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Amount" />
+      <xs:enumeration value="Percent" />
+      <xs:enumeration value="Nights" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="OrderAddition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="TrueFalseAdditions" type="tns:ArrayOfTrueFalseAddition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="NumericAdditions" type="tns:ArrayOfNumericAddition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="NumericRangeAdditions" type="tns:ArrayOfNumericRangeAddition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TextAdditions" type="tns:ArrayOfTextAddition" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ListAdditions" type="tns:ArrayOfListAddition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfTrueFalseAddition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TrueFalseAddition" nillable="true" type="tns:TrueFalseAddition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TrueFalseAddition">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Addition">
+        <xs:attribute name="value" type="xs:boolean" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Addition" abstract="true">
+    <xs:attribute name="additionTypeID" type="xs:int" use="required" />
+    <xs:attribute name="additionType" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ListAddition">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Addition">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="ValidValues" type="tns:ArrayOfString" />
+        </xs:sequence>
+        <xs:attribute name="value" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TextAddition">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Addition">
+        <xs:attribute name="value" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="NumericRangeAddition">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Addition">
+        <xs:attribute name="minValue" type="xs:int" use="required" />
+        <xs:attribute name="maxValue" type="xs:int" use="required" />
+        <xs:attribute name="value" type="xs:int" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="NumericAddition">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Addition">
+        <xs:attribute name="value" type="xs:int" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfNumericAddition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NumericAddition" nillable="true" type="tns:NumericAddition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfNumericRangeAddition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NumericRangeAddition" nillable="true" type="tns:NumericRangeAddition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfTextAddition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TextAddition" nillable="true" type="tns:TextAddition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfListAddition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ListAddition" nillable="true" type="tns:ListAddition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfPassengerInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PassengerInfo" nillable="true" type="tns:PassengerInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PassengerInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="PassengerAdditions" type="tns:OrderAddition" />
+    </xs:sequence>
+    <xs:attribute name="mobilePhone" type="xs:string" />
+    <xs:attribute name="homePhone" type="xs:string" />
+    <xs:attribute name="isMainContact" type="xs:boolean" use="required" />
+    <xs:attribute name="seatNumber" type="xs:string" />
+    <xs:attribute name="lastName" type="xs:string" />
+    <xs:attribute name="type" type="tns:PassengerType" use="required" />
+    <xs:attribute name="seqNumber" type="xs:int" use="required" />
+    <xs:attribute name="middleName" type="xs:string" />
+    <xs:attribute name="firstName" type="xs:string" />
+  </xs:complexType>
+  <xs:simpleType name="PassengerType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Adult" />
+      <xs:enumeration value="Child" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="BookRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="orderInfo" type="tns:OrderInfo" />
+      <xs:element minOccurs="0" maxOccurs="1" name="reservations" type="tns:ActivitiesSelectedOptions" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrderInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="CCI" type="tns:CreditcardInfo" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DeltaPrice" type="tns:DeltaPrice" />
+    </xs:sequence>
+    <xs:attribute name="rgRefNum" type="xs:string" />
+    <xs:attribute name="requestedPrice" type="xs:decimal" use="required" />
+    <xs:attribute name="currency" type="xs:string" />
+    <xs:attribute name="confirmationLogoUrl" type="xs:string" />
+    <xs:attribute name="paymentType" type="tns:WSPaymentType" use="required" />
+    <xs:attribute name="recordLocatorId" type="xs:long" use="required" />
+    <xs:attribute name="confirmationEmail" type="xs:string" />
+    <xs:attribute name="agentRefNumber" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="CreditcardInfo">
+    <xs:attribute xmlns:q1="http://microsoft.com/wsdl/types/" name="CreditCardToken" type="q1:guid" use="required" />
+  </xs:complexType>
+  <xs:complexType name="DeltaPrice">
+    <xs:attribute name="basisType" type="tns:BasisType" use="required" />
+    <xs:attribute name="value" type="xs:decimal" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="WSPaymentType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Creditcard" />
+      <xs:enumeration value="Obligo" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="BookResults">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Info" type="tns:BookInfo" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ResGroup" type="tns:ResGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ResGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Reservations" type="tns:ArrayOfActivityReservation" />
+    </xs:sequence>
+    <xs:attribute name="rgId" type="xs:int" use="required" />
+    <xs:attribute name="rgRemark" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfActivityReservation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ActivityReservation" nillable="true" type="tns:ActivityReservation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActivityReservation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ActivityInfo" type="tns:ActivityInfo" />
+    </xs:sequence>
+    <xs:attribute name="tranNumber" type="xs:int" use="required" />
+    <xs:attribute name="status" type="xs:string" />
+    <xs:attribute name="reservationId" type="xs:int" use="required" />
+    <xs:attribute name="agentRefNumber" type="xs:string" />
+    <xs:attribute name="totalPrice" type="xs:decimal" use="required" />
+    <xs:attribute name="date" type="xs:dateTime" use="required" />
+    <xs:attribute name="totalTax" type="xs:decimal" use="required" />
+    <xs:attribute name="currency" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="RGInfoRequest">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="RGId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RGInfoResults">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Info" type="tns:BookInfo" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ResGroup" type="tns:ResGroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActivityId">
+    <xs:attribute name="id" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="ActivitiesDetailsResults">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Info" type="tns:ResultsInfo" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ActivitiesDetails" type="tns:ArrayOfActivityDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfActivityDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ActivityDetails" nillable="true" type="tns:ActivityDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActivityDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Location" type="tns:ActivityLocation" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Description" type="tns:ActivityDescription" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Media" type="tns:ActivityMedia" />
+    </xs:sequence>
+    <xs:attribute name="mapImage" type="xs:string" />
+    <xs:attribute name="activityId" type="xs:int" use="required" />
+    <xs:attribute name="activityFax" type="xs:string" />
+    <xs:attribute name="starsLevel" type="xs:int" use="required" />
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="activityPhone" type="xs:string" />
+    <xs:attribute name="categoryName" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ActivityDescription">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ShortDescription" type="tns:ShortDescription" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LongDescription" type="tns:LongDescription" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ShortDescription">
+    <xs:attribute name="desc" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="LongDescription">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="VoucherRemarks" type="tns:VoucherRemark" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Fragments" type="tns:ArrayOfDescriptionFragment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VoucherRemark">
+    <xs:attribute name="desc" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfDescriptionFragment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DescriptionFragment" nillable="true" type="tns:DescriptionFragment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DescriptionFragment">
+    <xs:attribute name="type" type="xs:string" />
+    <xs:attribute name="typeId" type="xs:int" use="required" />
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ActivityMedia">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Images" type="tns:ArrayOfImage" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Movies" type="tns:ArrayOfMovie" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfImage">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Image" nillable="true" type="tns:Image" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Image">
+    <xs:attribute name="path" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ArrayOfMovie">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Movie" nillable="true" type="tns:Movie" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Movie">
+    <xs:attribute name="youtubeId" type="xs:string" />
+    <xs:attribute name="title" type="xs:string" />
+  </xs:complexType>
+</xs:schema>
