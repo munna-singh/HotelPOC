@@ -18,6 +18,13 @@
         padding-left: 2px;
         padding-right: 2px;
     }
+
+    .bottm-border-td {
+        padding: 0px;
+        border-bottom: 2px;
+        border-bottom-style: solid;
+        border-bottom-color: maroon;
+    }
 </style>
 
 <h1>@ViewBag.Title</h1>
@@ -52,7 +59,7 @@
         @foreach (var details in Model)
         {
             <tr>
-                <td style="padding:0px;">
+                <td style="padding-left: 10px">
 
 
                     <a style=" height:inherit" data-toggle="collapse" href="#@details.categoryId">
@@ -68,7 +75,7 @@
                         <table class="table table-striped">
                             @foreach (var activity in details.Activities)
                             {
-                                <tr>
+                                <tr class="bottm-border-td">
                                     <td>
                                         <h5>
                                             <b>
@@ -79,23 +86,24 @@
                                             <tr>
                                                 <td>
                                                     <div class="col-md-9">
-                                                        <p class="glyphicon glyphicon-map-marker" style="color: grey; font-size: 15px"><b> Location:</b></p>
+                                                        <p class="glyphicon glyphicon-map-marker" style="color: grey; font-size: 15px"><b> Location:</b>
+                                                        </p>
                                                         <p>
-                                                            @activity.Location.address, @activity.Location.city, @activity.Location.stateCode, @activity.Location.countryCode<br />
-                                                            Lat-Long: @activity.Location.latitude @activity.Location.longitude<br />
-                                                            Searched at: @activity.Location.searchingCity, @activity.Location.searchingState<br />
+                                                            @activity.Location.address, @activity.Location.city, @activity.Location.stateCode, @activity.Location.countryCode<br/>
+                                                            Lat-Long: @activity.Location.latitude @activity.Location.longitude<br/>
+                                                            Searched at: @activity.Location.searchingCity, @activity.Location.searchingState<br/>
                                                             Location: @foreach (var location in @activity.Location.location)
-                                                            {
-                                                                @location
-                                                            }
+                                                                      {
+                                                                          @location
+                                                                      }
                                                         </p>
                                                     </div>
                                                     <div class="col-md-3">
                                                         @using (Html.BeginForm("GetActivityDetails", "Tour"))
                                                         {
                                                             <button type="submit" class="btn btn-primary">Select</button>
-                                                                <input type="hidden" id="productId" name="productId" value="@activity.activityId" />
-                                                                <input type="hidden" id="sessionId" name="sessionId" value="@ViewBag.SessionId" />
+                                                            <input type="hidden" id="productId" name="productId" value="@activity.activityId"/>
+                                                            <input type="hidden" id="sessionId" name="sessionId" value="@ViewBag.SessionId"/>
                                                             string optionConcatId = "";
                                                             foreach (var optioninput in activity.ActivityOptions)
                                                             {
@@ -108,21 +116,21 @@
                                                                     optionConcatId = optioninput.optionId + " " + optionConcatId;
                                                                 }
                                                             }
-                                                            <input type="hidden" class="optionId" name="optionId" value="@optionConcatId" />
-                                                                <input type="hidden" class="optionType" name="optionType" value="@activity.ActivityOptions[0].type" />
+                                                            <input type="hidden" class="optionId" name="optionId" value="@optionConcatId"/>
+                                                            <input type="hidden" class="optionType" name="optionType" value="@activity.ActivityOptions[0].type"/>
                                                         }
                                                     </div>
                                                     <div class="col-md-9">
                                                         <p>@activity.description</p>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <img src="@activity.thumbURL" />
+                                                        <img src="@activity.thumbURL"/>
                                                     </div>
 
                                                     <table>
                                                         <tr>
                                                             <td class="col-md-3">
-                                                                <b>Child ages from:</b><br />
+                                                                <b>Child ages from:</b><br/>
                                                                 @activity.minChildAge - @activity.maxChildAge
                                                             </td>
                                                             <td class="col-md-3">
@@ -144,7 +152,7 @@
                                                                             <td>
                                                                                 <b>
                                                                                     <a data-toggle="collapse" href="#@option.optionId">
-                                                                                        Option ID: @option.optionId @option.name <sub>Click for more</sub><br />
+                                                                                        Option ID: @option.optionId @option.name <sub>Click for more</sub><br/>
                                                                                     </a>
                                                                                 </b>
                                                                                 <div id="@option.optionId" class="panel-collapse collapse">
@@ -152,10 +160,12 @@
                                                                                     <b>Option type: </b> @option.type
                                                                                     <p>@option.typeDescription</p>
 
-                                                                                    <p class="glyphicon glyphicon-user" style="color: grey; font-size: 15px"><b> Passengers:</b></p>
+                                                                                    <p class="glyphicon glyphicon-user" style="color: grey; font-size: 15px"><b> Passengers:</b>
+                                                                                    </p>
                                                                                     @if (option.adults != null)
                                                                                     {
-                                                                                        @option.adults <p>Adults</p>
+                                                                                        @option.adults
+                                                                                        <p>Adults</p>
                                                                                     }
                                                                                     else
                                                                                     {
@@ -163,7 +173,8 @@
                                                                                     }
                                                                                     @if (option.children != null)
                                                                                     {
-                                                                                        @option.children <p>Children</p>
+                                                                                        @option.children
+                                                                                        <p>Children</p>
                                                                                     }
                                                                                     else
                                                                                     {
@@ -217,6 +228,7 @@
                                                 </td>
                                             </tr>
                                         </table>
+                                        <hr/>
                                     </td>
                                 </tr>
 
