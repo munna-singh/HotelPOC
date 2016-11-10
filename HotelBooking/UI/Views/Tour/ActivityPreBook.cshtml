@@ -1,7 +1,7 @@
-﻿@model Common.Tourflowsvc.RGInfoResults
+﻿@model Common.Tourflowsvc.ActivitiesSelectedOptionsResponse
 
 @{
-    ViewBag.Title = "GetBookingDetail";
+    ViewBag.Title = "ActivityPreBookInfo";
 }
 
 
@@ -27,60 +27,44 @@
 {
 
     <table class="table table-striped" id="scroll" width="100%">
-        <tr>
-            <td>
-                <b>RG ID:</b> @Model.ResGroup.rgId
-            </td>
-            <td>
-                <b>RG Remark:</b>  @Model.ResGroup.rgRemark
-            </td>
-        </tr>                @foreach (var reservation in Model.ResGroup.Reservations)
+
+        @foreach (var activityInfo in Model.ActivitiesInfo)
                 {
             <tr>
+
                 <td>
-                    <p class="glyphicon glyphicon-credit-card" style="color: grey; font-size: 15px"><b> Price:</b></p> @reservation.currency @reservation.totalPrice<br />
-                    <b>Tax: </b> @reservation.currency @reservation.totalTax<br />
-                    <b>Reservation ID: </b>@reservation.reservationId   @reservation.date
-                </td>
-                <td>
-                    <b>Transaction Number: </b>@reservation.tranNumber<br />
-                    <b>Agent Reference Number: </b>@reservation.agentRefNumber<br />
-                    <b>Status: </b>@reservation.status
-                </td>
-            </tr>
-            <tr>
-                <td>
+
                     <table>
                         <tr>
                             <td>
-                                <h5><b>Activity Id: </b>@reservation.ActivityInfo.activityId</h5>
+                                <h5><b>Activity Id: </b>@activityInfo.activityId</h5>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <p class="glyphicon glyphicon-credit-card" style="color: grey; font-size: 15px"><b> Price:</b></p> @reservation.ActivityInfo.ActivityPricing.currency @reservation.ActivityInfo.ActivityPricing.price<br />
+                                <p class="glyphicon glyphicon-credit-card" style="color: grey; font-size: 15px"><b> Price:</b></p> @activityInfo.ActivityPricing.currency @activityInfo.ActivityPricing.price<br />
                                 <p>
-                                    <b>Tax: </b>@reservation.ActivityInfo.ActivityPricing.currency @reservation.ActivityInfo.ActivityPricing.tax<br />
+                                    <b>Tax: </b>@activityInfo.ActivityPricing.currency @activityInfo.ActivityPricing.tax<br />
                                     @if (ViewBag.optionType == "PerPerson")
                                     {
-                                    <p>Price of @reservation.ActivityInfo.ActivityPricing.currency @reservation.ActivityInfo.ActivityPricing.PriceBreakdown.Adult.amount for @reservation.ActivityInfo.ActivityPricing.PriceBreakdown.Adult.numbers Adults</p>
-                                    <p>Price of @reservation.ActivityInfo.ActivityPricing.currency @reservation.ActivityInfo.ActivityPricing.PriceBreakdown.Child.amount for @reservation.ActivityInfo.ActivityPricing.PriceBreakdown.Child.numbers Child</p>
+                                    <p>Price of @activityInfo.ActivityPricing.currency @activityInfo.ActivityPricing.PriceBreakdown.Adult.amount for @activityInfo.ActivityPricing.PriceBreakdown.Adult.numbers Adults</p>
+                                            <p>Price of @activityInfo.ActivityPricing.currency @activityInfo.ActivityPricing.PriceBreakdown.Child.amount for @activityInfo.ActivityPricing.PriceBreakdown.Child.numbers Child</p>
                                     }
                                     @if (ViewBag.optionType == "PerUnit")
                                     {
-                                        <p> Price of @reservation.ActivityInfo.ActivityPricing.currency @reservation.ActivityInfo.ActivityPricing.PriceBreakdown.Unit.amount for @reservation.ActivityInfo.ActivityPricing.PriceBreakdown.Unit.numbers Units</p>
+                                        <p> Price of @activityInfo.ActivityPricing.currency @activityInfo.ActivityPricing.PriceBreakdown.Unit.amount for @activityInfo.ActivityPricing.PriceBreakdown.Unit.numbers Units</p>
                                     }
 
                                     </p>
                                 </td>
                                 <td>
-                                    <p class="glyphicon glyphicon-calendar" style="color: grey; font-size: 15px"><b> Tour Date:</b></p> @reservation.ActivityInfo.date<br />
-                                    <b>Option ID: </b>@reservation.ActivityInfo.optionId
+                                    <p class="glyphicon glyphicon-calendar" style="color: grey; font-size: 15px"><b> Tour Date:</b></p> @activityInfo.date<br />
+                                    <b>Option ID: </b>@activityInfo.optionId
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    @foreach (var passenger in reservation.ActivityInfo.Passengers)
+                                    @foreach (var passenger in activityInfo.Passengers)
                                     {
                                         <table>
                                             <tr>
@@ -127,9 +111,9 @@
                                             </tr>
                                         </table>
                                     }
-                                    @if (reservation.ActivityInfo.SpecialRequests != null)
+                                    @if (activityInfo.SpecialRequests != null)
                                     {
-                                        foreach (var specialRequest in reservation.ActivityInfo.SpecialRequests)
+                                        foreach (var specialRequest in activityInfo.SpecialRequests)
                                         {
                                             <table>
                                                 <tr>
@@ -140,9 +124,9 @@
                                             </table>
                                         }
                                     }
-                                    @if (reservation.ActivityInfo.ActivityAdditions.ListAdditions != null)
+                                    @if (activityInfo.ActivityAdditions.ListAdditions != null)
                                     {
-                                        foreach (var listAddition in reservation.ActivityInfo.ActivityAdditions.ListAdditions)
+                                        foreach (var listAddition in activityInfo.ActivityAdditions.ListAdditions)
                                         {
                                             <table>
                                                 <tr>
@@ -155,9 +139,9 @@
                                         }
                                     }
 
-                                    @if (reservation.ActivityInfo.ActivityAdditions.NumericAdditions != null)
+                                    @if (activityInfo.ActivityAdditions.NumericAdditions != null)
                                     {
-                                        foreach (var numericAddition in reservation.ActivityInfo.ActivityAdditions.NumericAdditions)
+                                        foreach (var numericAddition in activityInfo.ActivityAdditions.NumericAdditions)
                                         {
                                             <table>
                                                 <tr>
@@ -170,9 +154,9 @@
                                         }
                                     }
 
-                                    @if (reservation.ActivityInfo.ActivityAdditions.NumericRangeAdditions != null)
+                                    @if (activityInfo.ActivityAdditions.NumericRangeAdditions != null)
                                     {
-                                        foreach (var numericRangeAddition in reservation.ActivityInfo.ActivityAdditions.NumericRangeAdditions)
+                                        foreach (var numericRangeAddition in activityInfo.ActivityAdditions.NumericRangeAdditions)
                                         {
                                             <table>
                                                 <tr>
@@ -185,9 +169,9 @@
                                         }
                                     }
 
-                                    @if (reservation.ActivityInfo.ActivityAdditions.TextAdditions != null)
+                                    @if (activityInfo.ActivityAdditions.TextAdditions != null)
                                     {
-                                        foreach (var textAddition in reservation.ActivityInfo.ActivityAdditions.TextAdditions)
+                                        foreach (var textAddition in activityInfo.ActivityAdditions.TextAdditions)
                                         {
                                             <table>
                                                 <tr>
@@ -199,9 +183,9 @@
                                             </table>
                                         }
                                     }
-                                    @if (reservation.ActivityInfo.ActivityAdditions.TrueFalseAdditions != null)
+                                    @if (activityInfo.ActivityAdditions.TrueFalseAdditions != null)
                                     {
-                                        foreach (var trueFalseAddition in reservation.ActivityInfo.ActivityAdditions.TrueFalseAdditions)
+                                        foreach (var trueFalseAddition in activityInfo.ActivityAdditions.TrueFalseAdditions)
                                         {
                                             <table>
                                                 <tr>
@@ -218,16 +202,25 @@
                         </table>
                     </td>
                 </tr>
-
+                        <tr>
+                            <td>
+                                @using (Html.BeginForm("BookActivity", "Tour"))
+                                {
+                                    <button type="submit" class="btn btn-primary">Book</button>
+                                                                <input type="hidden" id="productId" name="productId" value="@activityInfo.activityId" />
+                                                                <input type="hidden" id="sessionId" name="sessionId" value="@ViewBag.SessionId" />
+                                                                <input type="hidden" id="optionId" name="optionId" value="@activityInfo.optionId" />
+                                }
+                            </td>
+                        </tr>
         }
 
-
-
     </table>
+
 }
 else
 {
-    <p style="color: red; font-size: 15px;"> No record found </p>
+    <p style="color: red; font-size: 15px;">No record found </p>
 }
 
 
@@ -249,6 +242,8 @@ else
     .tableColorStriped > tbody > tr:nth-child(even) > td,
     .tableColorStriped > tbody > tr:nth-child(even) > th {
         background-color: lightgray;
-        //Choose your own color here
+        // Choose your own color here;
     }
 </style>
+
+

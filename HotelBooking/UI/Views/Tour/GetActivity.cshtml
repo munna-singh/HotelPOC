@@ -3,7 +3,7 @@
 
 
 @{
-    ViewBag.Title = "Car Search Result";
+    ViewBag.Title = "Tour Search Result";
     var counter = 1;
 }
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -20,19 +20,15 @@
     }
 </style>
 
-<h1>Car Search Result</h1>
+<h1>@ViewBag.Title</h1>
 
 
 @if ((Model.Length > 0))
 {
-    <div>
-        <script type="text/javascript"
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false">
-
-
-
-        </script>
-        <script type="text/javascript">
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false">
+    </script>
+    <script type="text/javascript">
              $(document)
                  .ready(function() {
                      var lat = @ViewBag.LatOrg;
@@ -51,143 +47,205 @@
                      });
                      marker.setMap(map);
                  });
-
-        </script>
-    </div>
-
-    <table width="100%" style="padding: 0px 0px 0px 0px">
-        <tr>
-            <td style="width: 75%;vertical-align: top">
-                <div style="font-size: 12px;">
-
-                    <table width="100%">
-                        @foreach (var details in Model)
-                        {
-                            <tr style="border: solid; padding: 0px;" class="iterateCar" >
-                                <td style="width: 10%"></td>
-                                <td style="width: 5%"></td>
-                                <td style="width: 75%">
-                                    <table style="text-align: left; border-style: none; border-width: 0px;" width="100%">
-                                        <tr>
-                                            <td colspan="3">
-                                                <b>@details.categoryName</b>
-                                            </td>
-                                        </tr>
-                                        @foreach (var activity in details.Activities)
-                                        {
+    </script>
+    <table class="table table-striped tableColorStriped" width="100%">
+        @foreach (var details in Model)
+        {
+            <tr>
+                <td>
+                    <h5>
+                        <b>
+                            <a data-toggle="collapse" href="#@details.categoryId">
+                                Category ID: @details.categoryId @details.categoryName
+                            </a>
+                        </b>
+                    </h5>
+                    <div id="@details.categoryId" class="panel-collapse collapse">
+                        <table class="table table-striped">
+                            @foreach (var activity in details.Activities)
+                            {
+                                <tr>
+                                    <td>
+                                        <h5>
+                                            <b>
+                                                Activity ID: @activity.activityId @activity.name - @activity.starsLevel
+                                            </b>
+                                        </h5>
+                                        <table>
                                             <tr>
                                                 <td>
+                                                    <div class="col-md-9">
+                                                        <p class="glyphicon glyphicon-map-marker" style="color: grey; font-size: 15px"><b> Location:</b></p>
+                                                        <p>
+                                                            @activity.Location.address, @activity.Location.city, @activity.Location.stateCode, @activity.Location.countryCode<br />
+                                                            Lat-Long: @activity.Location.latitude @activity.Location.longitude<br />
+                                                            Searched at: @activity.Location.searchingCity, @activity.Location.searchingState<br />
+                                                            Location: @activity.Location.location
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @using (Html.BeginForm("GetActivityDetails", "Tour"))
+                                                        {
+                                                            <button type="submit" class="btn btn-primary">Select</button>
+                                                                <input type="hidden" id="productId" name="productId" value="@activity.activityId" />
+                                                                <input type="hidden" id="sessionId" name="sessionId" value="@ViewBag.SessionId" />
+                                                            string optionConcatId = "";
+                                                            foreach (var optioninput in activity.ActivityOptions)
+                                                            {
+                                                                if (optioninput == activity.ActivityOptions.First())
+                                                                {
+                                                                    optionConcatId = optioninput.optionId.ToString();
+                                                                }
+                                                                else
+                                                                {
+                                                                    optionConcatId = optioninput.optionId + " " + optionConcatId;
+                                                                }
+                                                            }
+                                                            <input type="hidden" class="optionId" name="optionId" value="@optionConcatId" />
+                                                                <input type="hidden" class="optionType" name="optionType" value="@activity.ActivityOptions[0].type" />
+                                                        }
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <p>@activity.description</p>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <img src="@activity.thumbURL" />
+                                                    </div>
 
-                                                    <b>@activity.activityId @activity.name - @activity.Location @activity.starsLevel</b>
-                                                    <p>@activity.description</p>
-
-                                                </td>
-                                                <td>
-
-                                                    <img src="@activity.thumbURL"/>
-
-                                                </td>
-                                                <td>
-                                                    @activity.
-                                                </td>
-                                                <td style="text-align: right">
                                                     <table>
                                                         <tr>
-                                                            <td>
-                                                                <p><b>>Child ages from:</b></p>
+                                                            <td class="col-md-3">
+                                                                <b>Child ages from:</b><br />
+                                                                @activity.minChildAge - @activity.maxChildAge
                                                             </td>
-                                                            <td>@activity.minChildAge - @activity.maxChildAge</td>
+                                                            <td class="col-md-3">
+                                                                <b>Best Value:</b> @activity.bestValue
+                                                            </td>
+                                                            <td class="col-md-3">
+                                                                <b>Currency:</b> @activity.currency
+                                                            </td>
+                                                            <td class="col-md-3">
+                                                                <b>Provider: </b>@activity.provider
+                                                            </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
-                                                                <p class="glyphicon glyphicon-briefcase" style="color: lightgray; font-size: 20px"></p>
+                                                            <td class="col-md-12" colspan="12">
+                                                                <table class="table table-striped">
+                                                                    @foreach (var option in activity.ActivityOptions)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                <b>
+                                                                                    <a data-toggle="collapse" href="#@option.optionId" style="color: blue;">
+                                                                                        <u>Option ID: @option.optionId @option.name</u><br />
+                                                                                    </a>
+                                                                                </b>
+                                                                                <div id="@option.optionId" class="panel-collapse collapse">
+
+                                                                                    <b>Option type: </b> @option.type
+                                                                                    <p>@option.typeDescription</p>
+
+                                                                                    <p class="glyphicon glyphicon-user" style="color: grey; font-size: 15px"><b> Passengers:</b></p>
+                                                                                    @if (option.adults != null)
+                                                                                    {
+                                                                                        @option.adults <p>Adults</p>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <p>0 Adults</p>
+                                                                                    }
+                                                                                    @if (option.children != null)
+                                                                                    {
+                                                                                        @option.children <p>Children</p>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <p>0 Adults</p>
+                                                                                    }
+                                                                                    <table>
+                                                                                        @foreach (var availability in option.Availabilities)
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    <table>
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                <b>Adult price: </b>
+                                                                                                                <p>@availability.adultPrice</p>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <b>Child price: </b>
+                                                                                                                <p>@availability.childPrice</p>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <b>Unit price: </b>
+                                                                                                                <p>@availability.unitPrice</p>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <b>Availability:</b>
+                                                                                                                <p>@availability.fromDate - @availability.toDate</p>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <b>Max units: </b>
+                                                                                                                <p>@availability.maxUnits</p>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <b>Maximum passengers: </b>
+                                                                                                                <p>@availability.maxAdults Adults and @availability.maxChildren Children</p>
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    </table>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        }
+                                                                                    </table>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                </table>
                                                             </td>
-                                                            <td>@activity.bestValue @activity.currency @activity.provider</td>
                                                         </tr>
                                                     </table>
                                                 </td>
                                             </tr>
-                                            foreach (var option in activity.ActivityOptions)
-                                            {
-                                                <tr>
-                                                    <td>
+                                        </table>
+                                    </td>
+                                </tr>
 
-                                                        <table>
-                                                            <tr>
-                                                                <td>
-
-                                                                    <b>@option.optionId @option.name - @option.type</b>
-                                                                    <p>@option.typeDescription</p>
-
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <p class="glyphicon glyphicon-user" style="color: lightgray; font-size: 20px"><b>Passengers:</b></p>
-                                                                </td>
-                                                                <td>@option.adults Adults and @option.children Children</td>
-                                                            </tr>
-                                                        </table>
-
-                                                    </td>
-
-                                                </tr>
-                                                foreach (var availability in option.Availabilities)
-                                                {
-                                                    <tr>
-                                                        <td>
-
-                                                            <table>
-                                                                <tr>
-                                                                    <td>
-
-                                                                        <b>Adult price: </b>
-                                                                        <p>@availability.adultPrice</p>
-                                                                        <b>Child price: </b>
-                                                                        <p>@availability.childPrice</p>
-                                                                        <b>Unit price: </b>
-                                                                        <p>@availability.unitPrice</p>
-                                                                        <p>@availability.fromDate - @availability.toDate</p>
-                                                                        <b>Max units: </b>
-                                                                        <p>@availability.maxUnits</p>
-                                                                        <b>Maximum passengers: </b>
-                                                                        <p>@availability.maxAdults Adults and @availability.maxChildren Children</p>
-                                                                       </td>
-                                                                </tr>
-                                                              
-                                                            </table>
-
-                                                        </td>
-
-                                                    </tr>
-
-                                                }
-                                            }
-                                        }
-
-                                        
-                                    </table>
-                                </td>
-                                
-                            </tr>
-                                                    }
-                    </table>
-                </div>
-            </td>
-        </tr>
-
+                            }
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        }
     </table>
+}
+else
+{
+    <p style="color: red; font-size: 15px;">No record found </p>
+}
 
-                                                    }
-                                                    else
-                                                    {
-                                                        <p style="color: red; font-size: 15px;">No record found </p>
-                                                    }
+
+
+
+
+
 
 <style type="text/css">
     .rcorners {
         border-radius: 7px;
         border: 2px solid #73AD21;
+    }
+
+    .tableColorStriped > tbody > tr:nth-child(odd) > td,
+    .tableColorStriped > tbody > tr:nth-child(odd) > th {
+    }
+
+    .tableColorStriped > tbody > tr:nth-child(even) > td,
+    .tableColorStriped > tbody > tr:nth-child(even) > th {
+        background-color: lightgray;
+        // Choose your own color here;
     }
 </style>
 

@@ -1,5 +1,267 @@
-﻿@{
+﻿@model Common.Tourflowsvc.BookResults
+
+@{
     ViewBag.Title = "BookActivity";
 }
 
-<h2>BookActivity</h2>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<style type="text/css">
+    .hotel-map-label {
+        color: #29abe2;
+        font-weight: bold;
+        border-style: solid;
+        border-color: #ffffff;
+        background-color: #ffffff;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+</style>
+
+
+<h2>@ViewBag.Title</h2>
+
+
+@if (Model != null)
+{
+
+    <table class="table table-striped" id="scroll" width="100%">
+        <tr>
+            <td>
+                <b>RG ID:</b> @Model.ResGroup.rgId
+            </td>
+            <td>
+                <b>RG Remark:</b>  @Model.ResGroup.rgRemark
+            </td>
+        </tr>
+        @foreach (var reservation in Model.ResGroup.Reservations)
+        {
+            <tr>
+                <td>
+                    <p class="glyphicon glyphicon-credit-card" style="color: grey; font-size: 15px"><b> Price:</b></p> @reservation.currency @reservation.totalPrice<br />
+                    <b>Tax: </b> @reservation.currency @reservation.totalTax<br />
+                    <b>Reservation ID: </b>@reservation.reservationId   @reservation.date
+                </td>
+                <td>
+                    <b>Transaction Number: </b>@reservation.tranNumber<br />
+                    <b>Agent Reference Number: </b>@reservation.agentRefNumber<br />
+                    <b>Status: </b>@reservation.status
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <h5><b>Activity Id: </b>@reservation.ActivityInfo.activityId</h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="glyphicon glyphicon-credit-card" style="color: grey; font-size: 15px"><b> Price:</b>
+                                </p> @reservation.ActivityInfo.ActivityPricing.currency @reservation.ActivityInfo.ActivityPricing.price<br/>
+                                <p>
+                                    <b>Tax: </b>@reservation.ActivityInfo.ActivityPricing.currency @reservation.ActivityInfo.ActivityPricing.tax<br/>
+                                    @if (ViewBag.optionType == "PerPerson")
+                                    {
+                                        <p>Price of @reservation.ActivityInfo.ActivityPricing.currency @reservation.ActivityInfo.ActivityPricing.PriceBreakdown.Adult.amount for @reservation.ActivityInfo.ActivityPricing.PriceBreakdown.Adult.numbers Adults</p>
+                                        <p>Price of @reservation.ActivityInfo.ActivityPricing.currency @reservation.ActivityInfo.ActivityPricing.PriceBreakdown.Child.amount for @reservation.ActivityInfo.ActivityPricing.PriceBreakdown.Child.numbers Child</p>
+                                    }
+                                    @if (ViewBag.optionType == "PerUnit")
+                                    {
+                                        <p> Price of @reservation.ActivityInfo.ActivityPricing.currency @reservation.ActivityInfo.ActivityPricing.PriceBreakdown.Unit.amount for @reservation.ActivityInfo.ActivityPricing.PriceBreakdown.Unit.numbers Units</p>
+                                    }
+
+                                </p>
+                            </td>
+                            <td>
+                                <p class="glyphicon glyphicon-calendar" style="color: grey; font-size: 15px"><b> Tour Date:</b>
+                                </p> @reservation.ActivityInfo.date<br/>
+                                <b>Option ID: </b>@reservation.ActivityInfo.optionId
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @foreach (var passenger in reservation.ActivityInfo.Passengers)
+                                {
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <p class="glyphicon glyphicon-user" style="color: grey; font-size: 15px"><b> Passengers:</b>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                @if (passenger.firstName != null)
+                                                {
+                                                    if (passenger.middleName != null)
+                                                    {
+                                                        if (passenger.lastName != null)
+                                                        {
+                                                            @passenger.firstName
+                                                            @passenger.middleName
+                                                            @passenger.lastName<br/>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>Name not provided</p>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>Name not provided</p>
+
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <p>Name not provided</p>
+                                                }
+                                                <p><b>Phone: </b> @passenger.homePhone</p>
+                                                <p><b>Sequence No: </b> @passenger.seqNumber</p>
+                                                <p><b>Passenger is main contact:</b>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p>@passenger.type<br/>
+                                                </p>
+                                                <p><b>Mobile: </b> @passenger.mobilePhone</p>
+                                                <p><b>Seat No: </b> @passenger.seatNumber</p>
+                                                <p>@passenger.isMainContact</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }
+                                @if (reservation.ActivityInfo.SpecialRequests != null)
+                                {
+                                    foreach (var specialRequest in reservation.ActivityInfo.SpecialRequests)
+                                    {
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    @specialRequest
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    }
+                                }
+                                @if (reservation.ActivityInfo.ActivityAdditions.ListAdditions != null)
+                                {
+                                    foreach (var listAddition in reservation.ActivityInfo.ActivityAdditions.ListAdditions)
+                                    {
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    @listAddition.additionTypeID @listAddition.additionType<br/>
+                                                    @listAddition.ValidValues @listAddition.value
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    }
+                                }
+
+                                @if (reservation.ActivityInfo.ActivityAdditions.NumericAdditions != null)
+                                {
+                                    foreach (var numericAddition in reservation.ActivityInfo.ActivityAdditions.NumericAdditions)
+                                    {
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    @numericAddition.additionTypeID @numericAddition.additionType<br/>
+                                                    @numericAddition.value
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    }
+                                }
+
+                                @if (reservation.ActivityInfo.ActivityAdditions.NumericRangeAdditions != null)
+                                {
+                                    foreach (var numericRangeAddition in reservation.ActivityInfo.ActivityAdditions.NumericRangeAdditions)
+                                    {
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    @numericRangeAddition.additionTypeID @numericRangeAddition.additionType<br/>
+                                                    @numericRangeAddition.maxValue @numericRangeAddition.minValue @numericRangeAddition.value
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    }
+                                }
+
+                                @if (reservation.ActivityInfo.ActivityAdditions.TextAdditions != null)
+                                {
+                                    foreach (var textAddition in reservation.ActivityInfo.ActivityAdditions.TextAdditions)
+                                    {
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    @textAddition.additionTypeID @textAddition.additionType<br/>
+                                                    @textAddition.value
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    }
+                                }
+                                @if (reservation.ActivityInfo.ActivityAdditions.TrueFalseAdditions != null)
+                                {
+                                    foreach (var trueFalseAddition in reservation.ActivityInfo.ActivityAdditions.TrueFalseAdditions)
+                                    {
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    @trueFalseAddition.additionTypeID @trueFalseAddition.additionType<br/>
+                                                    @trueFalseAddition.value
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    @using (Html.BeginForm("Index", "Tour"))
+                    {
+                        <button type="submit" class="btn btn-primary">Return to Home Page</button>
+                    }
+                </td>
+
+                </tr>
+
+        }
+
+    </table>
+
+}
+else
+{
+    <p style="color: red; font-size: 15px;"> No record found </p>
+}
+
+
+
+
+
+
+
+<style type="text/css">
+    .rcorners {
+        border-radius: 7px;
+        border: 2px solid #73AD21;
+    }
+
+    .tableColorStriped > tbody > tr:nth-child(odd) > td,
+    .tableColorStriped > tbody > tr:nth-child(odd) > th {
+    }
+
+    .tableColorStriped > tbody > tr:nth-child(even) > td,
+    .tableColorStriped > tbody > tr:nth-child(even) > th {
+        background-color: lightgray;
+        // Choose your own color here;
+    }
+</style>
