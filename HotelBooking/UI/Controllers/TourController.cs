@@ -3,34 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using Common.carFlowSvc;
-using Common.hotelflowSvc;
+using Common.Tourflowsvc;
 using Route = Common.carFlowSvc.Route;
 using UI.Models;
 using Common.Tourflowsvc;
 using DotNetOpenAuth.AspNet.Clients;
 using UI.Controllers;
-using UI.TourReference;
-using ActivitiesSelectedOptionsResponse = Common.Tourflowsvc.ActivitiesSelectedOptionsResponse;
-using Activity = Common.Tourflowsvc.Activity;
-using ActivityId = Common.Tourflowsvc.ActivityId;
-using ActivityInfo = UI.TourReference.ActivityInfo;
-using ActivityPreBookRequest = Common.Tourflowsvc.ActivityPreBookRequest;
-using AuthenticationHeader = Common.Tourflowsvc.AuthenticationHeader;
-using BasisType = Common.Tourflowsvc.BasisType;
-using BookActivityRequest = Common.Tourflowsvc.BookActivityRequest;
-using BookRequest = Common.Tourflowsvc.BookRequest;
-using Category = Common.Tourflowsvc.Category;
-using GetActivityDetailsRequest = Common.Tourflowsvc.GetActivityDetailsRequest;
-using GetRGInfoRequest = Common.Tourflowsvc.GetRGInfoRequest;
-using OffsetType = Common.Tourflowsvc.OffsetType;
-using OrderInfo = Common.Tourflowsvc.OrderInfo;
-using PassengerType = Common.Tourflowsvc.PassengerType;
-using PreBookOption = Common.Tourflowsvc.PreBookOption;
-using PreBookRequest = Common.Tourflowsvc.PreBookRequest;
-using ResultsInfo = Common.Tourflowsvc.ResultsInfo;
-using RGInfoRequest = Common.Tourflowsvc.RGInfoRequest;
-using WSPaymentType = Common.Tourflowsvc.WSPaymentType;
 
 
 namespace UI.Controllers
@@ -39,7 +17,7 @@ namespace UI.Controllers
     {
         private string sessiondestination = string.Empty;
 
-
+        ActivityBookFlowClient client = new ActivityBookFlowClient();
 
         //
         // GET: /Activity/
@@ -47,7 +25,7 @@ namespace UI.Controllers
         public ActionResult Index()
         {
 
-            string fileLoc = @"C:\Temp\Tour BookingHistory.txt";
+            string fileLoc = @"C:\Temp\TourBookingHistory.txt";
             string bookingData = string.Empty;
             if (System.IO.File.Exists(fileLoc))
             {
@@ -56,7 +34,7 @@ namespace UI.Controllers
                     bookingData = tr.ReadToEnd();
                 }
             }
-            List<TourBookingModel> tourBookingsModel = new List<TourBookingModel>();
+            List<BookResults> tourBookingsModel = new List<BookResults>();
             if (!string.IsNullOrEmpty(bookingData))
             {
                 int recordsCount = bookingData.Count(x => x == ';');
@@ -66,14 +44,13 @@ namespace UI.Controllers
                     if (!string.IsNullOrEmpty(recordsList[i]))
                     {
                         var record = recordsList[i].Split(',');
-                        tourBookingsModel.Add(new TourBookingModel()
+                        ResGroup resgroup = new ResGroup
                         {
-                            ConfirmationNo = record[0],
-                            StartDate =
-                                $"{Convert.ToDateTime(record[1]):MM/dd/yyyy}",
-                            EndDate =
-                                $"{Convert.ToDateTime(record[2]):MM/dd/yyyy}",
-                            status = record[3]
+                            rgId = int.Parse(record[0])
+                        };
+                        tourBookingsModel.Add(new BookResults()
+                        {
+                            ResGroup = resgroup
                         });
                     }
                 }
@@ -87,133 +64,121 @@ namespace UI.Controllers
         public ActionResult GetActivity(FormCollection collection)
         {
             sessiondestination = collection["destinationLocation"].Substring(0, 3);
-
-
             string sessionName = "SearchResult" + sessiondestination + collection["StartDate"];
-            var category = new Common.Tourflowsvc.Category[] { };
-            if (Session[sessionName] == null)
+            var category = new Category[] { };
+            SearchActivityByAirPortCodeRequest request = new SearchActivityByAirPortCodeRequest();
+            request.FromDate = Convert.ToDateTime(collection["StartDate"]);
+            request.ToDate = Convert.ToDateTime(collection["EndDate"]);
+
+            request.Filters = new Common.Tourflowsvc.DestinationResultsFilters()
             {
-                Common.Tourflowsvc.SearchActivityByAirPortCodeRequest request =
-                    new Common.Tourflowsvc.SearchActivityByAirPortCodeRequest();
-                request.FromDate = Convert.ToDateTime(collection["StartDate"]);
-                request.ToDate = Convert.ToDateTime(collection["EndDate"]);
-
-                request.Filters = new Common.Tourflowsvc.DestinationResultsFilters()
-                {
-                    MinAdults = new Common.Tourflowsvc.MinAdultsFilter { Value = 0 },
-                    MinChildren = new Common.Tourflowsvc.MinChildrenFilter { Value = 0 },
-                    MinUnits = new Common.Tourflowsvc.MinUnitsFilter { Value = 0 },
-
-                };
-                request.destination = sessiondestination;
-                request.cityName = collection["City"];
-                Common.Tourflowsvc.AuthenticationHeader authentication = new AuthenticationHeader();
-                authentication.LoginName = "Tra105";
-                authentication.Password = "111111";
-
-                Common.Tourflowsvc.ActivityBookFlowClient client = new Common.Tourflowsvc.ActivityBookFlowClient();
-                var response = client.SearchActivityByAirPortCode(authentication, request);
-
-
-                Session[sessionName] = response.Categories;
-
-            }
-            else
-            {
-                category = (Common.Tourflowsvc.Category[])Session[sessionName];
-            }
+                MinAdults = new Common.Tourflowsvc.MinAdultsFilter { Value = 0 },
+                MinChildren = new Common.Tourflowsvc.MinChildrenFilter { Value = 0 },
+                MinUnits = new Common.Tourflowsvc.MinUnitsFilter { Value = 0 },
+            };
+            request.destination = sessiondestination;
+            request.cityName = collection["City"];
+            var response = client.SearchActivityByAirPortCode(CreateSession(), request);
+            Session[sessionName] = response.Categories;
+            category = (Category[])Session[sessionName];
             ViewBag.SessionId = sessionName;
             return View(category);
 
         }
-
         [Authorize]
         [HttpPost]
-        [MultipleButton(Name = "action", Argument = "GetActivityDetails")]
-        public ActionResult GetActivityDetails(string paramActivityId)
+        //[MultipleButton(Name = "action", Argument = "GetActivityDetails")]
+        public ActionResult GetActivityDetails(FormCollection collection)
         {
             //get the activityId selected by user from the UI
             ActivityId activityIdInt = new ActivityId()
             {
-                id = int.Parse(paramActivityId)
+                id = int.Parse(collection["productId"])
             };
-
+            string optionConcatId = collection["optionId"];
+            string[] optionIds = optionConcatId.Split(' ');
+            ViewBag.optionIds = optionIds;
+            string optionType = collection["optionType"];
+            ViewBag.optionType = optionType;
             //if session contains the activity details of this activityId
-            var sessionId = Request.Form["sessionId"];
+            var sessionId = collection["sessionId"];
             var singleActivity = new Activity();
             if (Session[sessionId] != null)
             {
                 var activityDetails = (Category[])Session[sessionId];
-                singleActivity =
-                    activityDetails.Select(x => x.Activities.Where(y => y.activityId == activityIdInt.id))
-                        .First()
-                        .First();
+                //    singleActivity =
+                //       activityDetails.Select(x => x.Activities.Where(y => y.activityId == activityIdInt.id)).First().First();
             }
-
-
             //Call the webservice GetActivityDetails 
-
-            GetActivityDetailsRequest request = new GetActivityDetailsRequest();
-            request.ActivitiesIds[0] = activityIdInt;
-            Common.Tourflowsvc.AuthenticationHeader authentication = new Common.Tourflowsvc.AuthenticationHeader();
-            authentication.LoginName = "Tra105";
-            authentication.Password = "111111";
-
-
-            Common.Tourflowsvc.ActivityBookFlowClient client = new Common.Tourflowsvc.ActivityBookFlowClient();
-
-            var response = client.GetActivityDetails(authentication, new[] { activityIdInt });
-
-
-
+            ActivityId[] activities = new ActivityId[1];
+            activities[0] = activityIdInt;
+            var response = client.GetActivityDetails(CreateSession(), activities);
             Session["ActivityDetails"] = response.ActivitiesDetails;
-
             return View(response.ActivitiesDetails.FirstOrDefault());
         }
 
         [Authorize]
         [HttpPost]
-        [MultipleButton(Name = "action", Argument = "ActivityPreBok")]
-        public ActionResult ActivityPreBok(string paramActivityId)
+        //[MultipleButton(Name = "action", Argument = "ActivityPreBook")]
+        public ActionResult ActivityPreBook(FormCollection collection)
         {
-            var activityId = Request.Form[" ActivityId"];
-            var Date = Request.Form["PreBookDate"];
-            var NumOfAdults = Request.Form["NumOfAdults"];
-            var NumOfChildren = Request.Form["NumOfChildren"];
-            var NumOfUnits = Request.Form["NumOfUnits"];
-            var OptionId = Request.Form["OptionId"];
-
+            var activityId = collection["productId"];
+            var Date = collection["pickUpDate"];
+            var optionType = collection["optionType"];
+            string optionConcatId = collection["optionId"];
+            string[] optionIds = optionConcatId.Split(' ');
+            ViewBag.optionIds = optionIds;
+            ViewBag.optionType = optionType;
             //call the web service
             ActivityPreBookRequest activityPRebookReq = new ActivityPreBookRequest();
-            Common.Tourflowsvc.AuthenticationHeader authentication = new Common.Tourflowsvc.AuthenticationHeader();
-            authentication.LoginName = "Tra105";
-            authentication.Password = "111111";
             PreBookRequest prebookReq = new PreBookRequest();
-            PreBookOption[] prebookOptions = new PreBookOption[1];
-            prebookOptions[0] = new PreBookOption()
-            { 
-                ActivityId = int.Parse(activityId),
-                Date = DateTime.Parse(Date),
-                NumOfAdults =int.Parse(NumOfAdults),
-                NumOfChildren = int.Parse(NumOfChildren),
-                NumOfUnits = int.Parse(NumOfUnits),
-                OptionId = 1985214, //int.Parse(OptionId)
-            };
-            prebookReq.bookActivityOptions = prebookOptions;
-            Common.Tourflowsvc.ActivityBookFlowClient client = new Common.Tourflowsvc.ActivityBookFlowClient();
-            var response = client.ActivityPreBook(authentication, prebookReq);
-            Session["ActivityPreBook"] = response.ActivitiesSelectedOptions;
-            return View(response.ActivitiesSelectedOptions);
+            PreBookOption[] prebookOptions = new PreBookOption[optionIds.Length];
+            for (var i = 0; i < optionIds.Length; i++)
+            {
+                if (optionType == "PerPerson")
+                {
 
+                    var NumOfAdults = collection["ddlTotalAdults"];
+                    var NumOfChildren = collection["ddlTotalChildren"];
+                    prebookOptions[i] = new PreBookOption()
+                    {
+                        ActivityId = int.Parse(activityId),
+                        Date = DateTime.Parse(Date),
+                        NumOfAdults = int.Parse(NumOfAdults),
+                        NumOfChildren = int.Parse(NumOfChildren),
+                        NumOfUnits = 0,
+                        OptionId = int.Parse(optionIds[i])
+                    };
+                }
+                else if (optionType == "PerUnit")
+                {
+                    var NumOfUnits = collection["ddlTotalUnits"];
+                    prebookOptions[i] = new PreBookOption()
+                    {
+                        ActivityId = int.Parse(activityId),
+                        Date = DateTime.Parse(Date),
+                        NumOfAdults = 0,
+                        NumOfChildren = 0,
+                        NumOfUnits = int.Parse(NumOfUnits),
+                        OptionId = int.Parse(optionIds[i])
+                    };
+
+                }
+            }
+
+            prebookReq.bookActivityOptions = prebookOptions;
+            var response = client.ActivityPreBook(CreateSession(), prebookReq);
+            Session["preBookResponse"] = response.ActivitiesSelectedOptions;
+            return View(response.ActivitiesSelectedOptions);
         }
 
         [Authorize]
         [HttpPost]
-        [MultipleButton(Name = "action", Argument = "BookActivity")]
+        //[MultipleButton(Name = "action", Argument = "BookActivity")]
         public ActionResult BookActivity()
-        {       
+        {
 
-            var preBookResult = (ActivitiesSelectedOptionsResponse)Session["ActivityPreBook"];
+            var preBookResult = (ActivitiesSelectedOptionsResponse)Session["preBookResponse"];
 
             //call the web service
             BookActivityRequest request = new BookActivityRequest();
@@ -225,7 +190,7 @@ namespace UI.Controllers
 
 
             OrderInfo orderInfo = new OrderInfo();
-            orderInfo.DeltaPrice = new Common.Tourflowsvc.DeltaPrice() { value = 2, basisType = BasisType.Percent };
+            orderInfo.DeltaPrice = new Common.Tourflowsvc.DeltaPrice() { value = 200, basisType = BasisType.Percent };
             orderInfo.rgRefNum = "0";
             orderInfo.requestedPrice = preBookResult.totalPrice;
             orderInfo.currency = preBookResult.currency;
@@ -237,22 +202,61 @@ namespace UI.Controllers
 
             var activitySelectedOptions = new Common.Tourflowsvc.ActivitiesSelectedOptions();
             var activityInfoFirst = new Common.Tourflowsvc.ActivityInfo();
-            activityInfoFirst.ActivityPricing = new Common.Tourflowsvc.ActivityPrice()
+            if (preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Adult != null && (preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Child != null))
             {
-                PriceBreakdown = new Common.Tourflowsvc.ActivityPriceBreakdown()
+                activityInfoFirst.ActivityPricing = new Common.Tourflowsvc.ActivityPrice()
                 {
-                    Adult = new Common.Tourflowsvc.AdultPriceBreakdown()
+                    PriceBreakdown = new Common.Tourflowsvc.ActivityPriceBreakdown()
                     {
-                        numbers =preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Adult.numbers, 
-                        amount = preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Adult.amount,
+                        Adult = new Common.Tourflowsvc.AdultPriceBreakdown()
+                        {
+                            numbers = preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Adult.numbers,
+                            amount = preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Adult.amount,
+                        },
+                        Child = new Common.Tourflowsvc.ChildPriceBreakdown()
+                        {
+                            numbers = preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Child.numbers,
+                            amount = preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Child.amount,
+                        },
+                        Unit = new Common.Tourflowsvc.UnitPriceBreakdown()
+                        {
+                            numbers = 0,
+                            amount = 0,
+                        },
                     },
-                    Child = preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Child,
-                    Unit = preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Unit,
-                },
-                price = preBookResult.ActivitiesInfo.First().ActivityPricing.price,
-                currency = preBookResult.ActivitiesInfo.First().ActivityPricing.currency,
-                tax = preBookResult.ActivitiesInfo.First().ActivityPricing.tax
-            };
+                    price = preBookResult.ActivitiesInfo.First().ActivityPricing.price,
+                    currency = preBookResult.ActivitiesInfo.First().ActivityPricing.currency,
+                    tax = preBookResult.ActivitiesInfo.First().ActivityPricing.tax
+                };
+            }
+            else if (preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Unit != null)
+            {
+                activityInfoFirst.ActivityPricing = new Common.Tourflowsvc.ActivityPrice()
+                {
+                    PriceBreakdown = new Common.Tourflowsvc.ActivityPriceBreakdown()
+                    {
+                        Adult = new Common.Tourflowsvc.AdultPriceBreakdown()
+                        {
+                            numbers = 0,
+                            amount = 0,
+                        },
+                        Child = new Common.Tourflowsvc.ChildPriceBreakdown()
+                        {
+                            numbers = 0,
+                            amount = 0,
+                        },
+                        Unit = new Common.Tourflowsvc.UnitPriceBreakdown()
+                        {
+                            numbers = preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Unit.numbers,
+                            amount = preBookResult.ActivitiesInfo.First().ActivityPricing.PriceBreakdown.Unit.amount,
+                        },
+                    },
+                    price = preBookResult.ActivitiesInfo.First().ActivityPricing.price,
+                    currency = preBookResult.ActivitiesInfo.First().ActivityPricing.currency,
+                    tax = preBookResult.ActivitiesInfo.First().ActivityPricing.tax
+                };
+            }
+
             activityInfoFirst.CancellationPolicy = new Common.Tourflowsvc.CancellationPolicy()
             {
                 CancellationPenalties = new Common.Tourflowsvc.CancellationPenalty[]
@@ -273,24 +277,24 @@ namespace UI.Controllers
                 }
             };
             var activityAddition = preBookResult.ActivitiesInfo.First().ActivityAdditions;
-            activityInfoFirst.ActivityAdditions = new Common.Tourflowsvc.OrderAddition()
+            //activityInfoFirst.ActivityAdditions = new Common.Tourflowsvc.OrderAddition();
+            OrderAddition orderAddition = new OrderAddition();
+            List<TextAddition> textAdditionList = new List<TextAddition>();
+            foreach (var item in activityAddition.TextAdditions)
             {
-                TextAdditions = new Common.Tourflowsvc.TextAddition[]
-                {
-                    new Common.Tourflowsvc.TextAddition() {value = activityAddition.TextAdditions[0].value, additionTypeID = activityAddition.TextAdditions[0].additionTypeID, additionType = activityAddition.TextAdditions[0].additionType},
-                    new Common.Tourflowsvc.TextAddition() {value = activityAddition.TextAdditions[1].value, additionTypeID = activityAddition.TextAdditions[0].additionTypeID, additionType = activityAddition.TextAdditions[0].additionType},
-                    new Common.Tourflowsvc.TextAddition() {value = activityAddition.TextAdditions[2].value, additionTypeID = activityAddition.TextAdditions[0].additionTypeID, additionType = activityAddition.TextAdditions[0].additionType},
-                    new Common.Tourflowsvc.TextAddition() {value = activityAddition.TextAdditions[3].value, additionTypeID = activityAddition.TextAdditions[0].additionTypeID, additionType = activityAddition.TextAdditions[0].additionType},
-                }
-            };
+                textAdditionList.Add(new Common.Tourflowsvc.TextAddition() { value = string.IsNullOrEmpty(item.value) ? "ABC" : item.value, additionTypeID = item.additionTypeID, additionType = item.additionType });
+            }
+            orderAddition.TextAdditions = textAdditionList.ToArray();
+            activityInfoFirst.ActivityAdditions = orderAddition;
+
             activityInfoFirst.Passengers = new Common.Tourflowsvc.PassengerInfo[]
             {
                 new Common.Tourflowsvc.PassengerInfo() { mobilePhone = "+1 765873839", isMainContact = true, lastName="sh", type=PassengerType.Adult, seqNumber= 1, firstName = "sa"},
-                new Common.Tourflowsvc.PassengerInfo() { mobilePhone = "+1 765873830", isMainContact = false, lastName="pi", type=PassengerType.Adult, seqNumber= 2, firstName = "Bi"},
+                new Common.Tourflowsvc.PassengerInfo() { mobilePhone = "+1 765873830", isMainContact = false, lastName="pi", type=PassengerType.Child, seqNumber= 2, firstName = "Bi"},
             };
 
-            activityInfoFirst.activityId = preBookResult.ActivitiesInfo.First().activityId; 
-            activityInfoFirst.date = preBookResult.ActivitiesInfo.First().date;  
+            activityInfoFirst.activityId = preBookResult.ActivitiesInfo.First().activityId;
+            activityInfoFirst.date = preBookResult.ActivitiesInfo.First().date;
             activityInfoFirst.optionId = preBookResult.ActivitiesInfo.First().optionId;
             Common.Tourflowsvc.ActivityInfo[] activityInfos = new Common.Tourflowsvc.ActivityInfo[] { activityInfoFirst };
             activitySelectedOptions.ActivitiesInfo = activityInfos;
@@ -298,21 +302,20 @@ namespace UI.Controllers
 
             Common.Tourflowsvc.ActivityBookFlowClient client = new Common.Tourflowsvc.ActivityBookFlowClient();
             var response = client.BookActivity(authentication, bookRequest);
+            string fileLoc = @"C:\Temp\TourBookingHistory.txt";
+
+            System.IO.File.AppendAllText(fileLoc, (response.ResGroup.rgId + "," + response.ResGroup.Reservations[0].date + "," + "," + response.ResGroup.Reservations[0].status + ";"));
             Session["BookActivity"] = response.ResGroup;
-
-
-
-            return View();
+            return View(response);
 
         }
 
         [Authorize]
         [HttpPost]
-       [MultipleButton(Name = "action", Argument = "GetBookingDetail")]
-        public ActionResult GetBookingDetail(string rgId)
+        //[MultipleButton(Name = "action", Argument = "GetBookingDetail")]
+        public ActionResult GetBookingDetail(FormCollection collection)
         {
-            var BookResult = (Common.Tourflowsvc.BookResults)Session["BookActivity"];
-            var Rgid = Request.Form[" Record locator"];
+            var Rgid = collection["productId"];
             Common.Tourflowsvc.ActivityBookFlowClient client = new Common.Tourflowsvc.ActivityBookFlowClient();
             Common.Tourflowsvc.AuthenticationHeader authentication = new Common.Tourflowsvc.AuthenticationHeader();
             authentication.LoginName = "Tra105";
@@ -320,17 +323,26 @@ namespace UI.Controllers
             var getRGInfoRequest = new GetRGInfoRequest();
             getRGInfoRequest.RGInfoRequestMessage = new Common.Tourflowsvc.RGInfoRequest();
             RGInfoRequest rGInfoRequest = new RGInfoRequest();
-            rGInfoRequest.RGId = BookResult.ResGroup.rgId; 
+            rGInfoRequest.RGId = int.Parse(Rgid);
             var response = client.GetRGInfo(authentication, rGInfoRequest);
             Session["GetRGInfo"] = response.ResGroup;
-            return View(response.ResGroup);
-          
+            return View(response);
+
 
         }
 
+
+
+
+        private Common.Tourflowsvc.AuthenticationHeader CreateSession()
+        {
+            Common.Tourflowsvc.AuthenticationHeader authentication = new AuthenticationHeader();
+            authentication.LoginName = "Tra105";
+            authentication.Password = "111111";
+            return authentication;
+        }
     }
 }
-
 
 
 

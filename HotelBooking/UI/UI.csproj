@@ -432,7 +432,7 @@
     </Content>
     <Content Include="Views\Tour\GetActivity.cshtml" />
     <Content Include="Views\Tour\GetActivityDetails.cshtml" />
-    <Content Include="Views\Tour\ActivityPreBok.cshtml" />
+    <Content Include="Views\Tour\ActivityPreBook.cshtml" />
     <Content Include="Views\Tour\GetBookingDetail.cshtml" />
     <Content Include="Views\Tour\BookActivity.cshtml" />
   </ItemGroup>
