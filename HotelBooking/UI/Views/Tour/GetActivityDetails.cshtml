@@ -70,7 +70,7 @@
                         <b> Fax:</b> @Model.activityFax<br />
                         <b>Category:</b> @Model.categoryName
                     </p><br />
-                    <p class="glyphicon glyphicon-star" style="color: grey; font-size: 15px">
+                    <p style="color: grey; font-size: 15px">
                         <b> Rating:</b>&nbsp;
                         @for (var i = 0; i < @Model.starsLevel; i++)
                         {
@@ -84,7 +84,10 @@
                             @Model.Location.address, @Model.Location.city, @Model.Location.stateCode, @Model.Location.countryCode<br />
                             Lat-Long: @Model.Location.latitude @Model.Location.longitude<br />
                             Searched at: @Model.Location.searchingCity, @Model.Location.searchingState<br />
-                            Location: @Model.Location.location
+                            Location: @foreach (var location in Model.Location.location)
+                            {
+                                @location
+                            }
                         </p>
                     </div>
                 </td>
@@ -145,53 +148,58 @@
                         }
                         <input type="hidden" class="optionId" name="optionId" value="@optionConcatId" />
                         <input type="hidden" class="optionType" name="optionType" value="@ViewBag.optionType" />
-                        <div class="prebookForm col-md-3" style="display: none;">
-                            <label for="pickUpDate">Date</label>
-                            <input class="form-control" type="date" value="@DateTime.Now.AddDays(0).ToShortDateString()" id="pickUpDate" name="pickUpDate"
-                                   style="height: 25px; font-size: 12px; width: 150px">
+                        <div class="row">
+                            <div class="prebookForm col-md-3" style="display: none;">
+                                <label for="pickUpDate">Date</label>
+                                <input class="form-control" type="date" value="@DateTime.Now.AddDays(0).ToShortDateString()" id="pickUpDate" name="pickUpDate"
+                                       style="height: 25px; font-size: 12px; width: 150px">
+                            </div>
+                            @if (ViewBag.optionType == "PerPerson")
+                            {
+                                <div class="prebookForm col-md-3" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="ddlTotalAdults">Adults</label>
+                                        <select id="ddlTotalAdults" class="form-control" name="ddlTotalAdults" style="height: 25px; font-size: 10px; width: 80px;">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="prebookForm col-md-3" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="ddlTotalChildren">Children</label>
+                                        <select id="ddlTotalChildren" class="form-control" name="ddlTotalChildren" style="height: 25px; font-size: 10px; width: 80px;">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+                            else if (ViewBag.optionType == "PerUnit")
+                            {
+                                <div class="prebookForm col-md-3" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="ddlTotalUnits">Units</label>
+                                        <select id="ddlTotalUnits" class="form-control" name="ddlTotalUnits" style="height: 25px; font-size: 10px; width: 80px;">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            }
                         </div>
-                        if (ViewBag.optionType == "PerPerson")
-                        {
-                            <div class="prebookForm col-md-3" style="display: none;">
-                                <div class="form-group">
-                                    <label for="ddlTotalAdults">Adults</label>
-                                    <select id="ddlTotalAdults" class="form-control" name="ddlTotalAdults" style="height: 25px; font-size: 10px; width: 80px;">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                    </select>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-2 prebookForm" style="display: none;">
+                                <button type="submit" class="btn btn-primary">PreBook</button>
                             </div>
-                            <div class="prebookForm col-md-3" style="display: none;">
-                                <div class="form-group">
-                                    <label for="ddlTotalChildren">Children</label>
-                                    <select id="ddlTotalChildren" class="form-control" name="ddlTotalChildren" style="height: 25px; font-size: 10px; width: 80px;">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                    </select>
-                                </div>
-                            </div>
-                        }
-                        if (ViewBag.optionType == "PerUnit")
-                        {
-                            <div class="prebookForm col-md-3" style="display: none;">
-                                <div class="form-group">
-                                    <label for="ddlTotalUnits">Units</label>
-                                    <select id="ddlTotalUnits" class="form-control" name="ddlTotalUnits" style="height: 25px; font-size: 10px; width: 80px;">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                    </select>
-                                </div>
-                            </div>
-                        }
-                        <div class="prebookForm" style="display: none;">
-                            <button type="submit" class="btn btn-primary">PreBook</button>
                         </div>
+
                     }
 
                 </td>
@@ -223,7 +231,7 @@ else
     .tableColorStriped > tbody > tr:nth-child(even) > td,
     .tableColorStriped > tbody > tr:nth-child(even) > th {
         background-color: lightgray;
-        // Choose your own color here;
+        // Choose your own color here
     }
 </style>
 

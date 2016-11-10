@@ -11,27 +11,17 @@
         <div>
             <fieldset>
                 <legend>Personalia:</legend>
-                <div class="col-md-3">
-                    <label for="place-input">Destination</label>
-                    <input id="place-input" class="form-control" name="destinationLocation" type="text" placeholder="Type a location" style="height: 25px; font-size: 10px; width: 200px;">
-
-                </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label for="pickUpDate">From Date</label>
-                        <input class="form-control" type="date" value="@DateTime.Now.AddDays(0).ToShortDateString()" id="pickUpDate" name="StartDate"
-                               style="height: 25px; font-size: 12px; width: 150px">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="dropDate">To Date</label>
-                        <input class="form-control" type="date" id="dropDate" name="EndDate" value="@DateTime.Now.AddDays(5)"
-                               style="height: 25px; font-size: 12px; width: 150px;">
+                        <label for="place-input">Destination</label>
+                        <input id="place-input" class="form-control" name="destinationLocation" type="text" placeholder="Type a location">
+
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="ddlTourCategory">Tour Category</label>
-                            <select id="ddlTourCategory" class="form-control" name="ddlTourCategory" style="height: 25px; font-size: 10px; width: 200px;">
-                                <option value="0">ALL</option>
+                            <select id="ddlTourCategory" class="form-control" name="ddlTourCategory">
+                                <option value="0">All</option>
                                 <option value="580">Shopping Tours</option>
                                 <option value="581">Other</option>
                                 <option value="582">Dinner Show</option>
@@ -60,6 +50,18 @@
                             </select>
                         </div>
                     </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="pickUpDate">From Date</label>
+                        <input class="form-control" type="date" value="@DateTime.Now.AddDays(0).ToShortDateString()" id="pickUpDate" name="StartDate">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="dropDate">To Date</label>
+                        <input class="form-control" type="date" id="dropDate" name="EndDate" value="@DateTime.Now.AddDays(5)" />
+
+                    </div>
                 </div>
             </fieldset>
             <div class="col-md-3">
@@ -83,11 +85,11 @@
                     <div style="font-size: 12px;">
                         <table width="100%">
                             <tr>
-                                <td style="width: 25%">
+                                <td style="width: 50%">
                                     <h3>Confirmation No.</h3>
                                 </td>
-                                <td style="width: 25%">
-                                    <h3>Status</h3>
+                                <td style="width: 50%; text-align: right;">
+                                    <h3>Check Status</h3>
                                 </td>
                             </tr>
                         </table>
@@ -98,27 +100,28 @@
             <tr>
                 <td>
                     <div style="font-size: 12px;">
-                       @if (Model.Length > 0)
-                       {
-                           foreach (var item in Model)
-                           {
-                            <table width="100%" style="border-bottom: 1px gray solid">
-                                <tr>
-                                    <td style="width: 50%">
-                                        <p>@item.ResGroup.rgId</p>
-                                    </td>
-                                    <td style="width: 50%; text-align: right;">
-                                        @using (Html.BeginForm("GetBookingDetail", "Tour"))
-                                        {
-                                            <input type="hidden" id="productId" name="productId" value="@item.ResGroup.rgId" />
-                                                <button type="submit" class="btn btn-primary">Select</button>
-                                        }
-                                    </td>
-                                </tr>
-                            </table>
-                           }
+                        @if (Model.Length > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <table width="100%" style="border-bottom: 1px gray solid">
+                                    <tr>
+                                        <td style="width: 50%">
+                                            <p>@item.ResGroup.rgId</p>
+                                        </td>
 
-                       }
+                                        <td style="width: 50%; text-align: right;">
+                                            @using (Html.BeginForm("GetBookingDetail", "Tour"))
+                                            {
+                                                <input type="hidden" id="productId" name="productId" value="@item.ResGroup.rgId" />
+                                                    <button type="submit" class="btn btn-primary">Select</button>
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
+
+                        }
 
                     </div>
 
