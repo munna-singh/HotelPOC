@@ -52,14 +52,18 @@
         @foreach (var details in Model)
         {
             <tr>
-                <td>
-                    <h5>
-                        <b>
-                            <a data-toggle="collapse" href="#@details.categoryId">
-                                Category ID: @details.categoryId @details.categoryName
-                            </a>
-                        </b>
-                    </h5>
+                <td style="padding:0px;">
+
+
+                    <a style=" height:inherit" data-toggle="collapse" href="#@details.categoryId">
+                        <div style="width:100%; height:inherit; margin:0px;">
+                            <h5 style="margin:0px;">
+                                <b>
+                                    Category ID: @details.categoryId @details.categoryName
+                                </b>
+                            </h5>
+                        </div>
+                    </a>
                     <div id="@details.categoryId" class="panel-collapse collapse">
                         <table class="table table-striped">
                             @foreach (var activity in details.Activities)
@@ -80,7 +84,10 @@
                                                             @activity.Location.address, @activity.Location.city, @activity.Location.stateCode, @activity.Location.countryCode<br />
                                                             Lat-Long: @activity.Location.latitude @activity.Location.longitude<br />
                                                             Searched at: @activity.Location.searchingCity, @activity.Location.searchingState<br />
-                                                            Location: @activity.Location.location
+                                                            Location: @foreach (var location in @activity.Location.location)
+                                                            {
+                                                                @location
+                                                            }
                                                         </p>
                                                     </div>
                                                     <div class="col-md-3">
@@ -136,8 +143,8 @@
                                                                         <tr>
                                                                             <td>
                                                                                 <b>
-                                                                                    <a data-toggle="collapse" href="#@option.optionId" style="color: blue;">
-                                                                                        <u>Option ID: @option.optionId @option.name</u><br />
+                                                                                    <a data-toggle="collapse" href="#@option.optionId">
+                                                                                        Option ID: @option.optionId @option.name <sub>Click for more</sub><br />
                                                                                     </a>
                                                                                 </b>
                                                                                 <div id="@option.optionId" class="panel-collapse collapse">
@@ -245,7 +252,7 @@ else
     .tableColorStriped > tbody > tr:nth-child(even) > td,
     .tableColorStriped > tbody > tr:nth-child(even) > th {
         background-color: lightgray;
-        // Choose your own color here;
+        // Choose your own color here
     }
 </style>
 
