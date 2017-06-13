@@ -1,0 +1,237 @@
+﻿@model Common.Tourflowsvc.ActivityDetails
+
+@{
+    ViewBag.Title = "Get Activity Details";
+}
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<style type="text/css">
+    .hotel-map-label {
+        color: #29abe2;
+        font-weight: bold;
+        border-style: solid;
+        border-color: #ffffff;
+        background-color: #ffffff;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+</style>
+
+<script>
+    function toggleFirst() {
+        $("#longdesc").toggle();
+        $("#firstReadMore").toggle();
+        $("#firstReadLess").toggle();
+    }
+
+    function toggleSecond() {
+        $(".fragments").toggle();
+        $("#secondReadMore").toggle();
+        $("#secondReadLess").toggle();
+
+    }
+    var scrolled = 0;
+
+    function prebookSetup() {
+        scrolled = scrolled + 1000;
+
+        $("body").animate({
+            scrollTop: scrolled
+        });
+        $("#prebook").hide();
+        $(".prebookForm").show();
+    }
+</script>
+
+<h2>@ViewBag.Title</h2>
+
+
+@if (Model != null)
+{
+
+    <table id="scroll" width="100%">
+        <tr>
+            <td>
+                <h3>@Model.name</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>Activity Id: @Model.activityId</h5>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="col-md-3">
+                    <p class="glyphicon glyphicon-earphone" style="color: grey; font-size: 15px"><b> Phone:</b> @Model.activityPhone</p><br />
+                    <p style="color: grey;">
+                        <b> Fax:</b> @Model.activityFax<br />
+                        <b>Category:</b> @Model.categoryName
+                    </p><br />
+                    <p style="color: grey; font-size: 15px">
+                        <b> Rating:</b>&nbsp;
+                        @for (var i = 0; i < @Model.starsLevel; i++)
+                        {
+                        <p class="glyphicon glyphicon-star" style="color: grey; font-size: 15px"></p>
+                        }
+                        </p>
+                    </div>
+                    <div class="col-md-9">
+                        <p class="glyphicon glyphicon-map-marker" style="color: grey; font-size: 15px"><b> Location:</b></p>
+                        <p>
+                            @Model.Location.address, @Model.Location.city, @Model.Location.stateCode, @Model.Location.countryCode<br />
+                            Lat-Long: @Model.Location.latitude @Model.Location.longitude<br />
+                            Searched at: @Model.Location.searchingCity, @Model.Location.searchingState<br />
+                            Location: @foreach (var location in Model.Location.location)
+                            {
+                                @location
+                            }
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Model.Description.ShortDescription.desc <a id="firstReadMore" href=# onclick="toggleFirst()" style="color: blue;">Read More</a><a id="firstReadLess" href=# onclick="toggleFirst()" style="display: none; color: blue;">Read Less</a><br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p id="longdesc" style="display: none">@Model.Description.LongDescription.VoucherRemarks.desc <a id="secondReadMore" href=# onclick="toggleSecond()" style="color: blue;">Read More</a><a id="secondReadLess" href=# onclick="toggleSecond()" style="display: none; color: blue;">Read Less</a></p><br />
+                    @foreach (var fragment in Model.Description.LongDescription.Fragments)
+                    {
+                        <p class="fragments" style="display: none">
+                            @fragment.type <small>Fragment ID: @fragment.typeId</small><br />
+                            @fragment.value
+                        </p>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @foreach (var image in Model.Media.Images)
+                {
+                        <img src="@image.path" />
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @foreach (var movie in Model.Media.Movies)
+                {
+                        @movie.title<br />
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/@movie.youtubeId" frameborder="0" allowfullscreen></iframe>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button id="prebook" class="btn btn-primary" onclick="prebookSetup()">PreBook</button>
+                    @using (Html.BeginForm("ActivityPreBook", "Tour"))
+                    {
+                        <input type="hidden" id="productId" name="productId" value="@Model.activityId" />
+                        <input type="hidden" id="sessionId" name="sessionId" value="@ViewBag.SessionId" />
+                        string optionConcatId = "";
+                        string[] optionArray = ViewBag.optionIds;
+                        foreach (var optionId in optionArray)
+                        {
+                            if (optionId == optionArray.First())
+                            {
+                                optionConcatId = optionId;
+                            }
+                            else
+                            {
+                                optionConcatId = optionId + " " + optionConcatId;
+                            }
+                        }
+                        <input type="hidden" class="optionId" name="optionId" value="@optionConcatId" />
+                        <input type="hidden" class="optionType" name="optionType" value="@ViewBag.optionType" />
+                        <div class="row">
+                            <div class="prebookForm col-md-3" style="display: none;">
+                                <label for="pickUpDate">Date</label>
+                                <input class="form-control" type="date" value="@DateTime.Now.AddDays(0).ToShortDateString()" id="pickUpDate" name="pickUpDate"
+                                       style="height: 25px; font-size: 12px; width: 150px">
+                            </div>
+                            @if (ViewBag.optionType == "PerPerson")
+                            {
+                                <div class="prebookForm col-md-3" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="ddlTotalAdults">Adults</label>
+                                        <select id="ddlTotalAdults" class="form-control" name="ddlTotalAdults" style="height: 25px; font-size: 10px; width: 80px;">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="prebookForm col-md-3" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="ddlTotalChildren">Children</label>
+                                        <select id="ddlTotalChildren" class="form-control" name="ddlTotalChildren" style="height: 25px; font-size: 10px; width: 80px;">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+                            else if (ViewBag.optionType == "PerUnit")
+                            {
+                                <div class="prebookForm col-md-3" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="ddlTotalUnits">Units</label>
+                                        <select id="ddlTotalUnits" class="form-control" name="ddlTotalUnits" style="height: 25px; font-size: 10px; width: 80px;">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 prebookForm" style="display: none;">
+                                <button type="submit" class="btn btn-primary">PreBook</button>
+                            </div>
+                        </div>
+
+                    }
+
+                </td>
+            </tr>
+
+        </table>
+}
+else
+{
+    <p style="color: red; font-size: 15px;">No record found </p>
+}
+
+
+
+
+
+
+
+<style type="text/css">
+    .rcorners {
+        border-radius: 7px;
+        border: 2px solid #73AD21;
+    }
+
+    .tableColorStriped > tbody > tr:nth-child(odd) > td,
+    .tableColorStriped > tbody > tr:nth-child(odd) > th {
+    }
+
+    .tableColorStriped > tbody > tr:nth-child(even) > td,
+    .tableColorStriped > tbody > tr:nth-child(even) > th {
+        background-color: lightgray;
+        // Choose your own color here
+    }
+</style>
+

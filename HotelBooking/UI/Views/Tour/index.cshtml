@@ -1,0 +1,165 @@
+﻿@model Common.Tourflowsvc.BookResults[]
+@{
+    ViewBag.Title = "Category";
+    ViewBag.Token = Guid.NewGuid().ToString();
+}
+
+@section featured {
+    @using (Html.BeginForm())
+    {
+
+        <div>
+            <fieldset>
+                <legend>Personalia:</legend>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="place-input">Destination</label>
+                        <input id="place-input" class="form-control" name="destinationLocation" type="text" placeholder="Type a location">
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="ddlTourCategory">Tour Category</label>
+                            <select id="ddlTourCategory" class="form-control" name="ddlTourCategory">
+                                <option value="0">All</option>
+                                <option value="580">Shopping Tours</option>
+                                <option value="581">Other</option>
+                                <option value="582">Dinner Show</option>
+                                <option value="583">Recreational Rentals</option>
+                                <option value="584">Boat Tours</option>
+                                <option value="585">Sightseeing Tours</option>
+                                <option value="586">Theater & Concerts/option>
+                                <option value="587">Air Tours</option>
+                                <option value="588">Attraction Passes</option>
+                                <option value="589">Restaurants</option>
+                                <option value="592">Theme Parks</option>
+                                <option value="595">Watersports</option>
+                                <option value="598">Packages & Combo Tours</option>
+                                <option value="601">Shared Transfer</option>
+                                <option value="602">Private Transfer</option>
+                                <option value="604">Other</option>
+                                <option value="609">Ski</option>
+                                <option value="622">Multiple Day Guided Tours</option>
+                                <option value="631">Golf</option>
+                                <option value="693">Guide</option>
+                                <option value="694">T.H.E. Pass</option>
+                                <option value="728">Museum</option>
+                                <option value="742">Tours</option>
+                                <option value="853">Sporting Events</option>
+                                <option value="1087">V.I.P. Transfers</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="pickUpDate">From Date</label>
+                        <input class="form-control" type="date" value="@DateTime.Now.AddDays(0).ToShortDateString()" id="pickUpDate" name="StartDate">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="dropDate">To Date</label>
+                        <input class="form-control" type="date" id="dropDate" name="EndDate" value="@DateTime.Now.AddDays(5)" />
+
+                    </div>
+                </div>
+            </fieldset>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary" name="action:GetActivity">Search</button>
+            </div>
+        </div>
+    }
+
+
+    <div class="content-wrapper">
+        <table style="width: 100%">
+            <tr>
+                <td>
+                    <hgroup style="font-size:20px;">
+                        <h2>Booking History </h2>
+                    </hgroup>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="font-size: 12px;">
+                        <table width="100%">
+                            <tr>
+                                <td style="width: 50%">
+                                    <h3>Confirmation No.</h3>
+                                </td>
+                                <td style="width: 50%; text-align: right;">
+                                    <h3>Check Status</h3>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="font-size: 12px;">
+                        @if (Model.Length > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <table width="100%" style="border-bottom: 1px gray solid">
+                                    <tr>
+                                        <td style="width: 50%">
+                                            <p>@item.ResGroup.rgId</p>
+                                        </td>
+
+                                        <td style="width: 50%; text-align: right;">
+                                            @using (Html.BeginForm("GetBookingDetail", "Tour"))
+                                            {
+                                                <input type="hidden" id="productId" name="productId" value="@item.ResGroup.rgId" />
+                                                    <button type="submit" class="btn btn-primary">Select</button>
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
+
+                        }
+
+                    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+}
+
+<script src="http://maps.google.com/maps/api/js?libraries=places&key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false"></script>
+
+<script type="text/javascript">
+    var input = $('#place-input');
+    var input1 = $('#place2-input');
+    var autocomplete = new google.maps.places.Autocomplete(input[0]);
+    autocomplete.addListener('place_changed', function () {
+        var place = autocomplete.getPlace();
+        console.log(place);
+        if (!place.geometry) {
+            window.alert("Information not returned by google.");
+            return;
+        }
+        else {
+            $('#lat').val(place.geometry.location.lat());
+            $('#lan').val(place.geometry.location.lng());
+            //$('#add').val(place.formatted_address);
+        }
+        return false;
+    }
+);
+
+    $('#place-input').keypress(function (e) {
+        if (e.keyCode == 13) {
+            return false;
+        }
+    });
+
+
+
+</script>

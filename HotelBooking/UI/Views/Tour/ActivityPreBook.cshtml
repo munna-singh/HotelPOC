@@ -1,0 +1,250 @@
+﻿@model Common.Tourflowsvc.ActivitiesSelectedOptionsResponse
+
+@{
+    ViewBag.Title = "ActivityPreBookInfo";
+}
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<style type="text/css">
+    .hotel-map-label {
+        color: #29abe2;
+        font-weight: bold;
+        border-style: solid;
+        border-color: #ffffff;
+        background-color: #ffffff;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+</style>
+
+
+<h2>@ViewBag.Title</h2>
+
+
+@if (Model != null)
+{
+
+    <table class="table table-striped" id="scroll" width="100%">
+
+        @foreach (var activityInfo in Model.ActivitiesInfo)
+                {
+            <tr>
+
+                <td>
+
+                    <table>
+                        <tr>
+                            <td>
+                                <h5><b>Activity Id: </b>@activityInfo.activityId</h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="glyphicon glyphicon-credit-card" style="color: grey; font-size: 15px"><b> Price:</b></p> @activityInfo.ActivityPricing.currency @activityInfo.ActivityPricing.price<br />
+                                <p>
+                                    <b>Tax: </b>@activityInfo.ActivityPricing.currency @activityInfo.ActivityPricing.tax<br />
+                                    @if (ViewBag.optionType == "PerPerson")
+                                    {
+                                    <p>Price of @activityInfo.ActivityPricing.currency @activityInfo.ActivityPricing.PriceBreakdown.Adult.amount for @activityInfo.ActivityPricing.PriceBreakdown.Adult.numbers Adults</p>
+                                            <p>Price of @activityInfo.ActivityPricing.currency @activityInfo.ActivityPricing.PriceBreakdown.Child.amount for @activityInfo.ActivityPricing.PriceBreakdown.Child.numbers Child</p>
+                                    }
+                                    @if (ViewBag.optionType == "PerUnit")
+                                    {
+                                        <p> Price of @activityInfo.ActivityPricing.currency @activityInfo.ActivityPricing.PriceBreakdown.Unit.amount for @activityInfo.ActivityPricing.PriceBreakdown.Unit.numbers Units</p>
+                                    }
+
+                                    </p>
+                                </td>
+                                <td>
+                                    <p class="glyphicon glyphicon-calendar" style="color: grey; font-size: 15px"><b> Tour Date:</b></p> @activityInfo.date<br />
+                                    <b>Option ID: </b>@activityInfo.optionId
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @foreach (var passenger in activityInfo.Passengers)
+                                    {
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <p class="glyphicon glyphicon-user" style="color: grey; font-size: 15px"><b> Passengers:</b></p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    @if (passenger.firstName != null)
+                                                    {
+                                                        if (passenger.middleName != null)
+                                                        {
+                                                            if (passenger.lastName != null)
+                                                            {
+                                                                @passenger.firstName @passenger.middleName @passenger.lastName<br />
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>Name not provided</p>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>Name not provided</p>
+
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>Name not provided</p>
+                                                    }
+                                                    <p><b>Phone: </b> @passenger.homePhone</p>
+                                                    <p><b>Sequence No: </b> @passenger.seqNumber</p>
+                                                    <p><b>Passenger is main contact:</b></p>
+                                                </td>
+                                                <td>
+                                                    <p>@passenger.type<br /></p>
+                                                    <p><b>Mobile: </b> @passenger.mobilePhone</p>
+                                                    <p><b>Seat No: </b> @passenger.seatNumber</p>
+                                                    <p>@passenger.isMainContact</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    }
+                                    @if (activityInfo.SpecialRequests != null)
+                                    {
+                                        foreach (var specialRequest in activityInfo.SpecialRequests)
+                                        {
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        @specialRequest
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        }
+                                    }
+                                    <br /><b>Additions:</b><br />
+                                    @if (activityInfo.ActivityAdditions.ListAdditions != null)
+                                    {
+                                        foreach (var listAddition in activityInfo.ActivityAdditions.ListAdditions)
+                                        {
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        @listAddition.additionTypeID @listAddition.additionType<br />
+                                                        @listAddition.ValidValues @listAddition.value
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        }
+                                    }
+
+                                    @if (activityInfo.ActivityAdditions.NumericAdditions != null)
+                                    {
+                                        foreach (var numericAddition in activityInfo.ActivityAdditions.NumericAdditions)
+                                        {
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        @numericAddition.additionTypeID @numericAddition.additionType<br />
+                                                        @numericAddition.value
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        }
+                                    }
+
+                                    @if (activityInfo.ActivityAdditions.NumericRangeAdditions != null)
+                                    {
+                                        foreach (var numericRangeAddition in activityInfo.ActivityAdditions.NumericRangeAdditions)
+                                        {
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        @numericRangeAddition.additionTypeID @numericRangeAddition.additionType<br />
+                                                        @numericRangeAddition.maxValue @numericRangeAddition.minValue @numericRangeAddition.value
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        }
+                                    }
+
+                                    @if (activityInfo.ActivityAdditions.TextAdditions != null)
+                                    {
+                                        foreach (var textAddition in activityInfo.ActivityAdditions.TextAdditions)
+                                        {
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        @textAddition.additionTypeID @textAddition.additionType<br />
+                                                        @textAddition.value
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        }
+                                    }
+                                    @if (activityInfo.ActivityAdditions.TrueFalseAdditions != null)
+                                    {
+                                        foreach (var trueFalseAddition in activityInfo.ActivityAdditions.TrueFalseAdditions)
+                                        {
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        @trueFalseAddition.additionTypeID @trueFalseAddition.additionType<br />
+                                                        @trueFalseAddition.value
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                        <tr>
+                            <td>
+                                @using (Html.BeginForm("BookActivity", "Tour"))
+                                {
+                                    <button type="submit" class="btn btn-primary">Book</button>
+                                                                <input type="hidden" id="productId" name="productId" value="@activityInfo.activityId" />
+                                                                <input type="hidden" id="sessionId" name="sessionId" value="@ViewBag.SessionId" />
+                                                                <input type="hidden" id="optionId" name="optionId" value="@activityInfo.optionId" />
+                                }
+                            </td>
+                        </tr>
+        }
+
+    </table>
+
+}
+else
+{
+    <p style="color: red; font-size: 15px;">No record found </p>
+}
+
+
+
+
+
+
+
+<style type="text/css">
+    .rcorners {
+        border-radius: 7px;
+        border: 2px solid #73AD21;
+    }
+
+    .tableColorStriped > tbody > tr:nth-child(odd) > td,
+    .tableColorStriped > tbody > tr:nth-child(odd) > th {
+    }
+
+    .tableColorStriped > tbody > tr:nth-child(even) > td,
+    .tableColorStriped > tbody > tr:nth-child(even) > th {
+        background-color: lightgray;
+        // Choose your own color here
+    }
+</style>
+
+

@@ -90,6 +90,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\Tourflowsvc\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Utility.cs" />
     <Compile Include="Web References\Sabre.Hotels.CloseSession\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -304,6 +309,62 @@
     <None Include="Service References\carFlowSvc\configuration91.svcinfo" />
     <None Include="Service References\carFlowSvc\configuration.svcinfo" />
     <None Include="Service References\carFlowSvc\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Tourflowsvc\ActivityBookFlow.wsdl" />
+    <None Include="Service References\Tourflowsvc\ActivityBookFlow.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Tourflowsvc\ActivityBookFlow1.wsdl" />
+    <None Include="Service References\Tourflowsvc\ActivityBookFlow1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Tourflowsvc\ActivityBookFlow2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Tourflowsvc\ActivityBookFlow3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Tourflowsvc\Common.Tourflowsvc.ActivitiesDetailsResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Tourflowsvc\Common.Tourflowsvc.ActivityPreBookResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Tourflowsvc\Common.Tourflowsvc.BookActivityResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Tourflowsvc\Common.Tourflowsvc.BookResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Tourflowsvc\Common.Tourflowsvc.GetActivityDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Tourflowsvc\Common.Tourflowsvc.GetRGInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Tourflowsvc\Common.Tourflowsvc.PreBookResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Tourflowsvc\Common.Tourflowsvc.RGInfoResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Tourflowsvc\Common.Tourflowsvc.SearchActivityByActivityIdsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Tourflowsvc\Common.Tourflowsvc.SearchActivityByAirPortCodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Tourflowsvc\Common.Tourflowsvc.SearchActivityByDestinationIdsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Tourflowsvc\Common.Tourflowsvc.SearchResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Tourflowsvc\configuration91.svcinfo" />
+    <None Include="Service References\Tourflowsvc\configuration.svcinfo" />
+    <None Include="Service References\Tourflowsvc\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -886,6 +947,7 @@
     <WCFMetadataStorage Include="Service References\carFlowSvc\" />
     <WCFMetadataStorage Include="Service References\hotelDestSvc\" />
     <WCFMetadataStorage Include="Service References\hotelflowSvc\" />
+    <WCFMetadataStorage Include="Service References\Tourflowsvc\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Auth\" />
