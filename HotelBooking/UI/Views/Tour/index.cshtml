@@ -66,6 +66,8 @@
             </fieldset>
             <div class="col-md-3">
                 <button type="submit" class="btn btn-primary" name="action:GetActivity">Search</button>
+                <input type="hidden" name="lati" id="lati" />
+                <input type="hidden" name="long" id="long" />
             </div>
         </div>
     }
@@ -146,8 +148,10 @@
             return;
         }
         else {
-            $('#lat').val(place.geometry.location.lat());
-            $('#lan').val(place.geometry.location.lng());
+            //$('#lat').val(place.geometry.location.lat());
+            $('#lati').val(place.geometry.location.lat());
+            $('#long').val(place.geometry.location.lng());
+            //$('#lan').val(place.geometry.location.lng());
             //$('#add').val(place.formatted_address);
         }
         return false;
