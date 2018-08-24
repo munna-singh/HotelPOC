@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Common.carFlowSvc;
+using Newtonsoft.Json;
 using TE.Platform.Api.TravelServices.Hotel.Dtos;
 using Route = Common.carFlowSvc.Route;
 using UI.Models;
@@ -62,16 +64,32 @@ namespace UI.Controllers
         [MultipleButton(Name = "action", Argument = "GetCars")]
         public ActionResult GetCars(FormCollection collection)
         {
-            sessionPick = collection["pickUpLocation"].Substring(0, 3);
-            sessionDrop = collection["dropLocation"].Substring(0, 3);
+            //Based on lat and long get the airport code
+            string url = string.Format("http://iatageo.com/getCode/{0}/{1}",collection["lati"],collection["long"]);
+            var getRequest = WebRequest.Create(url);
+            getRequest.ContentType = "application/json; charset=utf-8";
+            string text;
+            var response = (HttpWebResponse)getRequest.GetResponse();
+
+            // ReSharper disable once AssignNullToNotNullAttribute
+            using (var sr = new StreamReader(response.GetResponseStream()))
+            {
+                text = sr.ReadToEnd();
+            }
+
+            dynamic jsonResp = JsonConvert.DeserializeObject(text);
+
+            //Assumption for test - pick and drop location same. 
+            sessionPick = jsonResp["IATA"];
+            sessionDrop = jsonResp["IATA"];
             string sessionName = "SearchResult" + sessionPick + sessionDrop + collection["pickUpDate"];
             var searchCarInfo = new SearchCarInfo[] { };
             if (Session[sessionName] == null)
             {
                 SearchCarsRequest request = new SearchCarsRequest();
                 Route route = new Route();
-                route.PickUp = collection["pickUpLocation"].Substring(0, 3);
-                route.DropOff = collection["dropLocation"].Substring(0, 3);
+                route.PickUp = sessionPick;
+                route.DropOff = sessionPick;
                 //request.Route.PickUp = "MCO";
                 //request.Route.DropOff = "MCO";
                 request.Route = route;

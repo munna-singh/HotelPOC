@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using Common.Tourflowsvc;
 using Route = Common.carFlowSvc.Route;
 using UI.Models;
 using Common.Tourflowsvc;
 using DotNetOpenAuth.AspNet.Clients;
+using Newtonsoft.Json;
 using UI.Controllers;
 
 
@@ -63,7 +65,22 @@ namespace UI.Controllers
         [MultipleButton(Name = "action", Argument = "GetActivity")]
         public ActionResult GetActivity(FormCollection collection)
         {
-            sessiondestination = collection["destinationLocation"].Substring(0, 3);
+            //Based on lat and long get the airport code
+            string url = string.Format("http://iatageo.com/getCode/{0}/{1}", collection["lati"], collection["long"]);
+            var getRequest = WebRequest.Create(url);
+            getRequest.ContentType = "application/json; charset=utf-8";
+            string text;
+            var jsonresponse = (HttpWebResponse)getRequest.GetResponse();
+
+            // ReSharper disable once AssignNullToNotNullAttribute
+            using (var sr = new StreamReader(jsonresponse.GetResponseStream()))
+            {
+                text = sr.ReadToEnd();
+            }
+
+            dynamic jsonResp = JsonConvert.DeserializeObject(text);
+            
+            sessiondestination = jsonResp["IATA"];
             string sessionName = "SearchResult" + sessiondestination + collection["StartDate"];
             var category = new Category[] { };
             SearchActivityByAirPortCodeRequest request = new SearchActivityByAirPortCodeRequest();
