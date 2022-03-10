@@ -12,3 +12,4 @@ namespace DataAccessLayer.Models
         public string Name { get { return CurrencyName; } }
     }
 }
+///i have edited
