@@ -17,3 +17,4 @@ namespace Repository
         public double Longitude { get; set; }
     }
 }
+// Added a new line 
