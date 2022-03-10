@@ -1,4 +1,4 @@
-﻿//AnumehaSrivastava
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,3 +13,5 @@ namespace DataAccessLayer.Models
         public string Name { get { return CurrencyName; } }
     }
 }
+
+
