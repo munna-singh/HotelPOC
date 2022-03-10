@@ -1,4 +1,5 @@
-﻿using System;
+﻿//vaishak
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,3 +13,4 @@ namespace DataAccessLayer.Models
         public string Name { get { return CurrencyName; } }
     }
 }
+//comment
